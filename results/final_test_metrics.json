@@ -1,0 +1,71 @@
+{
+  "dataset_size": 20000,
+  "test_size": 3998,
+  "threshold": 0.5,
+  "selection_method": "ensemble weights selected on validation ROC-AUC before test evaluation",
+  "reference_weights": {
+    "cnn": 0.6,
+    "lightgbm": 0.4
+  },
+  "selected_weights": {
+    "cnn": 0.95,
+    "lightgbm": 0.05
+  },
+  "device_used": "mps",
+  "lightgbm": {
+    "accuracy": 0.9959979989994997,
+    "precision": 0.9974861739567622,
+    "recall": 0.9944862155388471,
+    "f1": 0.9959839357429718,
+    "roc_auc": 0.9985106300449075,
+    "pr_auc": 0.9990779588491084,
+    "tn": 1998,
+    "fp": 5,
+    "fn": 11,
+    "tp": 1984,
+    "false_positive_rate": 0.0024962556165751375,
+    "false_negative_rate": 0.005513784461152882
+  },
+  "charcnn": {
+    "accuracy": 0.9952476238119059,
+    "precision": 1.0,
+    "recall": 0.9904761904761905,
+    "f1": 0.9952153110047847,
+    "roc_auc": 0.9994481961268623,
+    "pr_auc": 0.9995527100639789,
+    "tn": 2003,
+    "fp": 0,
+    "fn": 19,
+    "tp": 1976,
+    "false_positive_rate": 0.0,
+    "false_negative_rate": 0.009523809523809525
+  },
+  "reference_ensemble": {
+    "accuracy": 0.9957478739369685,
+    "precision": 0.9994949494949495,
+    "recall": 0.9919799498746867,
+    "f1": 0.9957232704402516,
+    "roc_auc": 0.9989166626000848,
+    "pr_auc": 0.9992818926814653,
+    "tn": 2002,
+    "fp": 1,
+    "fn": 16,
+    "tp": 1979,
+    "false_positive_rate": 0.0004992511233150275,
+    "false_negative_rate": 0.008020050125313283
+  },
+  "selected_ensemble": {
+    "accuracy": 0.9952476238119059,
+    "precision": 1.0,
+    "recall": 0.9904761904761905,
+    "f1": 0.9952153110047847,
+    "roc_auc": 0.9993118092285131,
+    "pr_auc": 0.9994790970562641,
+    "tn": 2003,
+    "fp": 0,
+    "fn": 19,
+    "tp": 1976,
+    "false_positive_rate": 0.0,
+    "false_negative_rate": 0.009523809523809525
+  }
+}

@@ -1,0 +1,13 @@
+numpy
+pandas
+scikit-learn
+lightgbm
+torch
+tldextract
+joblib
+matplotlib
+fastapi
+uvicorn
+onnx
+onnxruntime
+pytest

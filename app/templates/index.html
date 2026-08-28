@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI-Based Phishing Detection System</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <p class="eyebrow">College Reproducibility Demo</p>
+        <h1>AI-Based Phishing Detection System</h1>
+        <p class="subtitle">Character-Level CNN + LightGBM Ensemble</p>
+      </header>
+
+      <section class="panel">
+        <label for="urlInput">Enter a URL to analyse</label>
+        <div class="input-row">
+          <input
+            id="urlInput"
+            type="text"
+            placeholder="https://example.com/login"
+            autocomplete="off"
+          />
+          <button id="analyseBtn">Analyse URL</button>
+        </div>
+        <p id="formError" class="small error hidden"></p>
+      </section>
+
+      <section class="panel result-panel" id="resultPanel" aria-live="polite">
+        <h2>Prediction</h2>
+        <p id="statusText">Run a prediction to see the verdict.</p>
+        <div id="resultCard" class="card hidden"></div>
+      </section>
+
+      <section class="grid">
+        <section class="panel">
+          <h3>Model Probability Breakdown</h3>
+          <ul id="breakdown" class="breakdown-list"></ul>
+        </section>
+        <section class="panel">
+          <h3>URL Signals</h3>
+          <ul id="signals"></ul>
+        </section>
+      </section>
+
+      <section class="panel">
+        <details>
+          <summary>About the Model</summary>
+          <div class="about">
+            <ul>
+              <li>Character-level CNN learns character patterns directly from URL strings.</li>
+              <li>LightGBM uses 36 engineered URL features.</li>
+              <li>The final model combines both probabilities in an ensemble.</li>
+              <li>URLs are analysed locally as text and are never visited by this app.</li>
+            </ul>
+            <div class="metrics">
+              <p><strong>Our local experiment:</strong></p>
+              <ul>
+                <li>20,000 URLs</li>
+                <li>14,002 training</li>
+                <li>2,000 validation</li>
+                <li>3,998 held-out test</li>
+                <li>0 domain leakage</li>
+                <li>Accuracy: 99.525%</li>
+                <li>Precision: 100.000%</li>
+                <li>Recall: 99.048%</li>
+                <li>F1: 99.522%</li>
+                <li>ROC-AUC: 99.931%</li>
+              </ul>
+              <p>Reference study accuracy: 99.819% (reported for reference only).</p>
+            </div>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Demo endpoint: POST <code>/predict</code> · Health: <code>/health</code></span>
+    </footer>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

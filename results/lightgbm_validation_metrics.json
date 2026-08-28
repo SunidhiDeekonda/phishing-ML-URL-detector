@@ -1,0 +1,75 @@
+{
+  "lightgbm_version": "4.7.0",
+  "training_duration_seconds": 0.8420972919993801,
+  "num_training_rows": 14002,
+  "num_validation_rows": 2000,
+  "best_iteration": 88,
+  "requested_n_estimators": 1000,
+  "early_stopping_triggered": true,
+  "raw_validation_metrics": {
+    "accuracy": 0.991,
+    "precision": 1.0,
+    "recall": 0.982,
+    "f1": 0.9909182643794148,
+    "roc_auc": 0.9957699999999998,
+    "pr_auc": 0.9973232843288381,
+    "tn": 1000,
+    "fp": 0,
+    "fn": 18,
+    "tp": 982
+  },
+  "calibrated_validation_metrics": {
+    "accuracy": 0.99,
+    "precision": 0.9979674796747967,
+    "recall": 0.982,
+    "f1": 0.9899193548387096,
+    "roc_auc": 0.9957699999999998,
+    "pr_auc": 0.9973232843288381,
+    "tn": 998,
+    "fp": 2,
+    "fn": 18,
+    "tp": 982
+  },
+  "top_10_features": [
+    {
+      "feature": "hostname_entropy",
+      "importance": 1100
+    },
+    {
+      "feature": "vowel_fraction",
+      "importance": 1069
+    },
+    {
+      "feature": "host_length",
+      "importance": 1011
+    },
+    {
+      "feature": "url_length",
+      "importance": 536
+    },
+    {
+      "feature": "letter_count",
+      "importance": 412
+    },
+    {
+      "feature": "hyphen_count",
+      "importance": 287
+    },
+    {
+      "feature": "num_dots",
+      "importance": 242
+    },
+    {
+      "feature": "special_char_count",
+      "importance": 202
+    },
+    {
+      "feature": "digit_count",
+      "importance": 190
+    },
+    {
+      "feature": "digit_letter_ratio",
+      "importance": 163
+    }
+  ]
+}

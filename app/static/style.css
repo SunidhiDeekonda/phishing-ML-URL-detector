@@ -1,0 +1,172 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #eef2ff;
+  --panel: #ffffff;
+  --line: #ccd0ff;
+  --text: #1c2340;
+  --muted: #475080;
+  --accent: #1d4ed8;
+  --good: #166534;
+  --bad: #991b1b;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Trebuchet MS", Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 12% -10%, #dbeafe 0%, transparent 50%),
+    radial-gradient(circle at 85% 8%, #e0e7ff 0%, transparent 42%),
+    var(--bg);
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 920px;
+  margin: 2rem auto;
+  padding: 0 1rem 2rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 1.1rem;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 2.3vw, 2.1rem);
+  letter-spacing: 0.02em;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.subtitle {
+  margin-top: 0.35rem;
+  color: var(--muted);
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.05);
+}
+
+.input-row {
+  display: flex;
+  gap: 0.6rem;
+}
+
+#urlInput {
+  flex: 1;
+  border: 1px solid #c7d2fe;
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+  min-width: 0;
+  font-size: 0.98rem;
+}
+
+button {
+  border: 0;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button:hover {
+  opacity: 0.95;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+h2,
+h3 {
+  margin-top: 0;
+}
+
+.card {
+  border-radius: 12px;
+  padding: 0.9rem;
+  border: 1px solid #e2e8f0;
+}
+
+.card.phishing {
+  border-color: #fecdd3;
+  background: #fff1f2;
+}
+
+.card.legit {
+  border-color: #bbf7d0;
+  background: #ecfdf5;
+}
+
+.verdict {
+  font-weight: 800;
+  font-size: 1.25rem;
+  margin-bottom: 0.45rem;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+ul {
+  padding-left: 1.15rem;
+  margin: 0.5rem 0;
+}
+
+li + li {
+  margin-top: 0.3rem;
+}
+
+.small {
+  font-size: 0.89rem;
+}
+
+.error {
+  color: var(--bad);
+  margin-top: 0.45rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.metrics {
+  margin-top: 0.9rem;
+}
+
+details {
+  border-top: 1px dashed var(--line);
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+}
+
+.footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+code {
+  background: #f1f5f9;
+  border-radius: 4px;
+  padding: 0.08rem 0.3rem;
+}
