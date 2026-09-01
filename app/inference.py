@@ -17,6 +17,7 @@ import pandas as pd
 from src.char_tokenizer import MAX_SEQUENCE_LENGTH, build_vocab, encode_url, normalize_url
 from src.features import extract_url_features
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 REFERENCE_CNN_WEIGHT = 0.60
 REFERENCE_LIGHTGBM_WEIGHT = 0.40
 SELECTED_CNN_WEIGHT = 0.95
@@ -25,7 +26,7 @@ THRESHOLD = 0.50
 MAX_URL_LENGTH = 2048
 
 def _prepare_feature_columns() -> list[str]:
-    features_path = Path("data/processed/features.csv")
+    features_path = PROJECT_ROOT / "data/processed/features.csv"
     feature_columns = list(pd.read_csv(features_path).columns)
     if len(feature_columns) != 36:
         raise RuntimeError(f"Expected 36 engineered features, found {len(feature_columns)}")
@@ -68,7 +69,7 @@ class URLInference:
         feature_columns = _prepare_feature_columns()
         vocab = build_vocab([])
 
-        lightgbm_path = Path("models/lightgbm_calibrated.pkl")
+        lightgbm_path = PROJECT_ROOT / "models/lightgbm_calibrated.pkl"
         if not lightgbm_path.exists():
             raise FileNotFoundError(f"Missing model file: {lightgbm_path}")
         try:
@@ -76,7 +77,7 @@ class URLInference:
         except Exception as exc:
             raise RuntimeError(f"Failed to load {lightgbm_path}") from exc
 
-        cnn_path = Path("models/char_cnn.onnx")
+        cnn_path = PROJECT_ROOT / "models/char_cnn.onnx"
         if not cnn_path.exists():
             raise FileNotFoundError(f"Missing model file: {cnn_path}")
 

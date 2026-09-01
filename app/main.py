@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
 
 from fastapi import Depends, FastAPI, HTTPException
@@ -17,9 +18,10 @@ from .inference import (
 )
 from .inference import URLInference
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 app = FastAPI(title="AI-Based Phishing Detection System")
 
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+app.mount("/static", StaticFiles(directory=PROJECT_ROOT / "app/static"), name="static")
 
 
 class URLRequest(BaseModel):
@@ -61,7 +63,7 @@ async def health() -> dict[str, object]:
 
 @app.get("/")
 async def home() -> FileResponse:
-    return FileResponse("app/templates/index.html")
+    return FileResponse(PROJECT_ROOT / "app/templates/index.html")
 
 
 @app.post("/predict", response_model=URLPredictionResponse)

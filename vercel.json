@@ -2,6 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
     "app/main.py": {
+      "includeFiles": "{app/static/**,app/templates/**,data/processed/features.csv,models/char_cnn.onnx,models/lightgbm_calibrated.pkl,src/**}",
       "excludeFiles": "{.git/**,.venv/**,.pytest_cache/**,docs/**,results/**,scripts/**,tests/**,tmp/**,data/raw/**,data/processed/char_sequences.npy,data/processed/char_vocab.json,data/processed/dataset.csv,data/processed/*_idx.npy,models/char_cnn.pt,models/lightgbm_raw.pkl,requirements-dev.txt}"
     }
   }
