@@ -11,6 +11,7 @@ from typing import Any, Dict, Mapping
 
 import joblib
 import numpy as np
+import onnxruntime as ort
 import pandas as pd
 
 from src.char_tokenizer import MAX_SEQUENCE_LENGTH, build_vocab, encode_url, normalize_url
@@ -22,74 +23,6 @@ SELECTED_CNN_WEIGHT = 0.95
 SELECTED_LIGHTGBM_WEIGHT = 0.05
 THRESHOLD = 0.50
 MAX_URL_LENGTH = 2048
-
-VOCAB_SIZE = 51
-EMBEDDING_DIM = 16
-KERNEL_SIZES = [3, 5, 7]
-FILTERS_PER_BRANCH = 128
-DENSE_DIM = 64
-DROPOUT = 0.3
-
-
-def _pick_device() -> str:
-    import torch
-
-    if torch.backends.mps.is_available():
-        return "mps"
-    if torch.cuda.is_available():
-        return "cuda"
-    return "cpu"
-
-
-def _build_char_cnn_model() -> Any:
-    import torch
-    from torch import nn
-
-    class CharCNN(nn.Module):
-        def __init__(self) -> None:
-            super().__init__()
-            self.embedding = nn.Embedding(
-                num_embeddings=VOCAB_SIZE,
-                embedding_dim=EMBEDDING_DIM,
-                padding_idx=0,
-            )
-            self.branches = nn.ModuleList(
-                [
-                    nn.Conv1d(
-                        in_channels=EMBEDDING_DIM,
-                        out_channels=FILTERS_PER_BRANCH,
-                        kernel_size=k,
-                        padding=(k // 2),
-                    )
-                    for k in KERNEL_SIZES
-                ]
-            )
-            self.activation = nn.ReLU()
-            self.pool = nn.AdaptiveMaxPool1d(1)
-            self.fc = nn.Sequential(
-                nn.Linear(FILTERS_PER_BRANCH * len(KERNEL_SIZES), DENSE_DIM),
-                nn.ReLU(),
-                nn.Dropout(DROPOUT),
-                nn.Linear(DENSE_DIM, 1),
-            )
-
-        def forward(self, input_ids):
-            x = self.embedding(input_ids)
-            x = x.permute(0, 2, 1)
-
-            branch_outputs = []
-            for branch in self.branches:
-                out = branch(x)
-                out = self.activation(out)
-                out = self.pool(out).squeeze(dim=2)
-                branch_outputs.append(out)
-
-            x = torch.cat(branch_outputs, dim=1)
-            logits = self.fc(x).squeeze(dim=1)
-            return logits
-
-    return CharCNN()
-
 
 def _prepare_feature_columns() -> list[str]:
     features_path = Path("data/processed/features.csv")
@@ -143,18 +76,16 @@ class URLInference:
         except Exception as exc:
             raise RuntimeError(f"Failed to load {lightgbm_path}") from exc
 
-        cnn_path = Path("models/char_cnn.pt")
+        cnn_path = Path("models/char_cnn.onnx")
         if not cnn_path.exists():
             raise FileNotFoundError(f"Missing model file: {cnn_path}")
 
-        import torch
-
-        device = _pick_device()
-        checkpoint = torch.load(cnn_path, map_location=device)
-        model_state = checkpoint.get("model_state_dict", checkpoint)
-        cnn_model = _build_char_cnn_model().to(torch.device(device))
-        cnn_model.load_state_dict(model_state)
-        cnn_model.eval()
+        try:
+            cnn_model = ort.InferenceSession(
+                str(cnn_path), providers=["CPUExecutionProvider"]
+            )
+        except Exception as exc:
+            raise RuntimeError(f"Failed to load {cnn_path}") from exc
 
         self._bundle = ModelBundle(
             lightgbm_model=lightgbm_model,
@@ -163,7 +94,7 @@ class URLInference:
             lightgbm_loaded=True,
             vocab=vocab,
             feature_columns=feature_columns,
-            device=device,
+            device="cpu",
         )
         return self._bundle
 
@@ -179,13 +110,11 @@ class URLInference:
         if sequence.shape != (MAX_SEQUENCE_LENGTH,):
             raise ValueError(f"Expected sequence shape ({MAX_SEQUENCE_LENGTH},), got {sequence.shape}")
 
-        import torch
-
-        input_tensor = torch.as_tensor(sequence, dtype=torch.long).unsqueeze(0).to(bundle.device)
-        with torch.no_grad():
-            logits = bundle.cnn_model(input_tensor)
-            prob = torch.sigmoid(logits).detach().cpu().item()
-        return float(prob)
+        logits = bundle.cnn_model.run(
+            ["logits"], {"input_ids": sequence[np.newaxis, :].astype(np.int64)}
+        )[0]
+        logit = float(np.ravel(logits)[0])
+        return float(1.0 / (1.0 + np.exp(-logit)))
 
     def predict(self, url: str) -> Dict[str, object]:
         bundle = self.load_models()

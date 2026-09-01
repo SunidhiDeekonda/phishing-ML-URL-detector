@@ -69,7 +69,7 @@ def test_health_endpoint_works(running_app_server: str) -> None:
     assert payload["status"] == "ok"
     assert payload["lightgbm_loaded"] is True
     assert payload["cnn_loaded"] is True
-    assert payload["device"] in {"mps", "cuda", "cpu"}
+    assert payload["device"] == "cpu"
 
 
 @pytest.mark.parametrize(

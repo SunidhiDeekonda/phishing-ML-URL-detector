@@ -48,12 +48,23 @@ These are results from this independent 20,000-URL reproduction. They are not th
 
 ## Installation
 
+### Run the demo/API
+
 ```bash
-git clone https://github.com/dingdong-vamshi/phishing-ML-URL-detector.git
+git clone https://github.com/SunidhiDeekonda/phishing-ML-URL-detector.git
 cd phishing-ML-URL-detector
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
+```
+
+The demo uses the compact `models/char_cnn.onnx` artifact through ONNX Runtime.
+It does not install PyTorch at runtime.
+
+### Train, export models, or run the full test suite
+
+```bash
+python -m pip install -r requirements-dev.txt
 ```
 
 ## Testing
@@ -72,6 +83,10 @@ uvicorn app.main:app --reload
 ```
 
 Open `http://127.0.0.1:8000` and submit a URL string for local inference. The trained artifacts are included, so the demo does not require retraining.
+
+## Deploy to Vercel
+
+Import the repository with the FastAPI preset, use the repository root (`./`), and leave build-command and environment-variable overrides empty. Vercel installs `requirements.txt` automatically. The repository pins Vercel to Python 3.12 via `.python-version` and keeps the deployment bundle below the Vercel Python Function limit by using ONNX Runtime instead of PyTorch.
 
 ## Evidence and reports
 

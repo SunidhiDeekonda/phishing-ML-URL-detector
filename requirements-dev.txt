@@ -1,0 +1,6 @@
+# Full local development, model-training, export, and test dependencies.
+-r requirements.txt
+torch
+matplotlib
+onnx
+pytest

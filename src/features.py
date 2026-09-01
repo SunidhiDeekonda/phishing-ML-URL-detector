@@ -11,6 +11,10 @@ import numpy as np
 import pandas as pd
 import tldextract
 
+# URL analysis must not perform a network request or write a suffix-list cache.
+# tldextract includes a packaged Public Suffix List snapshot for this use case.
+TLD_EXTRACTOR = tldextract.TLDExtract(suffix_list_urls=(), cache_dir=None)
+
 SUSPICIOUS_TOKENS: List[str] = [
     "login",
     "signin",
@@ -114,7 +118,7 @@ def extract_url_features(url: str) -> Dict[str, float]:
     if path:
         num_segments = len([segment for segment in path.split("/") if segment])
 
-    extracted_tld = tldextract.extract(lower_text)
+    extracted_tld = TLD_EXTRACTOR(lower_text)
     tld = extracted_tld.suffix.lower() if extracted_tld else ""
 
     bucket_features = _length_bucket(len(normalized))
