@@ -86,7 +86,15 @@ Open `http://127.0.0.1:8000` and submit a URL string for local inference. The tr
 
 ## Deploy to Vercel
 
-Import the repository with the FastAPI preset, use the repository root (`./`), and leave build-command and environment-variable overrides empty. Vercel installs `requirements.txt` automatically. The repository pins Vercel to Python 3.12 via `.python-version` and keeps the deployment bundle below the Vercel Python Function limit by using ONNX Runtime instead of PyTorch.
+Import `SunidhiDeekonda/phishing-ML-URL-detector` with the FastAPI preset, use the repository root (`./`), and leave build-command, output-directory, and environment-variable overrides empty. Vercel installs `requirements.txt` automatically. The repository pins Vercel to Python 3.12 and uses ONNX Runtime instead of PyTorch in production.
+
+- Application entry point: `app.main:app`.
+- Required environment variables: none.
+- Build logs: Vercel project -> Deployments -> select a deployment -> Build Logs.
+- Runtime logs: Vercel project -> Logs.
+- CI logs: GitHub repository -> Actions -> Reproducibility CI.
+
+See [Vercel deployment guide](docs/VERCEL_DEPLOYMENT.md) for the complete setup.
 
 ## Evidence and reports
 

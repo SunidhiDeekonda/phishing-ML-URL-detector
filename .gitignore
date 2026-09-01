@@ -8,6 +8,7 @@ __pycache__/
 .DS_Store
 .env
 .env.*
+!.env.example
 *.log
 .idea/
 .vscode/
