@@ -11,7 +11,6 @@ from typing import Any, Dict, Mapping
 
 import joblib
 import numpy as np
-import onnxruntime as ort
 import pandas as pd
 
 from src.char_tokenizer import MAX_SEQUENCE_LENGTH, build_vocab, encode_url, normalize_url
@@ -82,6 +81,8 @@ class URLInference:
             raise FileNotFoundError(f"Missing model file: {cnn_path}")
 
         try:
+            import onnxruntime as ort
+
             cnn_model = ort.InferenceSession(
                 str(cnn_path), providers=["CPUExecutionProvider"]
             )

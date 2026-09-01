@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
+import logging
 from pathlib import Path
 from typing import Any
 
 from fastapi import Depends, FastAPI, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -19,6 +20,7 @@ from .inference import (
 from .inference import URLInference
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+LOGGER = logging.getLogger(__name__)
 app = FastAPI(title="AI-Based Phishing Detection System")
 
 app.mount("/static", StaticFiles(directory=PROJECT_ROOT / "app/static"), name="static")
@@ -43,21 +45,27 @@ class URLPredictionResponse(BaseModel):
     important_features: dict[str, Any]
 
 
-@app.on_event("startup")
-async def start_services() -> None:
-    service = get_inference_service()
-    service.load_models()
-
-
 @app.get("/health")
 async def health() -> dict[str, object]:
     service = get_inference_service()
-    bundle = service._bundle
+    try:
+        bundle = service.load_models()
+    except Exception as exc:
+        LOGGER.exception("Model initialization failed during health check")
+        return JSONResponse(
+            status_code=503,
+            content={
+                "status": "error",
+                "detail": f"{type(exc).__name__}: {exc}",
+                "lightgbm_loaded": False,
+                "cnn_loaded": False,
+            },
+        )
     return {
         "status": "ok",
-        "lightgbm_loaded": bool(bundle and bundle.lightgbm_loaded),
-        "cnn_loaded": bool(bundle and bundle.cnn_model_loaded),
-        "device": bundle.device if bundle else "uninitialized",
+        "lightgbm_loaded": bundle.lightgbm_loaded,
+        "cnn_loaded": bundle.cnn_model_loaded,
+        "device": bundle.device,
     }
 
 
@@ -72,6 +80,12 @@ async def predict(payload: URLRequest, service: URLInference = Depends(get_infer
         return service.predict(payload.url)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except Exception as exc:
+        LOGGER.exception("Prediction model initialization failed")
+        raise HTTPException(
+            status_code=503,
+            detail=f"Model initialization failed: {type(exc).__name__}: {exc}",
+        ) from exc
 
 
 app.state.inference_weights = {
