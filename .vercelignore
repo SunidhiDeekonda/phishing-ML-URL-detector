@@ -14,6 +14,4 @@ data/processed/train_idx.npy
 data/processed/val_idx.npy
 data/processed/test_idx.npy
 models/char_cnn.pt
-models/lightgbm_calibrated.pkl
-models/lightgbm_raw.pkl
 requirements-dev.txt
