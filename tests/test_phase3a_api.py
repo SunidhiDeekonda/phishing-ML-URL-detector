@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import subprocess
+import sys
 import time
 import urllib.error
 import urllib.request
@@ -12,7 +13,7 @@ import pytest
 @pytest.fixture(scope="session")
 def running_app_server() -> str:
     command = [
-        ".venv/bin/python",
+        sys.executable,
         "-m",
         "uvicorn",
         "app.main:app",
