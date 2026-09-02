@@ -1,0 +1,9 @@
+{
+  "method": "sigmoid",
+  "a": -1.150822240264817,
+  "b": -1.6486965337901665,
+  "positive_class": 1,
+  "feature_count": 36,
+  "source_raw_model_sha256": "033332f1f2169aee9c88e24c5a2f5e37b87600cfc8406f650782d29d5d3af766",
+  "source_calibrated_model_sha256": "69eb9529783acc87adf1f5a4dc80e48358342b7ef9e379a425181143c5d02639"
+}

@@ -58,8 +58,7 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-The demo uses the compact `models/char_cnn.onnx` artifact through ONNX Runtime.
-It does not install PyTorch at runtime.
+The demo uses compact `models/char_cnn.onnx` and `models/lightgbm.onnx` artifacts through ONNX Runtime. It does not install PyTorch or the native LightGBM library at runtime.
 
 ### Train, export models, or run the full test suite
 

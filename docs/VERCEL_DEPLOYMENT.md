@@ -21,7 +21,7 @@
 6. Do not add environment variables; the application requires no secrets or external services.
 7. Select **Deploy**.
 
-Vercel detects `app/main.py` as FastAPI and installs `requirements.txt`. Deployment packaging retains `app/`, `src/`, `models/char_cnn.onnx`, `models/lightgbm_calibrated.pkl`, and `data/processed/features.csv`. Training data, reports, tests, raw model artifacts, and local files are excluded from the function bundle but remain available in GitHub.
+Vercel detects `app/main.py` as FastAPI and installs `requirements.txt`. Deployment packaging retains `app/`, `src/`, `models/char_cnn.onnx`, `models/lightgbm.onnx`, `models/lightgbm_calibration.json`, and `data/processed/features.csv`. Training data, reports, tests, pickle model artifacts, and local files are excluded from the function bundle but remain available in GitHub.
 
 ## Environment variables
 

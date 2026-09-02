@@ -5,11 +5,11 @@ This module loads models once and exposes deterministic prediction for URL input
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Mapping
 
-import joblib
 import numpy as np
 import pandas as pd
 
@@ -47,6 +47,13 @@ def _extract_signals(features: Mapping[str, float]) -> Dict[str, float | str]:
 
 
 @dataclass
+class LightGBMOnnxModel:
+    session: object
+    calibration_a: float
+    calibration_b: float
+
+
+@dataclass
 class ModelBundle:
     lightgbm_model: object
     cnn_model: object
@@ -68,21 +75,36 @@ class URLInference:
         feature_columns = _prepare_feature_columns()
         vocab = build_vocab([])
 
-        lightgbm_path = PROJECT_ROOT / "models/lightgbm_calibrated.pkl"
+        lightgbm_path = PROJECT_ROOT / "models/lightgbm.onnx"
         if not lightgbm_path.exists():
             raise FileNotFoundError(f"Missing model file: {lightgbm_path}")
+        calibration_path = PROJECT_ROOT / "models/lightgbm_calibration.json"
+        if not calibration_path.exists():
+            raise FileNotFoundError(f"Missing calibration file: {calibration_path}")
         try:
-            lightgbm_model = joblib.load(lightgbm_path)
+            import onnxruntime as ort
+
+            lightgbm_session = ort.InferenceSession(
+                str(lightgbm_path), providers=["CPUExecutionProvider"]
+            )
+            calibration = json.loads(calibration_path.read_text(encoding="utf-8"))
+            if calibration.get("method") != "sigmoid":
+                raise ValueError("Unsupported LightGBM calibration method")
+            lightgbm_model = LightGBMOnnxModel(
+                session=lightgbm_session,
+                calibration_a=float(calibration["a"]),
+                calibration_b=float(calibration["b"]),
+            )
         except Exception as exc:
-            raise RuntimeError(f"Failed to load {lightgbm_path}") from exc
+            raise RuntimeError(
+                f"Failed to load portable LightGBM artifacts: {type(exc).__name__}: {exc}"
+            ) from exc
 
         cnn_path = PROJECT_ROOT / "models/char_cnn.onnx"
         if not cnn_path.exists():
             raise FileNotFoundError(f"Missing model file: {cnn_path}")
 
         try:
-            import onnxruntime as ort
-
             cnn_model = ort.InferenceSession(
                 str(cnn_path), providers=["CPUExecutionProvider"]
             )
@@ -103,8 +125,17 @@ class URLInference:
     def _predict_lgbm(self, features_df: pd.DataFrame, bundle: ModelBundle) -> float:
         if bundle.lightgbm_model is None:
             raise RuntimeError("LightGBM model is not loaded")
-        probs = bundle.lightgbm_model.predict_proba(features_df[bundle.feature_columns])[:, 1]
-        return float(np.asarray(probs, dtype=np.float64)[0])
+        model = bundle.lightgbm_model
+        model_input = features_df[bundle.feature_columns].to_numpy(dtype=np.float32)
+        raw_scores = model.session.run(
+            ["probabilities"], {"input": model_input}
+        )[0]
+        raw_score = float(raw_scores[0][1])
+        calibrated_logit = model.calibration_a * raw_score + model.calibration_b
+        if calibrated_logit >= 0:
+            exp_negative = float(np.exp(-calibrated_logit))
+            return exp_negative / (1.0 + exp_negative)
+        return 1.0 / (1.0 + float(np.exp(calibrated_logit)))
 
     def _predict_cnn(self, sequence: np.ndarray, bundle: ModelBundle) -> float:
         if bundle.cnn_model is None:

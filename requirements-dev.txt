@@ -1,6 +1,11 @@
 # Full local development, model-training, export, and test dependencies.
 -r requirements.txt
+scikit-learn==1.9.0
+lightgbm==4.7.0
+joblib
 torch
 matplotlib
 onnx
+onnxmltools==1.16.0
+skl2onnx==1.20.0
 pytest
