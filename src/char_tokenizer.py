@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import Dict, Iterable
+from urllib.parse import urlsplit, urlunsplit
 
 import numpy as np
 
@@ -24,7 +25,27 @@ UNK_INDEX = len(REFERENCE_CHARACTERS) + 1
 
 
 def normalize_url(url: str) -> str:
-    return "" if url is None else str(url).strip().lower()
+    """Return the canonical URL text used by both inference models.
+
+    A URL with an empty root path has two equivalent spellings: for example,
+    ``https://www.google.com`` and ``https://www.google.com/``.  The exported
+    character CNN was trained on raw URL strings and can otherwise assign very
+    different scores to those two spellings.  Remove only that *root* slash;
+    a slash in a real path (``/login/``) remains part of the model input.
+    """
+    normalized = "" if url is None else str(url).strip().lower()
+    if not normalized:
+        return ""
+
+    has_scheme = "://" in normalized
+    parsed = urlsplit(normalized if has_scheme else f"//{normalized}")
+    if not parsed.hostname or parsed.path != "/":
+        return normalized
+
+    canonical = urlunsplit(
+        (parsed.scheme, parsed.netloc, "", parsed.query, parsed.fragment)
+    )
+    return canonical if has_scheme else canonical.removeprefix("//")
 
 
 def build_vocab(urls: Iterable[str] | None = None) -> Dict[str, int]:

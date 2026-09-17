@@ -33,6 +33,12 @@ def test_url_normalization():
     assert normalize_url("  HTTP://Example.COM/Test?A=1  ") == "http://example.com/test?a=1"
 
 
+def test_url_normalization_canonicalizes_only_an_empty_root_path():
+    assert normalize_url(" HTTPS://WWW.Google.COM/ ") == "https://www.google.com"
+    assert normalize_url("www.google.com/?q=URL#Top") == "www.google.com?q=url#top"
+    assert normalize_url("https://www.google.com/search/") == "https://www.google.com/search/"
+
+
 def test_feature_extraction_fields_and_types():
     url = "https://login.webscr.bank.example-secure.com/path/login?user=1&token=abc"
     features = extract_url_features(url)

@@ -94,6 +94,24 @@ def test_predict_endpoint_returns_probs(running_app_server: str, url: str) -> No
     assert payload["important_features"]
 
 
+def test_root_trailing_slash_uses_the_same_model_input(running_app_server: str) -> None:
+    plain_status, plain = _post_json(running_app_server, {"url": "https://www.google.com"})
+    slash_status, slash = _post_json(running_app_server, {"url": "https://www.google.com/"})
+
+    assert plain_status == slash_status == 200
+    assert plain["url"] == slash["url"] == "https://www.google.com"
+    for field in [
+        "verdict",
+        "cnn_probability",
+        "lightgbm_probability",
+        "reference_ensemble_probability",
+        "selected_ensemble_probability",
+        "phishing_probability",
+        "confidence",
+    ]:
+        assert plain[field] == slash[field]
+
+
 def test_predict_invalid_input_is_rejected(running_app_server: str) -> None:
     status, _payload = _post_json(running_app_server, {"url": ""})
     assert status in {400, 422}

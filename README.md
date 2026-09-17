@@ -12,6 +12,12 @@ URL string
 
 The application analyses each URL only as text. It does not perform DNS lookups, fetch webpages, execute scripts, or visit submitted destinations.
 
+For a consistent prediction, equivalent root URLs are canonicalized before both
+models run: `https://example.com/` is analysed as `https://example.com`.
+Only an empty root-path slash is removed; path-ending slashes such as
+`https://example.com/account/` are retained because they can identify a
+different resource.
+
 ## Local reproduction experiment
 
 - Dataset: 20,000 URLs, balanced as 10,000 legitimate and 10,000 phishing.

@@ -30,7 +30,7 @@ function setResult(payload) {
     <div class="verdict">${verdict}</div>
     <p class="muted">Confidence: ${(confidence * 100).toFixed(1)}%</p>
     <p class="muted">Selected Ensemble: ${(phishingProbability * 100).toFixed(1)}% phishing probability</p>
-    <p class="muted">Input URL: ${payload.url}</p>
+    <p class="muted">Canonical URL analysed: ${payload.url}</p>
   `;
 
   breakdownEl.innerHTML = "";
