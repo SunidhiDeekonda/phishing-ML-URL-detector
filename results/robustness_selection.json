@@ -1,0 +1,16 @@
+{
+  "criterion": "mean clean/adversarial validation ROC-AUC; clean AUC floor original minus 0.002",
+  "frozen_before_adversarial_test": true,
+  "original": {
+    "adversarial_validation_roc_auc": 0.999886,
+    "clean_validation_roc_auc": 0.9970640000000001,
+    "selection_score": 0.998475
+  },
+  "robust_candidate": {
+    "adversarial_validation_roc_auc": 0.999917,
+    "clean_validation_roc_auc": 0.997065,
+    "selection_score": 0.998491
+  },
+  "seed": 42,
+  "selected": "robust_candidate_95_5"
+}

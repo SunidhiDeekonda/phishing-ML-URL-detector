@@ -1,0 +1,28 @@
+{
+  "models": [
+    {
+      "clean_validation_metrics": {
+        "roc_auc": 0.9970640000000001
+      },
+      "data_count": 14002,
+      "robustness_validation_metrics": {
+        "roc_auc": 0.999886
+      },
+      "status": "superseded",
+      "training_date": "2026-08-28",
+      "version": "url-ensemble-original-1.0"
+    },
+    {
+      "clean_validation_metrics": {
+        "roc_auc": 0.997065
+      },
+      "data_count": 15753,
+      "robustness_validation_metrics": {
+        "roc_auc": 0.999917
+      },
+      "status": "validated_candidate",
+      "training_date": "2026-09-22",
+      "version": "url-ensemble-robust-1.0"
+    }
+  ]
+}
