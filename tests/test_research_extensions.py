@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 from app.main import app
 from src.adversarial_urls import MUTATION_TYPES, mutate_url
 from src.context_features import analyze_context
-from src.continuous_learning import FeedbackStore, ModelRegistry
+from src.continuous_learning import FeedbackStore, ModelRegistry, validation_gate
 from src.drift_monitor import create_drift_report
 
 
@@ -38,6 +38,15 @@ def test_feedback_validation_deduplication_and_test_protection(tmp_path):
 def test_model_registry_and_drift_report(tmp_path):
     registry=ModelRegistry(tmp_path/"registry.json"); registry.register({"version":"test-1","training_date":"2026-09-22","data_count":10,"clean_validation_metrics":{"roc_auc":.9},"robustness_validation_metrics":{"roc_auc":.8},"status":"candidate"})
     assert registry.load()["models"][0]["version"]=="test-1" and create_drift_report(pd.DataFrame({"x":np.arange(100)}),[])["status"]=="insufficient_data"
+
+
+def test_human_review_candidate_dataset_and_validation_gate(tmp_path):
+    base=tmp_path/"base.csv"; pd.DataFrame({"url":["https://base.example"],"label":[0]}).to_csv(base,index=False)
+    store=FeedbackStore(tmp_path/"feedback.jsonl"); submitted=store.submit("https://approved.example/login",1,1)
+    store.review(submitted["record_id"],"approved"); output=tmp_path/"candidate.csv"
+    assert store.build_candidate_dataset(base,output)==1 and len(pd.read_csv(output))==2
+    assert validation_gate(.99,.90,.989,.93)["accepted"] is True
+    assert validation_gate(.99,.90,.98,.99)["accepted"] is False
 
 
 def test_robust_model_artifacts_load():

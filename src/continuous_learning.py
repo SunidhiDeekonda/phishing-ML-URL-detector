@@ -50,6 +50,58 @@ class FeedbackStore:
     def approved_rows(self) -> list[dict[str, object]]:
         return [row for row in self.read_all() if row.get("status") == "approved"]
 
+    def review(self, record_id: str, decision: str) -> dict[str, object]:
+        if decision not in {"approved", "rejected"}:
+            raise ValueError("Decision must be approved or rejected")
+        records = self.read_all()
+        matched = False
+        for record in records:
+            if record.get("record_id") == record_id:
+                record["status"] = decision
+                record["reviewed_at"] = datetime.now(timezone.utc).isoformat()
+                matched = True
+        if not matched:
+            raise ValueError("Feedback record was not found")
+        temporary = self.path.with_suffix(self.path.suffix + ".tmp")
+        temporary.write_text("".join(json.dumps(row, sort_keys=True) + "\n" for row in records), encoding="utf-8")
+        temporary.replace(self.path)
+        return next(row for row in records if row.get("record_id") == record_id)
+
+    def build_candidate_dataset(self, base_dataset: str | Path, output: str | Path) -> int:
+        import pandas as pd
+
+        base = pd.read_csv(base_dataset)
+        approved = []
+        known = {normalize_url(url) for url in base["url"].astype(str)}
+        for row in self.approved_rows():
+            normalized = normalize_url(str(row["url"]))
+            digest = hashlib.sha256(normalized.encode()).hexdigest()
+            if normalized in self.test_urls or digest in self.test_hashes:
+                raise ValueError("Approved feedback contains a held-out test URL")
+            if normalized not in known:
+                approved.append({"url": normalized, "label": int(row["correct_label"])})
+                known.add(normalized)
+        candidate = pd.concat([base[["url", "label"]], pd.DataFrame(approved, columns=["url", "label"])], ignore_index=True)
+        target = Path(output)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        candidate.to_csv(target, index=False)
+        return len(approved)
+
+
+def validation_gate(
+    incumbent_clean_auc: float,
+    incumbent_robust_auc: float,
+    candidate_clean_auc: float,
+    candidate_robust_auc: float,
+    clean_tolerance: float = 0.002,
+) -> dict[str, object]:
+    incumbent_score = (incumbent_clean_auc + incumbent_robust_auc) / 2
+    candidate_score = (candidate_clean_auc + candidate_robust_auc) / 2
+    accepted = candidate_score > incumbent_score and candidate_clean_auc >= incumbent_clean_auc - clean_tolerance
+    return {"accepted": accepted, "incumbent_score": incumbent_score, "candidate_score": candidate_score,
+            "clean_floor": incumbent_clean_auc - clean_tolerance,
+            "reason": "candidate passed both gates" if accepted else "candidate failed improvement or clean-performance gate"}
+
 
 class ModelRegistry:
     def __init__(self, path: str | Path) -> None: self.path = Path(path)
