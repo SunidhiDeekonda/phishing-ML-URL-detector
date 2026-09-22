@@ -120,3 +120,11 @@ R. Dubey, A. M. Tripathi, A. Srivastava, and S. Singh, “Phishing Detection Sys
 - Department: DEPARTMENT OF CSIT
 - Guide: Dr. K Venkateshwara Rao
 - Team: 2320090017 - D Sunidhi; 2320090060 - P Manvitha; 2320090069 - G Likith
+
+## Research Extensions Beyond Reference Reproduction
+
+Eight deterministic offline mutation families were evaluated. Only 1751 training-derived phishing mutations entered robust training; validation froze selection before the 3998-row adversarial test.
+
+Original adversarial recall was 98.145% with 37 false negatives. The robust candidate achieved 99.148% with 17 false negatives and 99.625% clean accuracy. Validation selected `robust_candidate_95_5`. These are synthetic-mutation results, not universal protection.
+
+Caller-supplied HTML/email produces separate context evidence and is never fetched or mixed into validated probability. Feedback is quarantined for human verification, deduplicated, protected from test contamination, and intended for explicit offline retraining. PSI and model versioning support controlled adaptation. Vercel local feedback storage is ephemeral unless external persistence is configured.

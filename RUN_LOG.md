@@ -426,3 +426,22 @@ READY FOR COLLEGE DEMO: YES
 - Data-count note: frozen source snapshots contain 99,363 unique cleaned URLs, while the reference study corpus is reported approximately as 99,361; these are presented as distinct quantities.
 
 READY FOR HUMAN REVIEW BEFORE PDF: YES
+
+## 2026-09-22 - Research extension: robustness, context, and controlled adaptation
+
+- Audited clean `main` at `5857815`; preserved all original preprocessing, model, report, and deployment work.
+- Added eight deterministic offline adversarial URL mutations with seed 42; no network activity is used.
+- Created balanced adversarial validation (2,000 rows) and held-out adversarial test (3,998 rows) suites from their own split sources.
+- Added 1,751 training-derived phishing mutations (25% of training phishing rows) without replacing clean examples.
+- Trained separate `lightgbm_robust.pkl` and `char_cnn_robust.pt` artifacts; original models remained unchanged.
+- Froze selection by mean clean/adversarial validation ROC-AUC with a clean-AUC floor before final test scoring; robust 95/5 candidate selected.
+- Reproduced original clean test: accuracy 99.525%, precision 100.000%, recall 99.048%, ROC-AUC 99.931%, FN 19.
+- Robust candidate clean test: accuracy 99.625%, precision 99.950%, recall 99.298%, ROC-AUC 99.945%, FN 14.
+- Original adversarial test: accuracy 99.075%, precision 100.000%, recall 98.145%, ROC-AUC 99.998%, FN 37.
+- Robust candidate adversarial test: accuracy 99.550%, precision 99.949%, recall 99.148%, ROC-AUC 99.998%, FN 17.
+- Added network-free caller-supplied HTML/email context analysis, separate from validated probability.
+- Added quarantined human-verified feedback, deduplication, test-hash protection, PSI drift monitoring, and versioned model registry.
+- Added compact frontend research controls and Vercel-safe ephemeral feedback behavior.
+- Updated README, final Markdown report, novelty document, viva defense, plots, and 19-page academic PDF.
+- Environment note: Python 3.14 LightGBM required deterministic single-thread execution to avoid a local OpenMP stall; the protocol and seed were unchanged.
+- Validation: compile checks passed; full pytest suite 34 passed, 0 failed (2 dependency deprecation warnings).
