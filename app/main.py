@@ -25,6 +25,11 @@ app = FastAPI(title="AI-Based Phishing Detection System")
 
 app.mount("/static", StaticFiles(directory=PROJECT_ROOT / "app/static"), name="static")
 
+# Optional research routes stay separate from the validated URL-only endpoint.
+from app.research_api import router as research_router
+
+app.include_router(research_router)
+
 
 class URLRequest(BaseModel):
     url: str = Field(min_length=1)

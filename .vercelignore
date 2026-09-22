@@ -14,4 +14,8 @@ data/processed/train_idx.npy
 data/processed/val_idx.npy
 data/processed/test_idx.npy
 models/char_cnn.pt
+models/char_cnn_robust.pt
+models/lightgbm_robust.pkl
+data/processed/adversarial_validation.csv
+data/processed/adversarial_test.csv
 requirements-dev.txt

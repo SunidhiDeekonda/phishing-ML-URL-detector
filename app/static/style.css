@@ -170,3 +170,12 @@ code {
   border-radius: 4px;
   padding: 0.08rem 0.3rem;
 }
+
+.research-extensions { margin-top: 1.5rem; }
+.research-extensions summary { cursor: pointer; font-weight: 800; font-size: 1.05rem; }
+.research-note { color: var(--muted); }
+.research-extensions textarea { width: 100%; box-sizing: border-box; margin: .35rem 0 .8rem; padding: .75rem; border: 1px solid var(--line); border-radius: .65rem; font: inherit; resize: vertical; }
+.research-actions { display: flex; flex-wrap: wrap; gap: .65rem; }
+.research-actions button { border: 0; border-radius: .65rem; padding: .7rem 1rem; background: var(--primary); color: #fff; font-weight: 800; cursor: pointer; }
+.research-actions button.secondary { background: #33405f; }
+#context-output { white-space: pre-wrap; overflow-wrap: anywhere; background: #f6f8ff; border-radius: .65rem; padding: .8rem; min-height: 1.2rem; }
