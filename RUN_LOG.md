@@ -445,3 +445,20 @@ READY FOR HUMAN REVIEW BEFORE PDF: YES
 - Updated README, final Markdown report, novelty document, viva defense, plots, and 19-page academic PDF.
 - Environment note: Python 3.14 LightGBM required deterministic single-thread execution to avoid a local OpenMP stall; the protocol and seed were unchanged.
 - Validation: compile checks passed; full pytest suite 34 passed, 0 failed (2 dependency deprecation warnings).
+
+## 2026-09-24 - Production reliability and URL regression audit
+
+- Audited clean `main` at `aaf8985`; both `/predict` and `/predict-context` used the original ONNX CNN + calibrated ONNX LightGBM 95/5 production ensemble.
+- The exact HTTPS Google slash pair was already stable on the audited baseline, but scheme-less root inputs remained representation-dependent.
+- Added conservative, string-only canonicalization: trim whitespace, default missing schemes to HTTPS, normalize scheme/host case, remove default ports, and unify only empty/root paths.
+- Preserved non-root path slashes, queries, fragments, and percent encoding; added no domain whitelist and no URL fetching.
+- Added an 87-case external/OOD regression suite with exact-URL and split-domain membership annotations.
+- Regression results: 62/75 benign cases passed, 13 false positives reported, 12/12 synthetic phishing cases passed, and all 5 format-invariance groups passed.
+- All 87 exact URL strings were absent from the dataset; 66 cases used registered domains absent from training.
+- Preserved frozen historical metrics and separately recorded production-normalized held-out accuracy 93.922%, recall 87.820%, and 243 false negatives.
+- Preserved saved robust candidate adversarial recall 99.148% with 17 false negatives; no model was retrained or replaced.
+- Clarified HTML/email inputs as optional experimental evidence, added safe/suspicious examples, and explicitly stated context is not fused into the validated URL probability.
+- Validation: Python compile passed; full pytest 48 passed, 0 failed; `git diff --check` passed.
+- Pushed four meaningful commits normally to `origin/main` and verified Vercel health with both ONNX models loaded.
+- Deployed audit: 0 local/deployed mismatches across 87 cases; Google and GitHub root pairs stable; HTML, email, model-info, and feedback endpoints passed.
+- Production feedback accepted a real project-URL false-positive report for human verification; Vercel reported non-persistent storage and automatic retraining remained disabled.
