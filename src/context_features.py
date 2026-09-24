@@ -55,11 +55,15 @@ def extract_email_context(email_text: str | None) -> dict[str, int]:
 
 def analyze_context(url: str, html: str | None = None, email_text: str | None = None) -> dict[str, object]:
     html_signals, email_signals = extract_html_context(url, html), extract_email_context(email_text)
+    context_supplied = bool((html or "").strip() or (email_text or "").strip())
     flags: list[str] = []
     if html_signals["password_input_count"] and html_signals["external_target_count"]: flags.append("password form references an external host")
+    if html_signals["password_input_count"] and html_signals["credential_term_count"]: flags.append("HTML contains a credential form")
     if html_signals["meta_refresh_count"]: flags.append("HTML contains meta refresh")
     if html_signals["credential_term_count"] >= 3: flags.append("HTML contains repeated credential-related language")
     if email_signals["credential_request_count"]: flags.append("email asks for credentials")
     if email_signals["risk_term_count"] >= 3 and email_signals["call_to_action_count"]: flags.append("email combines urgency/account language with a call to action")
     return {"html": html_signals, "email": email_signals, "context_risk_flags": flags,
+            "context_supplied": context_supplied,
+            "message": "Context signals extracted." if context_supplied else "No optional context supplied.",
             "included_in_validated_probability": False, "automatic_url_fetching": False}

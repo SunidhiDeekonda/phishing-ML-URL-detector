@@ -6,6 +6,7 @@ const resultPanel = document.getElementById("resultPanel");
 const breakdownEl = document.getElementById("breakdown");
 const signalsEl = document.getElementById("signals");
 const formError = document.getElementById("formError");
+let latestPrediction = null;
 
 function clearErrors() {
   formError.textContent = "";
@@ -18,6 +19,7 @@ function setBusy(state) {
 }
 
 function setResult(payload) {
+  latestPrediction = payload;
   const phishingProbability = payload.selected_ensemble_probability;
   const confidence = payload.confidence;
   const verdict = payload.verdict;
@@ -108,33 +110,47 @@ urlInput.addEventListener("keydown", (event) => {
   }
 });
 
-(function mountResearchExtensions() {
-  function mount() {
-    const host = document.querySelector("main") || document.body;
-    if (document.getElementById("research-extensions")) return;
-    const section = document.createElement("section");
-    section.id = "research-extensions";
-    section.className = "panel research-extensions";
-    section.innerHTML = `<details><summary>Research Extensions</summary>
-      <p class="research-note">Optional context is analysed locally and is not mixed into the validated URL score.</p>
-      <label for="context-html">Supplied HTML (optional)</label><textarea id="context-html" rows="3" placeholder="Paste HTML for local signal extraction"></textarea>
-      <label for="context-email">Supplied email text (optional)</label><textarea id="context-email" rows="3" placeholder="Paste email text without sensitive information"></textarea>
-      <div class="research-actions"><button type="button" id="analyse-context">Analyse Context</button><button type="button" id="submit-correction" class="secondary">Report Prediction as Incorrect</button></div>
-      <pre id="context-output" aria-live="polite"></pre></details>`;
-    host.appendChild(section);
-    const output = section.querySelector("#context-output");
-    section.querySelector("#analyse-context").addEventListener("click", async () => {
-      const url = urlInput.value.trim(); if (!url) { output.textContent = "Enter a URL first."; return; }
-      output.textContent = "Analysing supplied context...";
-      const response = await fetch("/predict-context", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url,html:section.querySelector("#context-html").value||null,email_text:section.querySelector("#context-email").value||null})});
-      const data = await response.json(); output.textContent = response.ok ? JSON.stringify(data.context_signals,null,2) : (data.detail||"Context analysis failed.");
-    });
-    section.querySelector("#submit-correction").addEventListener("click", async () => {
-      const url=urlInput.value.trim(); if (!url) { output.textContent="Enter and analyse a URL first."; return; }
-      const predicted=document.body.textContent.includes("PHISHING")?"PHISHING":"LEGITIMATE"; const correct=predicted==="PHISHING"?"LEGITIMATE":"PHISHING";
-      const response=await fetch("/feedback",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url,predicted_label:predicted,correct_label:correct,optional_notes:"Submitted from demo UI"})});
-      const data=await response.json(); output.textContent=response.ok?"Feedback quarantined for human verification. No automatic retraining occurred.":(data.detail||"Feedback was not accepted.");
-    });
-  }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mount); else mount();
+(function setupResearchExtensions() {
+  const section = document.getElementById("research-extensions");
+  if (!section) return;
+  const htmlInput = document.getElementById("context-html");
+  const emailInput = document.getElementById("context-email");
+  const output = document.getElementById("context-output");
+  const benignHtml = "<html>\n<body>\n<h1>Welcome</h1>\n<p>Documentation page.</p>\n</body>\n</html>";
+  const suspiciousHtml = "<html>\n<body>\n<form action=\"/verify\">\n<input type=\"text\" name=\"username\">\n<input type=\"password\" name=\"password\">\n<button>Verify Account</button>\n</form>\n</body>\n</html>";
+  const benignEmail = "Hi team,\nThe project meeting is tomorrow at 10 AM.\nPlease bring the final report.";
+  const suspiciousEmail = "URGENT: Your account will be suspended.\nVerify your login immediately and confirm your password.";
+
+  document.getElementById("load-safe-context").addEventListener("click", () => {
+    htmlInput.value = benignHtml;
+    emailInput.value = benignEmail;
+    output.textContent = "Safe example loaded. Select Analyse Optional Context.";
+  });
+  document.getElementById("load-suspicious-context").addEventListener("click", () => {
+    htmlInput.value = suspiciousHtml;
+    emailInput.value = suspiciousEmail;
+    output.textContent = "Synthetic suspicious-style example loaded. Select Analyse Optional Context.";
+  });
+  document.getElementById("analyse-context").addEventListener("click", async () => {
+    const url = urlInput.value.trim();
+    if (!url) { output.textContent = "Enter a URL in the main URL box first."; return; }
+    const html = htmlInput.value.trim();
+    const emailText = emailInput.value.trim();
+    if (!html && !emailText) { output.textContent = "No optional context supplied."; return; }
+    output.textContent = "Analysing supplied text locally...";
+    const response = await fetch("/predict-context", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url,html:html||null,email_text:emailText||null})});
+    const data = await response.json();
+    if (!response.ok) { output.textContent = data.detail || "Context analysis failed."; return; }
+    const signals = data.context_signals;
+    const flags = signals.context_risk_flags.length ? signals.context_risk_flags.map(flag => `- ${flag}`).join("\n") : "- No context risk flags detected.";
+    output.textContent = `${signals.message}\n\nHTML signals\n- Forms: ${signals.html.form_count}\n- Password inputs: ${signals.html.password_input_count}\n- Credential terms: ${signals.html.credential_term_count}\n- External targets: ${signals.html.external_target_count}\n\nEmail signals\n- URLs: ${signals.email.url_count}\n- Risk terms: ${signals.email.risk_term_count}\n- Credential requests: ${signals.email.credential_request_count}\n- Calls to action: ${signals.email.call_to_action_count}\n\nRisk flags\n${flags}\n\nThese signals do not change the validated URL probability.`;
+  });
+  document.getElementById("submit-correction").addEventListener("click", async () => {
+    if (!latestPrediction) { output.textContent = "Run a URL prediction before submitting feedback."; return; }
+    const predicted = latestPrediction.verdict;
+    const correct = predicted === "PHISHING" ? "LEGITIMATE" : "PHISHING";
+    const response = await fetch("/feedback",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url:latestPrediction.url,predicted_label:predicted,correct_label:correct,optional_notes:"Submitted from demo UI"})});
+    const data = await response.json();
+    output.textContent = response.ok ? "Feedback quarantined for human verification. No automatic retraining occurred." : (data.detail || "Feedback was not accepted.");
+  });
 })();

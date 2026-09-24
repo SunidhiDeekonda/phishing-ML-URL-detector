@@ -45,6 +45,34 @@
         </section>
       </section>
 
+      <section id="research-extensions" class="panel research-extensions">
+        <details>
+          <summary>Experimental Context Analysis</summary>
+          <div class="context-intro">
+            <p><strong>Supplementary evidence only.</strong> These signals are not currently fused into the validated URL-model probability.</p>
+            <p>The application analyses only text you paste below. It does not visit the URL or access your mailbox.</p>
+          </div>
+
+          <label for="context-html"><strong>HTML Context - Optional</strong></label>
+          <p class="field-help">Paste raw HTML source or an HTML snippet here. Do not paste another URL. The application analyses the supplied text locally and will not fetch the webpage.</p>
+          <textarea id="context-html" rows="6" placeholder="<html><body><h1>Welcome</h1></body></html>"></textarea>
+
+          <label for="context-email"><strong>Email Text - Optional</strong></label>
+          <p class="field-help">Paste the body of an email here to inspect phishing-related language. The application will not access your mailbox. Do not include passwords or sensitive information.</p>
+          <textarea id="context-email" rows="5" placeholder="Paste an email body here..."></textarea>
+
+          <div class="example-actions">
+            <button type="button" id="load-safe-context" class="secondary">Load Safe Example</button>
+            <button type="button" id="load-suspicious-context" class="secondary">Load Suspicious-Style Example</button>
+          </div>
+          <div class="research-actions">
+            <button type="button" id="analyse-context">Analyse Optional Context</button>
+            <button type="button" id="submit-correction" class="secondary">Report Prediction as Incorrect</button>
+          </div>
+          <div id="context-output" class="context-output" aria-live="polite">No optional context supplied.</div>
+        </details>
+      </section>
+
       <section class="panel">
         <details>
           <summary>About the Model</summary>

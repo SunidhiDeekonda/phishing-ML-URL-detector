@@ -173,9 +173,12 @@ code {
 
 .research-extensions { margin-top: 1.5rem; }
 .research-extensions summary { cursor: pointer; font-weight: 800; font-size: 1.05rem; }
-.research-note { color: var(--muted); }
+.research-note, .field-help { color: var(--muted); }
+.field-help { margin: .25rem 0 .35rem; font-size: .9rem; line-height: 1.45; }
+.context-intro { background: #eef4ff; border-left: 4px solid var(--primary); border-radius: .45rem; margin: .8rem 0 1rem; padding: .65rem .8rem; }
+.context-intro p { margin: .15rem 0; }
 .research-extensions textarea { width: 100%; box-sizing: border-box; margin: .35rem 0 .8rem; padding: .75rem; border: 1px solid var(--line); border-radius: .65rem; font: inherit; resize: vertical; }
-.research-actions { display: flex; flex-wrap: wrap; gap: .65rem; }
+.research-actions, .example-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin: .5rem 0; }
 .research-actions button { border: 0; border-radius: .65rem; padding: .7rem 1rem; background: var(--primary); color: #fff; font-weight: 800; cursor: pointer; }
-.research-actions button.secondary { background: #33405f; }
-#context-output { white-space: pre-wrap; overflow-wrap: anywhere; background: #f6f8ff; border-radius: .65rem; padding: .8rem; min-height: 1.2rem; }
+.research-actions button.secondary, .example-actions button.secondary { border: 1px solid var(--line); border-radius: .65rem; padding: .7rem 1rem; background: #33405f; color: #fff; font-weight: 800; cursor: pointer; }
+.context-output { white-space: pre-wrap; overflow-wrap: anywhere; background: #f6f8ff; border: 1px solid var(--line); border-radius: .65rem; margin-top: .8rem; padding: .8rem; min-height: 1.2rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .86rem; line-height: 1.5; }
