@@ -1,0 +1,493 @@
+{
+  "exact_urls_not_in_dataset": 87,
+  "false_positives": [
+    {
+      "cnn_probability": 0.6045509335869784,
+      "features": {
+        "digit_letter_ratio": 0.0,
+        "host_length": 14.0,
+        "hostname_entropy": 3.039148671903071,
+        "hyphen_count": 0.0,
+        "num_dots": 2.0,
+        "suspicious_tld": 0.0,
+        "token_account": 0.0,
+        "token_login": 0.0,
+        "token_secure": 0.0,
+        "token_verify": 0.0,
+        "url_length": 22.0
+      },
+      "lightgbm_probability": 0.019986392026460104,
+      "likely_reason": "CNN sequence behavior",
+      "normalized_url": "https://www.paypal.com",
+      "probability": 0.5753227065089526,
+      "url": "https://www.paypal.com/"
+    },
+    {
+      "cnn_probability": 0.9999533598183578,
+      "features": {
+        "digit_letter_ratio": 0.0,
+        "host_length": 10.0,
+        "hostname_entropy": 3.321928094887362,
+        "hyphen_count": 0.0,
+        "num_dots": 1.0,
+        "suspicious_tld": 0.0,
+        "token_account": 0.0,
+        "token_login": 1.0,
+        "token_secure": 0.0,
+        "token_verify": 0.0,
+        "url_length": 24.0
+      },
+      "lightgbm_probability": 0.9994602163048053,
+      "likely_reason": "CNN sequence behavior",
+      "normalized_url": "https://github.com/login",
+      "probability": 0.9999287026426801,
+      "url": "https://github.com/login"
+    },
+    {
+      "cnn_probability": 0.99999980837472,
+      "features": {
+        "digit_letter_ratio": 0.0,
+        "host_length": 14.0,
+        "hostname_entropy": 3.039148671903071,
+        "hyphen_count": 0.0,
+        "num_dots": 2.0,
+        "suspicious_tld": 0.0,
+        "token_account": 0.0,
+        "token_login": 0.0,
+        "token_secure": 0.0,
+        "token_verify": 0.0,
+        "url_length": 29.0
+      },
+      "lightgbm_probability": 0.9994603711162443,
+      "likely_reason": "CNN sequence behavior",
+      "normalized_url": "https://www.paypal.com/signin",
+      "probability": 0.9999728365117962,
+      "url": "https://www.paypal.com/signin"
+    },
+    {
+      "cnn_probability": 0.9999999006928023,
+      "features": {
+        "digit_letter_ratio": 0.0,
+        "host_length": 14.0,
+        "hostname_entropy": 2.8962915290459277,
+        "hyphen_count": 0.0,
+        "num_dots": 2.0,
+        "suspicious_tld": 0.0,
+        "token_account": 0.0,
+        "token_login": 0.0,
+        "token_secure": 0.0,
+        "token_verify": 0.0,
+        "url_length": 32.0
+      },
+      "lightgbm_probability": 0.999460657829349,
+      "likely_reason": "CNN sequence behavior",
+      "normalized_url": "https://www.amazon.com/ap/signin",
+      "probability": 0.9999729385496297,
+      "url": "https://www.amazon.com/ap/signin"
+    },
+    {
+      "cnn_probability": 0.9999996442364028,
+      "features": {
+        "digit_letter_ratio": 0.0,
+        "host_length": 15.0,
+        "hostname_entropy": 3.1395722619867223,
+        "hyphen_count": 0.0,
+        "num_dots": 2.0,
+        "suspicious_tld": 0.0,
+        "token_account": 0.0,
+        "token_login": 1.0,
+        "token_secure": 0.0,
+        "token_verify": 0.0,
+        "url_length": 29.0
+      },
+      "lightgbm_probability": 0.9994603711162443,
+      "likely_reason": "CNN sequence behavior",
+      "normalized_url": "https://www.dropbox.com/login",
+      "probability": 0.9999726805803948,
+      "url": "https://www.dropbox.com/login"
+    },
+    {
+      "cnn_probability": 0.9999985916094649,
+      "features": {
+        "digit_letter_ratio": 0.0,
+        "host_length": 16.0,
+        "hostname_entropy": 3.327819531114783,
+        "hyphen_count": 0.0,
+        "num_dots": 2.0,
+        "suspicious_tld": 0.0,
+        "token_account": 0.0,
+        "token_login": 1.0,
+        "token_secure": 0.0,
+        "token_verify": 0.0,
+        "url_length": 30.0
+      },
+      "lightgbm_probability": 0.9994603711162443,
+      "likely_reason": "CNN sequence behavior",
+      "normalized_url": "https://www.linkedin.com/login",
+      "probability": 0.9999716805848039,
+      "url": "https://www.linkedin.com/login"
+    },
+    {
+      "cnn_probability": 0.999996359774698,
+      "features": {
+        "digit_letter_ratio": 0.0,
+        "host_length": 19.0,
+        "hostname_entropy": 3.6163485660751635,
+        "hyphen_count": 0.0,
+        "num_dots": 2.0,
+        "suspicious_tld": 0.0,
+        "token_account": 0.0,
+        "token_login": 1.0,
+        "token_secure": 0.0,
+        "token_verify": 0.0,
+        "url_length": 33.0
+      },
+      "lightgbm_probability": 0.9994604169887383,
+      "likely_reason": "CNN sequence behavior",
+      "normalized_url": "https://dash.cloudflare.com/login",
+      "probability": 0.9999695626353999,
+      "url": "https://dash.cloudflare.com/login"
+    },
+    {
+      "cnn_probability": 0.9964883148245045,
+      "features": {
+        "digit_letter_ratio": 0.0,
+        "host_length": 41.0,
+        "hostname_entropy": 4.045980358012783,
+        "hyphen_count": 4.0,
+        "num_dots": 2.0,
+        "suspicious_tld": 0.0,
+        "token_account": 0.0,
+        "token_login": 0.0,
+        "token_secure": 0.0,
+        "token_verify": 0.0,
+        "url_length": 49.0
+      },
+      "lightgbm_probability": 0.9965217566102308,
+      "likely_reason": "engineered-feature behavior",
+      "normalized_url": "https://phishing-ml-url-detector-seven.vercel.app",
+      "probability": 0.9964899869137908,
+      "url": "https://phishing-ml-url-detector-seven.vercel.app/"
+    },
+    {
+      "cnn_probability": 0.9999998700145964,
+      "features": {
+        "digit_letter_ratio": 0.0,
+        "host_length": 10.0,
+        "hostname_entropy": 3.321928094887362,
+        "hyphen_count": 3.0,
+        "num_dots": 1.0,
+        "suspicious_tld": 0.0,
+        "token_account": 0.0,
+        "token_login": 0.0,
+        "token_secure": 0.0,
+        "token_verify": 0.0,
+        "url_length": 59.0
+      },
+      "lightgbm_probability": 0.9993945513250587,
+      "likely_reason": "CNN sequence behavior",
+      "normalized_url": "https://github.com/SunidhiDeekonda/phishing-ML-URL-detector",
+      "probability": 0.9999696040801196,
+      "url": "https://github.com/SunidhiDeekonda/phishing-ML-URL-detector"
+    },
+    {
+      "cnn_probability": 0.9999995248646637,
+      "features": {
+        "digit_letter_ratio": 0.0,
+        "host_length": 11.0,
+        "hostname_entropy": 3.0957952550009344,
+        "hyphen_count": 1.0,
+        "num_dots": 1.0,
+        "suspicious_tld": 0.0,
+        "token_account": 0.0,
+        "token_login": 0.0,
+        "token_secure": 0.0,
+        "token_verify": 0.0,
+        "url_length": 54.0
+      },
+      "lightgbm_probability": 0.9994603042242036,
+      "likely_reason": "CNN sequence behavior",
+      "normalized_url": "https://example.com/docs/getting-started?lang=en#intro",
+      "probability": 0.9999725638326407,
+      "url": "https://example.com/docs/getting-started?lang=en#intro"
+    },
+    {
+      "cnn_probability": 0.9999834379637079,
+      "features": {
+        "digit_letter_ratio": 0.0,
+        "host_length": 11.0,
+        "hostname_entropy": 3.2776134368191165,
+        "hyphen_count": 0.0,
+        "num_dots": 1.0,
+        "suspicious_tld": 0.0,
+        "token_account": 1.0,
+        "token_login": 0.0,
+        "token_secure": 0.0,
+        "token_verify": 0.0,
+        "url_length": 39.0
+      },
+      "lightgbm_probability": 0.9994603207999949,
+      "likely_reason": "CNN sequence behavior",
+      "normalized_url": "https://example.org/account/preferences",
+      "probability": 0.9999572821055221,
+      "url": "https://example.org/account/preferences"
+    },
+    {
+      "cnn_probability": 0.9999931997170983,
+      "features": {
+        "digit_letter_ratio": 0.0,
+        "host_length": 11.0,
+        "hostname_entropy": 3.027169118440619,
+        "hyphen_count": 0.0,
+        "num_dots": 1.0,
+        "suspicious_tld": 0.0,
+        "token_account": 0.0,
+        "token_login": 1.0,
+        "token_secure": 0.0,
+        "token_verify": 0.0,
+        "url_length": 30.0
+      },
+      "lightgbm_probability": 0.9994602352516093,
+      "likely_reason": "CNN sequence behavior",
+      "normalized_url": "https://example.net/login/help",
+      "probability": 0.9999665514938239,
+      "url": "https://example.net/login/help"
+    },
+    {
+      "cnn_probability": 0.9999996758145696,
+      "features": {
+        "digit_letter_ratio": 0.06976744186046512,
+        "host_length": 11.0,
+        "hostname_entropy": 3.2776134368191165,
+        "hyphen_count": 1.0,
+        "num_dots": 1.0,
+        "suspicious_tld": 0.0,
+        "token_account": 0.0,
+        "token_login": 0.0,
+        "token_secure": 0.0,
+        "token_verify": 0.0,
+        "url_length": 57.0
+      },
+      "lightgbm_probability": 0.9994603042242036,
+      "likely_reason": "CNN sequence behavior",
+      "normalized_url": "https://example.org/docs/My%20Guide?Topic=Security#Part-1",
+      "probability": 0.9999727072350513,
+      "url": "https://example.org/docs/My%20Guide?Topic=Security#Part-1"
+    }
+  ],
+  "format_invariance_failed": 0,
+  "format_invariance_groups": {
+    "github-root": {
+      "cases": 4,
+      "normalized_values": [
+        "https://github.com"
+      ],
+      "passed": true,
+      "verdicts": [
+        "LEGITIMATE"
+      ]
+    },
+    "google-root": {
+      "cases": 6,
+      "normalized_values": [
+        "https://www.google.com"
+      ],
+      "passed": true,
+      "verdicts": [
+        "LEGITIMATE"
+      ]
+    },
+    "microsoft-root": {
+      "cases": 4,
+      "normalized_values": [
+        "https://www.microsoft.com"
+      ],
+      "passed": true,
+      "verdicts": [
+        "LEGITIMATE"
+      ]
+    },
+    "openai-root": {
+      "cases": 4,
+      "normalized_values": [
+        "https://openai.com"
+      ],
+      "passed": true,
+      "verdicts": [
+        "LEGITIMATE"
+      ]
+    },
+    "wikipedia-root": {
+      "cases": 4,
+      "normalized_values": [
+        "https://www.wikipedia.org"
+      ],
+      "passed": true,
+      "verdicts": [
+        "LEGITIMATE"
+      ]
+    }
+  },
+  "format_invariance_passed": 5,
+  "known_good_cases": 75,
+  "known_good_false_positives": 13,
+  "known_good_passed": 62,
+  "model_version": "url-ensemble-original-onnx-1.0",
+  "production_normalized_test": {
+    "accuracy": 0.9392196098049025,
+    "false_negatives": 243,
+    "false_positives": 0,
+    "historical_research_metrics_unchanged": {
+      "charcnn": {
+        "accuracy": 0.9952476238119059,
+        "f1": 0.9952153110047847,
+        "false_negative_rate": 0.009523809523809525,
+        "false_positive_rate": 0.0,
+        "fn": 19,
+        "fp": 0,
+        "pr_auc": 0.9995527100639789,
+        "precision": 1.0,
+        "recall": 0.9904761904761905,
+        "roc_auc": 0.9994481961268623,
+        "tn": 2003,
+        "tp": 1976
+      },
+      "dataset_size": 20000,
+      "device_used": "mps",
+      "lightgbm": {
+        "accuracy": 0.9959979989994997,
+        "f1": 0.9959839357429718,
+        "false_negative_rate": 0.005513784461152882,
+        "false_positive_rate": 0.0024962556165751375,
+        "fn": 11,
+        "fp": 5,
+        "pr_auc": 0.9990779588491084,
+        "precision": 0.9974861739567622,
+        "recall": 0.9944862155388471,
+        "roc_auc": 0.9985106300449075,
+        "tn": 1998,
+        "tp": 1984
+      },
+      "reference_ensemble": {
+        "accuracy": 0.9957478739369685,
+        "f1": 0.9957232704402516,
+        "false_negative_rate": 0.008020050125313283,
+        "false_positive_rate": 0.0004992511233150275,
+        "fn": 16,
+        "fp": 1,
+        "pr_auc": 0.9992818926814653,
+        "precision": 0.9994949494949495,
+        "recall": 0.9919799498746867,
+        "roc_auc": 0.9989166626000848,
+        "tn": 2002,
+        "tp": 1979
+      },
+      "reference_weights": {
+        "cnn": 0.6,
+        "lightgbm": 0.4
+      },
+      "selected_ensemble": {
+        "accuracy": 0.9952476238119059,
+        "f1": 0.9952153110047847,
+        "false_negative_rate": 0.009523809523809525,
+        "false_positive_rate": 0.0,
+        "fn": 19,
+        "fp": 0,
+        "pr_auc": 0.9994790970562641,
+        "precision": 1.0,
+        "recall": 0.9904761904761905,
+        "roc_auc": 0.9993118092285131,
+        "tn": 2003,
+        "tp": 1976
+      },
+      "selected_weights": {
+        "cnn": 0.95,
+        "lightgbm": 0.05
+      },
+      "selection_method": "ensemble weights selected on validation ROC-AUC before test evaluation",
+      "test_size": 3998,
+      "threshold": 0.5
+    },
+    "precision": 1.0,
+    "recall": 0.8781954887218045,
+    "roc_auc": 0.9961814170974117,
+    "rows": 3998
+  },
+  "registered_domains_unseen_in_training": 66,
+  "saved_robustness_metrics": {
+    "adversarial_test": {
+      "original_selected_95_5": {
+        "accuracy": 0.9907453726863432,
+        "f1": 0.9906400202377941,
+        "false_negatives": 37,
+        "false_positives": 0,
+        "fnr": 0.018546365914786967,
+        "fpr": 0.0,
+        "pr_auc": 0.9999846040718023,
+        "precision": 1.0,
+        "recall": 0.981453634085213,
+        "roc_auc": 0.9999847346774324
+      },
+      "robust_candidate_95_5": {
+        "accuracy": 0.9954977488744372,
+        "f1": 0.9954705586311021,
+        "false_negatives": 17,
+        "false_positives": 1,
+        "fnr": 0.008521303258145364,
+        "fpr": 0.0004992511233150275,
+        "pr_auc": 0.9999763766445829,
+        "precision": 0.9994946942900454,
+        "recall": 0.9914786967418546,
+        "roc_auc": 0.9999764763881747
+      }
+    },
+    "clean_test": {
+      "original_selected_95_5": {
+        "accuracy": 0.9952476238119059,
+        "f1": 0.9952153110047847,
+        "false_negatives": 19,
+        "false_positives": 0,
+        "fnr": 0.009523809523809525,
+        "fpr": 0.0,
+        "pr_auc": 0.9994789758389587,
+        "precision": 1.0,
+        "recall": 0.9904761904761905,
+        "roc_auc": 0.9993115589773235
+      },
+      "robust_candidate_95_5": {
+        "accuracy": 0.996248124062031,
+        "f1": 0.9962283127985919,
+        "false_negatives": 14,
+        "false_positives": 1,
+        "fnr": 0.007017543859649123,
+        "fpr": 0.0004992511233150275,
+        "pr_auc": 0.9995542577709198,
+        "precision": 0.9994954591321897,
+        "recall": 0.9929824561403509,
+        "roc_auc": 0.9994501981363794
+      }
+    },
+    "configuration": {
+      "mutation_types": [
+        "benign_path_token",
+        "redundant_separator",
+        "percent_encoding",
+        "subdomain_variation",
+        "keyword_splitting",
+        "character_perturbation",
+        "query_noise",
+        "length_noise"
+      ],
+      "seed": 42,
+      "selected_by_validation": "robust_candidate_95_5",
+      "training_augmentation_count": 1751
+    }
+  },
+  "synthetic_phishing_cases": 12,
+  "synthetic_phishing_false_negatives": 0,
+  "synthetic_phishing_passed": 12,
+  "total_urls": 87,
+  "unseen_domain_benign_accuracy": 0.8888888888888888,
+  "unseen_domain_benign_false_positives": 6,
+  "unseen_domain_synthetic_recall": 1.0
+}

@@ -1,0 +1,80 @@
+{
+  "accuracy": 0.9392196098049025,
+  "false_negatives": 243,
+  "false_positives": 0,
+  "historical_research_metrics_unchanged": {
+    "charcnn": {
+      "accuracy": 0.9952476238119059,
+      "f1": 0.9952153110047847,
+      "false_negative_rate": 0.009523809523809525,
+      "false_positive_rate": 0.0,
+      "fn": 19,
+      "fp": 0,
+      "pr_auc": 0.9995527100639789,
+      "precision": 1.0,
+      "recall": 0.9904761904761905,
+      "roc_auc": 0.9994481961268623,
+      "tn": 2003,
+      "tp": 1976
+    },
+    "dataset_size": 20000,
+    "device_used": "mps",
+    "lightgbm": {
+      "accuracy": 0.9959979989994997,
+      "f1": 0.9959839357429718,
+      "false_negative_rate": 0.005513784461152882,
+      "false_positive_rate": 0.0024962556165751375,
+      "fn": 11,
+      "fp": 5,
+      "pr_auc": 0.9990779588491084,
+      "precision": 0.9974861739567622,
+      "recall": 0.9944862155388471,
+      "roc_auc": 0.9985106300449075,
+      "tn": 1998,
+      "tp": 1984
+    },
+    "reference_ensemble": {
+      "accuracy": 0.9957478739369685,
+      "f1": 0.9957232704402516,
+      "false_negative_rate": 0.008020050125313283,
+      "false_positive_rate": 0.0004992511233150275,
+      "fn": 16,
+      "fp": 1,
+      "pr_auc": 0.9992818926814653,
+      "precision": 0.9994949494949495,
+      "recall": 0.9919799498746867,
+      "roc_auc": 0.9989166626000848,
+      "tn": 2002,
+      "tp": 1979
+    },
+    "reference_weights": {
+      "cnn": 0.6,
+      "lightgbm": 0.4
+    },
+    "selected_ensemble": {
+      "accuracy": 0.9952476238119059,
+      "f1": 0.9952153110047847,
+      "false_negative_rate": 0.009523809523809525,
+      "false_positive_rate": 0.0,
+      "fn": 19,
+      "fp": 0,
+      "pr_auc": 0.9994790970562641,
+      "precision": 1.0,
+      "recall": 0.9904761904761905,
+      "roc_auc": 0.9993118092285131,
+      "tn": 2003,
+      "tp": 1976
+    },
+    "selected_weights": {
+      "cnn": 0.95,
+      "lightgbm": 0.05
+    },
+    "selection_method": "ensemble weights selected on validation ROC-AUC before test evaluation",
+    "test_size": 3998,
+    "threshold": 0.5
+  },
+  "precision": 1.0,
+  "recall": 0.8781954887218045,
+  "roc_auc": 0.9961814170974117,
+  "rows": 3998
+}
