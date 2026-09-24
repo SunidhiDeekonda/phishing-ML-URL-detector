@@ -12,6 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from .inference import (
+    MODEL_VERSION,
     THRESHOLD,
     SELECTED_CNN_WEIGHT,
     SELECTED_LIGHTGBM_WEIGHT,
@@ -37,6 +38,7 @@ class URLRequest(BaseModel):
 
 class URLPredictionResponse(BaseModel):
     url: str
+    model_version: str
     verdict: str
     phishing_probability: float
     confidence: float
@@ -71,6 +73,7 @@ async def health() -> dict[str, object]:
         "lightgbm_loaded": bundle.lightgbm_loaded,
         "cnn_loaded": bundle.cnn_model_loaded,
         "device": bundle.device,
+        "model_version": MODEL_VERSION,
     }
 
 

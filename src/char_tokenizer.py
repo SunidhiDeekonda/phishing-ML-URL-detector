@@ -25,27 +25,23 @@ UNK_INDEX = len(REFERENCE_CHARACTERS) + 1
 
 
 def normalize_url(url: str) -> str:
-    """Return the canonical URL text used by both inference models.
+    """Return lowercase text for reference-compatible CNN encoding.
 
-    A URL with an empty root path has two equivalent spellings: for example,
-    ``https://www.google.com`` and ``https://www.google.com/``.  The exported
-    character CNN was trained on raw URL strings and can otherwise assign very
-    different scores to those two spellings.  Remove only that *root* slash;
-    a slash in a real path (``/login/``) remains part of the model input.
+    Scheme insertion belongs to the production inference boundary, not the
+    tokenizer. Keeping that separation preserves the released tokenizer's
+    behavior for already-prepared training data and isolated characters.
     """
-    normalized = "" if url is None else str(url).strip().lower()
-    if not normalized:
+    text = str(url).strip().lower()
+    if not text:
         return ""
 
-    has_scheme = "://" in normalized
-    parsed = urlsplit(normalized if has_scheme else f"//{normalized}")
-    if not parsed.hostname or parsed.path != "/":
-        return normalized
-
-    canonical = urlunsplit(
-        (parsed.scheme, parsed.netloc, "", parsed.query, parsed.fragment)
-    )
-    return canonical if has_scheme else canonical.removeprefix("//")
+    has_scheme = "://" in text
+    parsed = urlsplit(text if has_scheme else f"//{text}")
+    path = "" if parsed.path in {"", "/"} else parsed.path
+    normalized = urlunsplit((parsed.scheme, parsed.netloc, path, parsed.query, parsed.fragment))
+    if not has_scheme and normalized.startswith("//"):
+        normalized = normalized[2:]
+    return normalized
 
 
 def build_vocab(urls: Iterable[str] | None = None) -> Dict[str, int]:

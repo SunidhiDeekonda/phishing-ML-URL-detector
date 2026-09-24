@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable
 
-from src.char_tokenizer import normalize_url
+from src.url_normalization import canonicalize_url
 
 VALID_LABELS = {"LEGITIMATE": 0, "PHISHING": 1}
 
@@ -25,11 +25,11 @@ def _label(value: str | int) -> int:
 class FeedbackStore:
     def __init__(self, path: str | Path, test_urls: Iterable[str] = (), test_hashes: Iterable[str] = ()) -> None:
         self.path = Path(path)
-        self.test_urls = {normalize_url(url) for url in test_urls}
+        self.test_urls = {canonicalize_url(url) for url in test_urls}
         self.test_hashes = set(test_hashes)
 
     def submit(self, url: str, predicted_label: str | int, correct_label: str | int, notes: str = "") -> dict[str, object]:
-        normalized = normalize_url(str(url).strip())
+        normalized = canonicalize_url(str(url))
         if not normalized or len(normalized) > 4096: raise ValueError("URL must contain 1 to 4096 characters")
         digest = hashlib.sha256(normalized.encode()).hexdigest()
         if normalized in self.test_urls or digest in self.test_hashes: raise ValueError("Held-out test URLs cannot enter the feedback pipeline")
@@ -72,9 +72,9 @@ class FeedbackStore:
 
         base = pd.read_csv(base_dataset)
         approved = []
-        known = {normalize_url(url) for url in base["url"].astype(str)}
+        known = {canonicalize_url(url) for url in base["url"].astype(str)}
         for row in self.approved_rows():
-            normalized = normalize_url(str(row["url"]))
+            normalized = canonicalize_url(str(row["url"]))
             digest = hashlib.sha256(normalized.encode()).hexdigest()
             if normalized in self.test_urls or digest in self.test_hashes:
                 raise ValueError("Approved feedback contains a held-out test URL")

@@ -13,8 +13,9 @@ from typing import Any, Dict, Mapping
 import numpy as np
 import pandas as pd
 
-from src.char_tokenizer import MAX_SEQUENCE_LENGTH, build_vocab, encode_url, normalize_url
+from src.char_tokenizer import MAX_SEQUENCE_LENGTH, build_vocab, encode_url
 from src.features import extract_url_features
+from src.url_normalization import canonicalize_url
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 REFERENCE_CNN_WEIGHT = 0.60
@@ -23,6 +24,7 @@ SELECTED_CNN_WEIGHT = 0.95
 SELECTED_LIGHTGBM_WEIGHT = 0.05
 THRESHOLD = 0.50
 MAX_URL_LENGTH = 2048
+MODEL_VERSION = "url-ensemble-original-onnx-1.0"
 
 def _prepare_feature_columns() -> list[str]:
     features_path = PROJECT_ROOT / "data/processed/features.csv"
@@ -151,7 +153,7 @@ class URLInference:
 
     def predict(self, url: str) -> Dict[str, object]:
         bundle = self.load_models()
-        normalized_url = normalize_url(url)
+        normalized_url = canonicalize_url(url)
         if not normalized_url:
             raise ValueError("URL must not be empty")
         if len(normalized_url) > MAX_URL_LENGTH:
@@ -189,6 +191,7 @@ class URLInference:
 
         return {
             "url": normalized_url,
+            "model_version": MODEL_VERSION,
             "verdict": verdict,
             "phishing_probability": phishing_probability,
             "confidence": confidence,
