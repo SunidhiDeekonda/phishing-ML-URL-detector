@@ -121,30 +121,35 @@ urlInput.addEventListener("keydown", (event) => {
   const benignEmail = "Hi team,\nThe project meeting is tomorrow at 10 AM.\nPlease bring the final report.";
   const suspiciousEmail = "URGENT: Your account will be suspended.\nVerify your login immediately and confirm your password.";
 
-  document.getElementById("load-safe-context").addEventListener("click", () => {
-    htmlInput.value = benignHtml;
-    emailInput.value = benignEmail;
-    output.textContent = "Safe example loaded. Select Analyse Optional Context.";
-  });
-  document.getElementById("load-suspicious-context").addEventListener("click", () => {
-    htmlInput.value = suspiciousHtml;
-    emailInput.value = suspiciousEmail;
-    output.textContent = "Synthetic suspicious-style example loaded. Select Analyse Optional Context.";
-  });
-  document.getElementById("analyse-context").addEventListener("click", async () => {
+  async function analyseContext() {
     const url = urlInput.value.trim();
-    if (!url) { output.textContent = "Enter a URL in the main URL box first."; return; }
+    if (!url) { output.textContent = "Enter a URL in the main URL box at the top of the page first."; return; }
     const html = htmlInput.value.trim();
     const emailText = emailInput.value.trim();
     if (!html && !emailText) { output.textContent = "No optional context supplied."; return; }
     output.textContent = "Analysing supplied text locally...";
-    const response = await fetch("/predict-context", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url,html:html||null,email_text:emailText||null})});
-    const data = await response.json();
-    if (!response.ok) { output.textContent = data.detail || "Context analysis failed."; return; }
-    const signals = data.context_signals;
-    const flags = signals.context_risk_flags.length ? signals.context_risk_flags.map(flag => `- ${flag}`).join("\n") : "- No context risk flags detected.";
-    output.textContent = `${signals.message}\n\nHTML signals\n- Forms: ${signals.html.form_count}\n- Password inputs: ${signals.html.password_input_count}\n- Credential terms: ${signals.html.credential_term_count}\n- External targets: ${signals.html.external_target_count}\n\nEmail signals\n- URLs: ${signals.email.url_count}\n- Risk terms: ${signals.email.risk_term_count}\n- Credential requests: ${signals.email.credential_request_count}\n- Calls to action: ${signals.email.call_to_action_count}\n\nRisk flags\n${flags}\n\nThese signals do not change the validated URL probability.`;
+    try {
+      const response = await fetch("/predict-context", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url,html:html||null,email_text:emailText||null})});
+      const data = await response.json();
+      if (!response.ok) { output.textContent = data.detail || "Context analysis failed."; return; }
+      const signals = data.context_signals;
+      const flags = signals.context_risk_flags.length ? signals.context_risk_flags.map(flag => `- ${flag}`).join("\n") : "- No context risk flags detected.";
+      output.textContent = `${signals.message}\n\nHTML signals\n- Forms: ${signals.html.form_count}\n- Password inputs: ${signals.html.password_input_count}\n- Credential terms: ${signals.html.credential_term_count}\n- External targets: ${signals.html.external_target_count}\n\nEmail signals\n- URLs: ${signals.email.url_count}\n- Risk terms: ${signals.email.risk_term_count}\n- Credential requests: ${signals.email.credential_request_count}\n- Calls to action: ${signals.email.call_to_action_count}\n\nRisk flags\n${flags}\n\nThese signals do not change the validated URL probability.`;
+    } catch (error) {
+      output.textContent = "Context analysis could not be completed. Please try again.";
+    }
+  }
+  document.getElementById("load-safe-context").addEventListener("click", async () => {
+    htmlInput.value = benignHtml;
+    emailInput.value = benignEmail;
+    await analyseContext();
   });
+  document.getElementById("load-suspicious-context").addEventListener("click", async () => {
+    htmlInput.value = suspiciousHtml;
+    emailInput.value = suspiciousEmail;
+    await analyseContext();
+  });
+  document.getElementById("analyse-context").addEventListener("click", analyseContext);
   document.getElementById("submit-correction").addEventListener("click", async () => {
     if (!latestPrediction) { output.textContent = "Run a URL prediction before submitting feedback."; return; }
     const predicted = latestPrediction.verdict;

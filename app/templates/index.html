@@ -46,7 +46,7 @@
       </section>
 
       <section id="research-extensions" class="panel research-extensions">
-        <details>
+        <details open>
           <summary>Experimental Context Analysis</summary>
           <div class="context-intro">
             <p><strong>Supplementary evidence only.</strong> These signals are not currently fused into the validated URL-model probability.</p>
@@ -61,15 +61,19 @@
           <p class="field-help">Paste the body of an email here to inspect phishing-related language. The application will not access your mailbox. Do not include passwords or sensitive information.</p>
           <textarea id="context-email" rows="5" placeholder="Paste an email body here..."></textarea>
 
+          <p class="context-step-title"><strong>Quick test:</strong> choose an example below. It will be loaded and analysed immediately.</p>
           <div class="example-actions">
-            <button type="button" id="load-safe-context" class="secondary">Load Safe Example</button>
-            <button type="button" id="load-suspicious-context" class="secondary">Load Suspicious-Style Example</button>
+            <button type="button" id="load-safe-context" class="secondary">Load and Analyse Safe Example</button>
+            <button type="button" id="load-suspicious-context" class="secondary">Load and Analyse Suspicious Example</button>
           </div>
-          <div class="research-actions">
-            <button type="button" id="analyse-context">Analyse Optional Context</button>
-            <button type="button" id="submit-correction" class="secondary">Report Prediction as Incorrect</button>
-          </div>
+          <p class="context-step-title"><strong>Using your own text:</strong> paste HTML and/or email text above, then select this button.</p>
+          <button type="button" id="analyse-context" class="context-analyse-button">ANALYSE PASTED HTML / EMAIL</button>
+          <p class="field-help context-result-help">The context-analysis output appears directly below.</p>
           <div id="context-output" class="context-output" aria-live="polite">No optional context supplied.</div>
+          <div class="feedback-zone">
+            <p><strong>URL prediction feedback</strong> - this is separate from context analysis.</p>
+            <button type="button" id="submit-correction" class="secondary">Report Main URL Prediction as Incorrect</button>
+          </div>
         </details>
       </section>
 

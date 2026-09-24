@@ -181,4 +181,11 @@ code {
 .research-actions, .example-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin: .5rem 0; }
 .research-actions button { border: 0; border-radius: .65rem; padding: .7rem 1rem; background: var(--primary); color: #fff; font-weight: 800; cursor: pointer; }
 .research-actions button.secondary, .example-actions button.secondary { border: 1px solid var(--line); border-radius: .65rem; padding: .7rem 1rem; background: #33405f; color: #fff; font-weight: 800; cursor: pointer; }
+.context-step-title { margin: .8rem 0 .4rem; }
+.context-analyse-button { display: block !important; visibility: visible !important; opacity: 1 !important; width: 100%; min-height: 3.25rem; margin: .55rem 0 .3rem; border: 3px solid #123ba8; border-radius: .7rem; background: #2457dc; color: #fff; font-size: 1rem; font-weight: 900; letter-spacing: .02em; cursor: pointer; }
+.context-analyse-button:hover { background: #1848c7; }
+.context-result-help { text-align: center; }
 .context-output { white-space: pre-wrap; overflow-wrap: anywhere; background: #f6f8ff; border: 1px solid var(--line); border-radius: .65rem; margin-top: .8rem; padding: .8rem; min-height: 1.2rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .86rem; line-height: 1.5; }
+.feedback-zone { margin-top: 1rem; padding-top: .8rem; border-top: 1px dashed var(--line); }
+.feedback-zone p { margin: 0 0 .5rem; color: var(--muted); }
+.feedback-zone button { border: 1px solid var(--line); border-radius: .65rem; padding: .7rem 1rem; background: #33405f; color: #fff; font-weight: 800; cursor: pointer; }
