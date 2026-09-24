@@ -90,6 +90,64 @@ Synthetic coverage, fixed subset, heuristic context, ephemeral serverless feedba
 
 **Proof to open:** `docs/FINAL_REPORT.md`
 
+## Reliability-fix questions
+
+### Why did `google.com/` previously produce a different prediction?
+
+The CNN reads literal characters. Before reliable canonicalization, a root slash or missing scheme changed its sequence even when the user meant the same root website. The narrow slash symptom had already been hotfixed, but the audit found the scheme-less form remained unstable.
+
+### What did you change?
+
+We created one conservative string-only canonicalizer and apply it before both feature extraction and tokenization. We also added an external/OOD corpus, training-membership annotations, local/deployed parity checks, and explicit context UX.
+
+### Did you whitelist Google?
+
+No. There is no brand/domain allowlist in inference. Google is only one test record in a transparent regression dataset; the canonical rules apply equally to every host.
+
+### What is URL canonicalization?
+
+It maps safely equivalent text representations to one representation, such as trimming outer spaces, lowercasing scheme/host, supplying HTTPS when the scheme is absent, and treating an empty root path like `/`.
+
+### Why only normalize equivalent root URLs?
+
+The root paths `host` and `host/` identify the same resource. By contrast, `/app` and `/app/` can route differently, so both are preserved.
+
+### Why not strip every slash?
+
+Slashes inside paths carry structure and may change server routing. Removing them would be over-normalization and could hide phishing signals.
+
+### How did you test URLs outside training data?
+
+The external suite contains known official roots, difficult legitimate login/account paths, format variants, documented project URLs, reserved documentation domains, and inert synthetic phishing strings.
+
+### How do you know whether an external URL was in training?
+
+Each output records exact-string membership plus whether its registered domain occurs in train, validation, or test splits. Registered domains are extracted offline using the packaged public-suffix snapshot.
+
+### Why not claim 100% external accuracy?
+
+The suite is a transparent regression sample, not every possible URL. All failures are retained with component probabilities and relevant features.
+
+### What is the HTML box?
+
+It accepts raw HTML text pasted by the user and counts local structural/credential indicators. It does not accept or fetch a webpage URL.
+
+### Is HTML analysis part of the trained ensemble?
+
+No. It remains supplementary because the project lacks a labelled HTML/email corpus for calibrated training and evaluation.
+
+### Does the app visit the URL?
+
+No. URL prediction, canonicalization, context parsing, adversarial generation, and regression testing operate on strings only.
+
+### How does context improve the research contribution?
+
+It implements a safe, clearly separated version of the paper's context-analysis future work while preserving scientific honesty about what has and has not been validated.
+
+### Original work versus today's fix
+
+The paper supplied CNN, LightGBM, 36 URL features, ensembling, and reported 100% precision. We independently reproduced training/evaluation and a local UI. The research extension added adversarial robustness, context evidence, verified feedback, drift, and model governance. Today's work is a production reliability fix: shared canonicalization, external/OOD regression testing, production invariance checks, and clearer context UX.
+
 ### 5. How prevent domain leakage?
 
 **Short answer:** Root domains are split-disjoint.
