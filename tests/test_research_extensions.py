@@ -1,9 +1,10 @@
 import socket
+import urllib.request
 import numpy as np, pandas as pd, pytest
 from fastapi.testclient import TestClient
 from app.main import app
 from src.adversarial_urls import MUTATION_TYPES, mutate_url
-from src.context_features import analyze_context
+from src.context_features import analyze_context, analyze_email, analyze_html
 from src.continuous_learning import FeedbackStore, ModelRegistry, validation_gate
 from src.drift_monitor import create_drift_report
 
@@ -62,3 +63,66 @@ def test_predict_context_endpoint(monkeypatch):
     monkeypatch.setattr(research_api,"_inference",lambda:FakeInference())
     response=TestClient(app).post("/predict-context",json={"url":"https://example.com","html":"<form><input type='password'></form>","email_text":"verify account"})
     assert response.status_code==200 and response.json()["probabilities_mixed"] is False and response.json()["context_signals"]["html"]["form_count"]==1
+
+
+SAFE_HTML = "<html><body><h1>Welcome</h1><p>This is a documentation page.</p></body></html>"
+SUSPICIOUS_HTML = "<html><body><form action='/verify'><input type='text' name='username'><input type='password' name='password'><button>Verify Account</button></form></body></html>"
+SAFE_EMAIL = "Hi team,\n\nThe project meeting is tomorrow at 10 AM.\nPlease bring the final report.\n\nThanks."
+SUSPICIOUS_EMAIL = "URGENT: Your account will be suspended.\n\nVerify your login immediately and confirm your password to prevent account closure."
+
+
+def test_html_endpoint_is_independent_and_distinguishes_examples():
+    client = TestClient(app)
+    safe = client.post("/analyze-html", json={"html": SAFE_HTML})
+    suspicious = client.post("/analyze-html", json={"html": SUSPICIOUS_HTML})
+    assert safe.status_code == suspicious.status_code == 200
+    assert safe.json()["analysis_type"] == "html"
+    assert "url" not in safe.json() and "email" not in safe.json()
+    assert suspicious.json()["signals"]["form_count"] == 1
+    assert suspicious.json()["signals"]["password_input_count"] == 1
+    assert suspicious.json()["signals"]["credential_term_count"] > safe.json()["signals"]["credential_term_count"]
+    assert suspicious.json()["context_risk"]["level"] == "ELEVATED"
+    assert suspicious.json()["network_access"] is False and suspicious.json()["html_executed"] is False
+    assert suspicious.json()["included_in_validated_probability"] is False
+
+
+def test_email_endpoint_is_independent_and_distinguishes_examples():
+    client = TestClient(app)
+    safe = client.post("/analyze-email", json={"email_text": SAFE_EMAIL})
+    suspicious = client.post("/analyze-email", json={"email_text": SUSPICIOUS_EMAIL})
+    assert safe.status_code == suspicious.status_code == 200
+    assert safe.json()["analysis_type"] == "email"
+    assert "url" not in safe.json() and "html" not in safe.json()
+    assert suspicious.json()["signals"]["risk_term_count"] > safe.json()["signals"]["risk_term_count"]
+    assert suspicious.json()["signals"]["credential_request_count"] == 1
+    assert suspicious.json()["context_risk"]["level"] == "ELEVATED"
+    assert suspicious.json()["network_access"] is False and suspicious.json()["mailbox_access"] is False
+    assert suspicious.json()["included_in_validated_probability"] is False
+
+
+@pytest.mark.parametrize(("path", "payload"), [
+    ("/analyze-html", {"html": "   "}),
+    ("/analyze-email", {"email_text": "\n\t"}),
+])
+def test_independent_context_endpoints_reject_empty_text(path, payload):
+    response = TestClient(app).post(path, json=payload)
+    assert response.status_code == 400
+    assert "Paste" in response.json()["detail"]
+
+
+def test_independent_context_analysis_is_network_free(monkeypatch):
+    def fail_network(*args, **kwargs):
+        raise AssertionError("network access forbidden")
+    monkeypatch.setattr(socket, "create_connection", fail_network)
+    monkeypatch.setattr(urllib.request, "urlopen", fail_network)
+    assert analyze_html(SUSPICIOUS_HTML)["network_access"] is False
+    assert analyze_email(SUSPICIOUS_EMAIL)["network_access"] is False
+
+
+def test_frontend_exposes_three_independent_tools():
+    page = TestClient(app).get("/").text
+    assert "URL Phishing Detector" in page
+    assert 'id="analyseHtmlBtn"' in page and 'id="htmlInput"' in page and 'id="htmlResult"' in page
+    assert 'id="analyseEmailBtn"' in page and 'id="emailInput"' in page and 'id="emailResult"' in page
+    assert "HTML Phishing Context Analyzer" in page
+    assert "Email Phishing Context Analyzer" in page
