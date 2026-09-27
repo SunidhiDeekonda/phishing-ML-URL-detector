@@ -361,3 +361,27 @@ Yes. `POST /analyze-html` requires only HTML, and `POST /analyze-email` requires
 ### What came from the original paper and what did you add?
 
 The original methodology provided URL classification using a character CNN, 36 engineered URL features, LightGBM, and ensembling. Our work reproduced that pipeline and added domain-separated evaluation, adversarial robustness, independent HTML/email context evidence, verified feedback, drift monitoring, model registry, reliability canonicalization, and production regression testing.
+
+## GitHub false-positive defense
+
+### Why did your own GitHub repository get classified as phishing?
+
+**20-second answer:** The URL was legitimate, so the result was a false positive. The original data accidentally taught both models that almost any non-root path looks like phishing: all legitimate examples were roots, while 97% of training phishing examples had paths. GitHub was absent from every split, so ordinary repository paths were out of distribution.
+
+**One-minute technical answer:** The original CNN returned `0.9999998700` and LightGBM returned `0.9993945513`. Counterfactual tests showed that neutral GitHub paths also saturated, proving the literal repository name was not the sole cause. For LightGBM, local contribution analysis identified path length as the strongest positive contribution. The selected ensemble was 95% CNN, so two correlated errors produced `0.9999696041`. We preserved this evidence, built a separately partitioned legitimate hard-negative corpus, trained versioned production artifacts with adversarial examples retained, and required a validation gate before inspecting the hard-negative test.
+
+### Does that mean GitHub is phishing?
+
+No. A normal repository page is not phishing merely because it is on GitHub. User-hosted `github.io` pages, raw content, links inside repositories, and abused platform content must be assessed separately.
+
+### Why did you not whitelist GitHub?
+
+A whitelist would hide the learned shortcut and would incorrectly treat all platform content as safe. Production inference contains no GitHub/domain allowlist. The repair uses labelled hard-negative training and transparent regression tests.
+
+### What is `[object Object]`?
+
+It is JavaScript's default text conversion for a nested object. It was a frontend rendering defect, not an ML result. The UI now renders each returned signal and nested context-risk field explicitly through reusable defensive renderers.
+
+### Does HTML analysis determine whether a website is phishing?
+
+No. It parses manually pasted, inert HTML text for supplementary indicators. It neither fetches nor executes the page, and it is not part of the calibrated URL probability.

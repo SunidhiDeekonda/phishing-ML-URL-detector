@@ -42,9 +42,10 @@ function setUrlResult(payload) {
   latestPrediction = payload;
   statusText.classList.add("hidden");
   resultCard.className = payload.verdict === "PHISHING" ? "card phishing" : "card legit";
-  resultCard.innerHTML = `<div class="verdict">${payload.verdict}</div><p class="muted">Confidence: ${(payload.confidence * 100).toFixed(1)}%</p><p class="muted">Selected Ensemble: ${(payload.selected_ensemble_probability * 100).toFixed(1)}% phishing probability</p><p class="muted">Canonical URL analysed: ${escapeHtml(payload.url)}</p>`;
+  const explanation = payload.verdict === "PHISHING" ? `<div class="prediction-explanation"><h4>Why might the model be suspicious?</h4>${payload.notable_signals.length ? `<ul>${payload.notable_signals.map((value) => `<li>${escapeHtml(value)}</li>`).join("")}</ul>` : "<p>No single notable engineered value explains this result.</p>"}<p class="small">${escapeHtml(payload.explanation_caveat)}</p></div>` : "";
+  resultCard.innerHTML = `<div class="verdict">${payload.verdict}</div><p class="muted">Confidence: ${(payload.confidence * 100).toFixed(1)}%</p><p class="muted">Selected Ensemble: ${(payload.selected_ensemble_probability * 100).toFixed(1)}% phishing probability</p><p class="muted">Canonical URL analysed: ${escapeHtml(payload.url)}</p>${explanation}`;
   breakdownEl.replaceChildren();
-  [["Char-CNN",payload.cnn_probability],["LightGBM",payload.lightgbm_probability],["Reference Ensemble (60/40)",payload.reference_ensemble_probability],["Selected Ensemble (95/5)",payload.selected_ensemble_probability]].forEach(([name,value]) => {
+  [["Char-CNN",payload.cnn_probability],["LightGBM",payload.lightgbm_probability],["Reference Ensemble (60/40)",payload.reference_ensemble_probability],[`Production Ensemble (${Math.round(payload.selected_weights.cnn * 100)}/${Math.round(payload.selected_weights.lightgbm * 100)})`,payload.selected_ensemble_probability]].forEach(([name,value]) => {
     const item = document.createElement("li"); item.textContent = `${name}: ${(value * 100).toFixed(1)}%`; breakdownEl.appendChild(item);
   });
   signalsEl.replaceChildren();
@@ -76,8 +77,15 @@ async function analyseUrl() {
 }
 
 function riskMarkup(contextRisk) {
-  const indicators = contextRisk.indicators.length ? `<ul>${contextRisk.indicators.map((value) => `<li>${escapeHtml(value)}</li>`).join("")}</ul>` : "<p>No elevated warning combination detected.</p>";
-  return `<div class="risk-summary ${contextRisk.level === "ELEVATED" ? "risk-elevated" : "risk-low"}"><strong>Context Risk: ${escapeHtml(contextRisk.level)}</strong><p>${escapeHtml(contextRisk.summary)}</p>${indicators}</div>`;
+  const risk = contextRisk && typeof contextRisk === "object" ? contextRisk : {};
+  const values = Array.isArray(risk.indicators) ? risk.indicators : [];
+  const indicators = values.length ? `<ul>${values.map((value) => `<li>${escapeHtml(value)}</li>`).join("")}</ul>` : "<p>No elevated warning combination detected.</p>";
+  return `<div class="risk-summary ${risk.level === "ELEVATED" ? "risk-elevated" : "risk-low"}"><strong>Context Risk: ${escapeHtml(risk.level || "UNKNOWN")}</strong><p>${escapeHtml(risk.summary || "No summary returned.")}</p>${indicators}</div>`;
+}
+
+function signalMarkup(signals, fields) {
+  const source = signals && typeof signals === "object" ? signals : {};
+  return `<dl class="signal-list">${fields.map(([key, label, format]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(format ? format(source[key] || 0) : source[key] || 0)}</dd></div>`).join("")}</dl>`;
 }
 
 async function analyseHtmlContext() {
@@ -91,8 +99,9 @@ async function analyseHtmlContext() {
     const payload = await response.json();
     const error = await responseError(response, payload, "HTML analysis failed.");
     if (error) throw new Error(error);
-    const s = payload.signals;
-    htmlResult.innerHTML = `<h3>HTML Context Analysis</h3>${riskMarkup(payload.context_risk)}<dl class="signal-list"><div><dt>Forms detected</dt><dd>${s.form_count}</dd></div><div><dt>Password fields</dt><dd>${s.password_input_count}</dd></div><div><dt>Iframes</dt><dd>${s.iframe_count}</dd></div><div><dt>Scripts</dt><dd>${s.script_count}</dd></div><div><dt>External targets</dt><dd>${s.external_target_count ? "YES (" + s.external_target_count + ")" : "NO"}</dd></div><div><dt>Meta refresh</dt><dd>${s.meta_refresh_count ? "YES (" + s.meta_refresh_count + ")" : "NO"}</dd></div><div><dt>Credential-related terms</dt><dd>${s.credential_term_count}</dd></div></dl><p class="separation-note">Context evidence only. HTML was not executed and no network request was made.</p>`;
+    const yesNoCount = (value) => value ? `YES (${value})` : "NO";
+    const fields = [["form_count","Forms detected"],["password_input_count","Password fields"],["iframe_count","Iframes"],["script_count","Scripts"],["external_target_count","External targets",yesNoCount],["meta_refresh_count","Meta refresh",yesNoCount],["credential_term_count","Credential-related terms"]];
+    htmlResult.innerHTML = `<h3>HTML Context Analysis</h3>${riskMarkup(payload.context_risk)}${signalMarkup(payload.signals, fields)}<p class="separation-note">Context evidence only. HTML was not executed and no network request was made.</p>`;
   } catch (error) {
     htmlError.textContent = error instanceof Error ? error.message : "HTML analysis failed.";
     htmlError.classList.remove("hidden");
@@ -110,8 +119,8 @@ async function analyseEmailContext() {
     const payload = await response.json();
     const error = await responseError(response, payload, "Email analysis failed.");
     if (error) throw new Error(error);
-    const s = payload.signals;
-    emailResult.innerHTML = `<h3>Email Context Analysis</h3>${riskMarkup(payload.context_risk)}<dl class="signal-list"><div><dt>URLs found</dt><dd>${s.url_count}</dd></div><div><dt>Implemented risk terms</dt><dd>${s.risk_term_count}</dd></div><div><dt>Credential-request phrases</dt><dd>${s.credential_request_count}</dd></div><div><dt>Exact calls to action</dt><dd>${s.call_to_action_count}</dd></div></dl><p class="separation-note">Context evidence only. No Gmail or mailbox access occurred.</p>`;
+    const fields = [["url_count","URLs found"],["risk_term_count","Implemented risk terms"],["credential_request_count","Credential-request phrases"],["call_to_action_count","Exact calls to action"]];
+    emailResult.innerHTML = `<h3>Email Context Analysis</h3>${riskMarkup(payload.context_risk)}${signalMarkup(payload.signals, fields)}<p class="separation-note">Context evidence only. No Gmail or mailbox access occurred.</p>`;
   } catch (error) {
     emailError.textContent = error instanceof Error ? error.message : "Email analysis failed.";
     emailError.classList.remove("hidden");

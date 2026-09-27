@@ -120,9 +120,9 @@
         <details>
           <summary>Research and Model Information</summary>
           <div class="about">
-            <p><strong>Validated URL classifier:</strong> Character-Level CNN + calibrated LightGBM using 36 URL features and validation-selected 95/5 weights.</p>
+            <p><strong>Production URL classifier:</strong> hard-negative-aware Character-Level CNN + calibrated LightGBM using 36 URL features and validation-selected production weights.</p>
             <p><strong>Experimental extensions:</strong> standalone deterministic HTML and email context evidence, adversarial robustness, verified feedback, drift monitoring, and model registry.</p>
-            <p><strong>Historical URL experiment:</strong> 20,000 URLs; domain-separated 14,002/2,000/3,998 split; accuracy 99.525%; precision 100.000%; recall 99.048%; ROC-AUC 99.931%.</p>
+            <p><strong>Historical URL experiment:</strong> 20,000 URLs; domain-separated 14,002/2,000/3,998 split; 95/5 ensemble; accuracy 99.525%; precision 100.000%; recall 99.048%; ROC-AUC 99.931%. Production V2 is a separately documented reliability model.</p>
             <p>These historical URL metrics do not apply to the HTML or email analyzers.</p>
           </div>
         </details>

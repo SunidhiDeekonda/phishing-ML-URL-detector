@@ -13,6 +13,9 @@ body { margin:0; font-family:"Trebuchet MS",Arial,sans-serif; color:var(--text);
 .tool-header { margin-bottom:1rem; }
 .tool-header h2 { margin:.55rem 0 .35rem; font-size:1.55rem; }
 .tool-header p { margin:0; color:var(--muted); line-height:1.5; }
+.prediction-explanation { margin-top:1rem; padding:1rem; border:1px solid #f0b4b4; border-radius:12px; background:#fffafa; }
+.prediction-explanation h4 { margin:0 0 .5rem; }
+.prediction-explanation ul { margin:.4rem 0 .6rem; }
 .tool-number { display:inline-grid; place-items:center; width:2rem; height:2rem; margin-right:.5rem; border-radius:50%; background:#172554; color:#fff; font-size:.76rem; font-weight:900; }
 .badge { display:inline-block; padding:.28rem .55rem; border-radius:999px; font-size:.72rem; font-weight:900; letter-spacing:.05em; text-transform:uppercase; }
 .badge.validated { background:#dcfce7; color:#166534; }
