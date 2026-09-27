@@ -11,107 +11,127 @@
       <header class="hero">
         <p class="eyebrow">College Reproducibility Demo</p>
         <h1>AI-Based Phishing Detection System</h1>
-        <p class="subtitle">Character-Level CNN + LightGBM Ensemble</p>
+        <p class="subtitle">Three independent tools for URL, HTML, and email evidence</p>
       </header>
 
-      <section class="panel">
-        <label for="urlInput">Enter a URL to analyse</label>
+      <section class="panel tool-section url-tool" id="url-detector">
+        <div class="tool-header">
+          <div><span class="tool-number">01</span><span class="badge validated">Validated ML</span></div>
+          <h2>URL Phishing Detector</h2>
+          <p>Enter a URL to classify it with the trained Character-Level CNN and LightGBM production ensemble.</p>
+        </div>
+        <label for="urlInput"><strong>Enter a URL to analyse</strong></label>
         <div class="input-row">
-          <input
-            id="urlInput"
-            type="text"
-            placeholder="https://example.com/login"
-            autocomplete="off"
-          />
-          <button id="analyseBtn">Analyse URL</button>
+          <input id="urlInput" type="text" placeholder="https://example.com/login" autocomplete="off" />
+          <button id="analyseBtn">ANALYSE URL</button>
         </div>
         <p id="formError" class="small error hidden"></p>
-      </section>
 
-      <section class="panel result-panel" id="resultPanel" aria-live="polite">
-        <h2>Prediction</h2>
-        <p id="statusText">Run a prediction to see the verdict.</p>
-        <div id="resultCard" class="card hidden"></div>
-      </section>
-
-      <section class="grid">
-        <section class="panel">
-          <h3>Model Probability Breakdown</h3>
-          <ul id="breakdown" class="breakdown-list"></ul>
+        <section class="result-panel" id="resultPanel" aria-live="polite">
+          <h3>URL Prediction</h3>
+          <p id="statusText">Run a URL prediction to see the verdict.</p>
+          <div id="resultCard" class="card hidden"></div>
         </section>
-        <section class="panel">
-          <h3>URL Signals</h3>
-          <ul id="signals"></ul>
+
+        <div class="grid result-grid">
+          <section class="subpanel">
+            <h3>Model Probability Breakdown</h3>
+            <ul id="breakdown" class="breakdown-list"></ul>
+          </section>
+          <section class="subpanel">
+            <h3>URL Signals</h3>
+            <ul id="signals"></ul>
+          </section>
+        </div>
+
+        <div class="explanation-grid">
+          <div><h3>How URL Detection Works</h3><p>The CNN learns character patterns and suspicious URL structures. LightGBM analyses 36 engineered features including length, hostname entropy, dots, digit/letter ratio, suspicious TLDs, special characters, and login/verify keywords. The ensemble combines both outputs.</p></div>
+          <div class="safety-note"><h3>What it does not do</h3><p>The application analyses the URL as text. It does not visit the URL, resolve redirects, or download a webpage.</p></div>
+        </div>
+
+        <div class="feedback-zone">
+          <p><strong>Was the URL verdict wrong?</strong> Feedback is quarantined for human verification and never retrains automatically.</p>
+          <button type="button" id="submit-correction" class="secondary">REPORT URL PREDICTION AS INCORRECT</button>
+          <p id="urlFeedbackStatus" class="field-help" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <header class="section-intro">
+        <p class="eyebrow">Research Extensions</p>
+        <h2>Independent Context Evidence</h2>
+        <p>These analyzers inspect only text you paste. They are not trained URL-model probabilities and do not alter the validated ensemble.</p>
+      </header>
+
+      <section class="panel tool-section html-tool" id="html-analyzer">
+        <div class="tool-header">
+          <div><span class="tool-number">02</span><span class="badge experimental">Research Extension</span></div>
+          <h2>HTML Phishing Context Analyzer</h2>
+          <p>Paste raw HTML source or an HTML snippet to inspect structural signals commonly associated with phishing pages.</p>
+        </div>
+        <label for="htmlInput"><strong>HTML source</strong></label>
+        <textarea id="htmlInput" rows="9" placeholder="Paste HTML source here..."></textarea>
+        <div class="example-actions">
+          <button type="button" id="loadSafeHtml" class="secondary">LOAD SAFE EXAMPLE</button>
+          <button type="button" id="loadSuspiciousHtml" class="secondary">LOAD SUSPICIOUS EXAMPLE</button>
+        </div>
+        <button type="button" id="analyseHtmlBtn" class="tool-action html-action">ANALYSE HTML</button>
+        <p id="htmlError" class="small error hidden"></p>
+
+        <div class="explanation-grid">
+          <div><h3>How HTML Analysis Works</h3><p>It parses the supplied text for forms, password fields, external action/link/source targets, iframes, scripts, meta refresh, credential terms, and account/login language.</p></div>
+          <div class="safety-note"><h3>What it does not do</h3><p>It does not open a website, execute HTML or JavaScript, or make network requests. Only pasted text is parsed.</p></div>
+          <div class="why-note"><h3>Why we added this</h3><p>The reference system focused primarily on URL analysis. This module explores HTML-level evidence without altering the validated URL classifier.</p></div>
+        </div>
+        <p class="scientific-note"><strong>Scientific distinction:</strong> HTML produces contextual risk evidence, not CNN, LightGBM, or validated phishing probability. A labelled HTML-content dataset would be required for calibrated fusion.</p>
+        <section id="htmlResult" class="context-result" aria-live="polite">
+          <h3>HTML Context Analysis</h3>
+          <p>No HTML has been analysed yet.</p>
         </section>
       </section>
 
-      <section id="research-extensions" class="panel research-extensions">
-        <details open>
-          <summary>Experimental Context Analysis</summary>
-          <div class="context-intro">
-            <p><strong>Supplementary evidence only.</strong> These signals are not currently fused into the validated URL-model probability.</p>
-            <p>The application analyses only text you paste below. It does not visit the URL or access your mailbox.</p>
-          </div>
+      <section class="panel tool-section email-tool" id="email-analyzer">
+        <div class="tool-header">
+          <div><span class="tool-number">03</span><span class="badge experimental">Research Extension</span></div>
+          <h2>Email Phishing Context Analyzer</h2>
+          <p>Paste email text to inspect language signals associated with phishing and social-engineering messages.</p>
+        </div>
+        <label for="emailInput"><strong>Email text</strong></label>
+        <textarea id="emailInput" rows="8" placeholder="Paste email content here..."></textarea>
+        <div class="example-actions">
+          <button type="button" id="loadSafeEmail" class="secondary">LOAD SAFE EXAMPLE</button>
+          <button type="button" id="loadSuspiciousEmail" class="secondary">LOAD SUSPICIOUS EXAMPLE</button>
+        </div>
+        <button type="button" id="analyseEmailBtn" class="tool-action email-action">ANALYSE EMAIL</button>
+        <p id="emailError" class="small error hidden"></p>
 
-          <label for="context-html"><strong>HTML Context - Optional</strong></label>
-          <p class="field-help">Paste raw HTML source or an HTML snippet here. Do not paste another URL. The application analyses the supplied text locally and will not fetch the webpage.</p>
-          <textarea id="context-html" rows="6" placeholder="<html><body><h1>Welcome</h1></body></html>"></textarea>
-
-          <label for="context-email"><strong>Email Text - Optional</strong></label>
-          <p class="field-help">Paste the body of an email here to inspect phishing-related language. The application will not access your mailbox. Do not include passwords or sensitive information.</p>
-          <textarea id="context-email" rows="5" placeholder="Paste an email body here..."></textarea>
-
-          <p class="context-step-title"><strong>Quick test:</strong> choose an example below. It will be loaded and analysed immediately.</p>
-          <div class="example-actions">
-            <button type="button" id="load-safe-context" class="secondary">Load and Analyse Safe Example</button>
-            <button type="button" id="load-suspicious-context" class="secondary">Load and Analyse Suspicious Example</button>
-          </div>
-          <p class="context-step-title"><strong>Using your own text:</strong> paste HTML and/or email text above, then select this button.</p>
-          <button type="button" id="analyse-context" class="context-analyse-button">ANALYSE PASTED HTML / EMAIL</button>
-          <p class="field-help context-result-help">The context-analysis output appears directly below.</p>
-          <div id="context-output" class="context-output" aria-live="polite">No optional context supplied.</div>
-          <div class="feedback-zone">
-            <p><strong>URL prediction feedback</strong> - this is separate from context analysis.</p>
-            <button type="button" id="submit-correction" class="secondary">Report Main URL Prediction as Incorrect</button>
-          </div>
-        </details>
+        <div class="explanation-grid">
+          <div><h3>How Email Analysis Works</h3><p>It counts implemented risk words such as urgent, suspend, verify, login, account, password, credential, and confirm; credential-request phrases; exact call-to-action phrases; and URLs in the message.</p></div>
+          <div class="safety-note"><h3>What it does not do</h3><p>It does not connect to Gmail, access an inbox, or send the text to an external mailbox service. Only manually pasted text is analysed.</p></div>
+          <div class="why-note"><h3>Why we added this</h3><p>Phishing often reaches users through social-engineering email. This module extends the system beyond URL-only evidence.</p></div>
+        </div>
+        <p class="scientific-note"><strong>Scientific distinction:</strong> Email results are contextual evidence only. They are not included in the validated CNN + LightGBM probability.</p>
+        <section id="emailResult" class="context-result" aria-live="polite">
+          <h3>Email Context Analysis</h3>
+          <p>No email text has been analysed yet.</p>
+        </section>
       </section>
 
-      <section class="panel">
+      <section class="panel model-info">
         <details>
-          <summary>About the Model</summary>
+          <summary>Research and Model Information</summary>
           <div class="about">
-            <ul>
-              <li>Character-level CNN learns character patterns directly from URL strings.</li>
-              <li>LightGBM uses 36 engineered URL features.</li>
-              <li>The final model combines both probabilities in an ensemble.</li>
-              <li>URLs are analysed locally as text and are never visited by this app.</li>
-            </ul>
-            <div class="metrics">
-              <p><strong>Our local experiment:</strong></p>
-              <ul>
-                <li>20,000 URLs</li>
-                <li>14,002 training</li>
-                <li>2,000 validation</li>
-                <li>3,998 held-out test</li>
-                <li>0 domain leakage</li>
-                <li>Accuracy: 99.525%</li>
-                <li>Precision: 100.000%</li>
-                <li>Recall: 99.048%</li>
-                <li>F1: 99.522%</li>
-                <li>ROC-AUC: 99.931%</li>
-              </ul>
-              <p>Reference study accuracy: 99.819% (reported for reference only).</p>
-            </div>
+            <p><strong>Validated URL classifier:</strong> Character-Level CNN + calibrated LightGBM using 36 URL features and validation-selected 95/5 weights.</p>
+            <p><strong>Experimental extensions:</strong> standalone deterministic HTML and email context evidence, adversarial robustness, verified feedback, drift monitoring, and model registry.</p>
+            <p><strong>Historical URL experiment:</strong> 20,000 URLs; domain-separated 14,002/2,000/3,998 split; accuracy 99.525%; precision 100.000%; recall 99.048%; ROC-AUC 99.931%.</p>
+            <p>These historical URL metrics do not apply to the HTML or email analyzers.</p>
           </div>
         </details>
       </section>
     </main>
 
     <footer class="footer">
-      <span>Demo endpoint: POST <code>/predict</code> · Health: <code>/health</code></span>
+      <span>URL: <code>POST /predict</code> &middot; HTML: <code>POST /analyze-html</code> &middot; Email: <code>POST /analyze-email</code></span>
     </footer>
-
     <script src="/static/app.js"></script>
   </body>
 </html>

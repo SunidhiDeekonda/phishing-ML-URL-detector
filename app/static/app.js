@@ -6,156 +6,133 @@ const resultPanel = document.getElementById("resultPanel");
 const breakdownEl = document.getElementById("breakdown");
 const signalsEl = document.getElementById("signals");
 const formError = document.getElementById("formError");
+const urlFeedbackStatus = document.getElementById("urlFeedbackStatus");
+const htmlInput = document.getElementById("htmlInput");
+const htmlError = document.getElementById("htmlError");
+const htmlResult = document.getElementById("htmlResult");
+const analyseHtmlBtn = document.getElementById("analyseHtmlBtn");
+const emailInput = document.getElementById("emailInput");
+const emailError = document.getElementById("emailError");
+const emailResult = document.getElementById("emailResult");
+const analyseEmailBtn = document.getElementById("analyseEmailBtn");
 let latestPrediction = null;
 
-function clearErrors() {
-  formError.textContent = "";
-  formError.classList.add("hidden");
+const safeHtml = "<html>\n<body>\n<h1>Welcome</h1>\n<p>This is a documentation page.</p>\n</body>\n</html>";
+const suspiciousHtml = "<html>\n<body>\n<form action=\"/verify\">\n<input type=\"text\" name=\"username\">\n<input type=\"password\" name=\"password\">\n<button>Verify Account</button>\n</form>\n</body>\n</html>";
+const safeEmail = "Hi team,\n\nThe project meeting is tomorrow at 10 AM.\nPlease bring the final report.\n\nThanks.";
+const suspiciousEmail = "URGENT: Your account will be suspended.\n\nVerify your login immediately and confirm your password to prevent account closure.";
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>'"]/g, (character) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"})[character]);
 }
 
-function setBusy(state) {
-  analyseBtn.disabled = state;
-  analyseBtn.textContent = state ? "ANALYSING..." : "ANALYSE URL";
+async function responseError(response, payload, fallback) {
+  if (response.ok) return "";
+  if (typeof payload.detail === "string") return payload.detail;
+  if (Array.isArray(payload.detail)) return payload.detail.map((item) => item.msg).join("; ");
+  return fallback;
 }
 
-function setResult(payload) {
+function setButtonBusy(button, busy, normalText) {
+  button.disabled = busy;
+  button.textContent = busy ? "ANALYSING..." : normalText;
+}
+
+function setUrlResult(payload) {
   latestPrediction = payload;
-  const phishingProbability = payload.selected_ensemble_probability;
-  const confidence = payload.confidence;
-  const verdict = payload.verdict;
-
   statusText.classList.add("hidden");
-  resultCard.classList.remove("hidden");
-
-  resultCard.className = verdict === "PHISHING" ? "card phishing" : "card legit";
-  resultCard.innerHTML = `
-    <div class="verdict">${verdict}</div>
-    <p class="muted">Confidence: ${(confidence * 100).toFixed(1)}%</p>
-    <p class="muted">Selected Ensemble: ${(phishingProbability * 100).toFixed(1)}% phishing probability</p>
-    <p class="muted">Canonical URL analysed: ${payload.url}</p>
-  `;
-
-  breakdownEl.innerHTML = "";
-  const items = [
-    ["Char-CNN", payload.cnn_probability],
-    ["LightGBM", payload.lightgbm_probability],
-    ["Reference Ensemble (60/40)", payload.reference_ensemble_probability],
-    ["Selected Ensemble (95/5)", payload.selected_ensemble_probability],
-  ];
-  for (const [name, value] of items) {
-    const li = document.createElement("li");
-    li.textContent = `${name}: ${(value * 100).toFixed(1)}%`;
-    breakdownEl.appendChild(li);
-  }
-
-  signalsEl.innerHTML = "";
-  const orderedSignals = Object.entries(payload.important_features || {});
-  for (const [name, value] of orderedSignals) {
-    const li = document.createElement("li");
-    if (typeof value === "boolean") {
-      li.textContent = `${name}: ${value ? "Yes" : "No"}`;
-    } else if (typeof value === "number") {
-      if (Number.isInteger(value)) {
-        li.textContent = `${name}: ${value}`;
-      } else {
-        li.textContent = `${name}: ${value.toFixed(4)}`;
-      }
-    } else {
-      li.textContent = `${name}: ${value}`;
-    }
-    signalsEl.appendChild(li);
-  }
-
-  resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  resultCard.className = payload.verdict === "PHISHING" ? "card phishing" : "card legit";
+  resultCard.innerHTML = `<div class="verdict">${payload.verdict}</div><p class="muted">Confidence: ${(payload.confidence * 100).toFixed(1)}%</p><p class="muted">Selected Ensemble: ${(payload.selected_ensemble_probability * 100).toFixed(1)}% phishing probability</p><p class="muted">Canonical URL analysed: ${escapeHtml(payload.url)}</p>`;
+  breakdownEl.replaceChildren();
+  [["Char-CNN",payload.cnn_probability],["LightGBM",payload.lightgbm_probability],["Reference Ensemble (60/40)",payload.reference_ensemble_probability],["Selected Ensemble (95/5)",payload.selected_ensemble_probability]].forEach(([name,value]) => {
+    const item = document.createElement("li"); item.textContent = `${name}: ${(value * 100).toFixed(1)}%`; breakdownEl.appendChild(item);
+  });
+  signalsEl.replaceChildren();
+  Object.entries(payload.important_features || {}).forEach(([name,value]) => {
+    const item = document.createElement("li");
+    item.textContent = `${name}: ${typeof value === "boolean" ? (value ? "Yes" : "No") : (typeof value === "number" && !Number.isInteger(value) ? value.toFixed(4) : value)}`;
+    signalsEl.appendChild(item);
+  });
+  resultPanel.scrollIntoView({behavior:"smooth",block:"start"});
 }
 
-async function analyse() {
-  clearErrors();
+async function analyseUrl() {
+  formError.classList.add("hidden");
   const url = urlInput.value.trim();
-  if (!url) {
-    formError.textContent = "Please enter a URL.";
-    formError.classList.remove("hidden");
-    return;
-  }
-
-  setBusy(true);
-  statusText.textContent = "Running analysis...";
+  if (!url) { formError.textContent = "Please enter a URL."; formError.classList.remove("hidden"); return; }
+  setButtonBusy(analyseBtn, true, "ANALYSE URL");
+  statusText.textContent = "Running URL analysis...";
   resultCard.classList.add("hidden");
-
   try {
-    const response = await fetch("/predict", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url }),
-    });
+    const response = await fetch("/predict", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url})});
     const payload = await response.json();
-    if (!response.ok) {
-      const detail = payload && payload.detail ? payload.detail : "Prediction failed.";
-      throw new Error(detail);
-    }
-    setResult(payload);
-  } catch (err) {
-    formError.textContent = err instanceof Error ? err.message : "Prediction failed";
+    const error = await responseError(response, payload, "URL prediction failed.");
+    if (error) throw new Error(error);
+    setUrlResult(payload);
+  } catch (error) {
+    formError.textContent = error instanceof Error ? error.message : "URL prediction failed.";
     formError.classList.remove("hidden");
-  } finally {
-    setBusy(false);
-  }
+  } finally { setButtonBusy(analyseBtn, false, "ANALYSE URL"); }
 }
 
-analyseBtn.addEventListener("click", analyse);
-urlInput.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    analyse();
-  }
-});
+function riskMarkup(contextRisk) {
+  const indicators = contextRisk.indicators.length ? `<ul>${contextRisk.indicators.map((value) => `<li>${escapeHtml(value)}</li>`).join("")}</ul>` : "<p>No elevated warning combination detected.</p>";
+  return `<div class="risk-summary ${contextRisk.level === "ELEVATED" ? "risk-elevated" : "risk-low"}"><strong>Context Risk: ${escapeHtml(contextRisk.level)}</strong><p>${escapeHtml(contextRisk.summary)}</p>${indicators}</div>`;
+}
 
-(function setupResearchExtensions() {
-  const section = document.getElementById("research-extensions");
-  if (!section) return;
-  const htmlInput = document.getElementById("context-html");
-  const emailInput = document.getElementById("context-email");
-  const output = document.getElementById("context-output");
-  const benignHtml = "<html>\n<body>\n<h1>Welcome</h1>\n<p>Documentation page.</p>\n</body>\n</html>";
-  const suspiciousHtml = "<html>\n<body>\n<form action=\"/verify\">\n<input type=\"text\" name=\"username\">\n<input type=\"password\" name=\"password\">\n<button>Verify Account</button>\n</form>\n</body>\n</html>";
-  const benignEmail = "Hi team,\nThe project meeting is tomorrow at 10 AM.\nPlease bring the final report.";
-  const suspiciousEmail = "URGENT: Your account will be suspended.\nVerify your login immediately and confirm your password.";
+async function analyseHtmlContext() {
+  htmlError.classList.add("hidden");
+  const html = htmlInput.value.trim();
+  if (!html) { htmlError.textContent = "Paste HTML source or an HTML snippet before analysing."; htmlError.classList.remove("hidden"); return; }
+  setButtonBusy(analyseHtmlBtn, true, "ANALYSE HTML");
+  htmlResult.innerHTML = "<h3>HTML Context Analysis</h3><p>Parsing the supplied HTML text...</p>";
+  try {
+    const response = await fetch("/analyze-html", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({html})});
+    const payload = await response.json();
+    const error = await responseError(response, payload, "HTML analysis failed.");
+    if (error) throw new Error(error);
+    const s = payload.signals;
+    htmlResult.innerHTML = `<h3>HTML Context Analysis</h3>${riskMarkup(payload.context_risk)}<dl class="signal-list"><div><dt>Forms detected</dt><dd>${s.form_count}</dd></div><div><dt>Password fields</dt><dd>${s.password_input_count}</dd></div><div><dt>Iframes</dt><dd>${s.iframe_count}</dd></div><div><dt>Scripts</dt><dd>${s.script_count}</dd></div><div><dt>External targets</dt><dd>${s.external_target_count ? "YES (" + s.external_target_count + ")" : "NO"}</dd></div><div><dt>Meta refresh</dt><dd>${s.meta_refresh_count ? "YES (" + s.meta_refresh_count + ")" : "NO"}</dd></div><div><dt>Credential-related terms</dt><dd>${s.credential_term_count}</dd></div></dl><p class="separation-note">Context evidence only. HTML was not executed and no network request was made.</p>`;
+  } catch (error) {
+    htmlError.textContent = error instanceof Error ? error.message : "HTML analysis failed.";
+    htmlError.classList.remove("hidden");
+  } finally { setButtonBusy(analyseHtmlBtn, false, "ANALYSE HTML"); }
+}
 
-  async function analyseContext() {
-    const url = urlInput.value.trim();
-    if (!url) { output.textContent = "Enter a URL in the main URL box at the top of the page first."; return; }
-    const html = htmlInput.value.trim();
-    const emailText = emailInput.value.trim();
-    if (!html && !emailText) { output.textContent = "No optional context supplied."; return; }
-    output.textContent = "Analysing supplied text locally...";
-    try {
-      const response = await fetch("/predict-context", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url,html:html||null,email_text:emailText||null})});
-      const data = await response.json();
-      if (!response.ok) { output.textContent = data.detail || "Context analysis failed."; return; }
-      const signals = data.context_signals;
-      const flags = signals.context_risk_flags.length ? signals.context_risk_flags.map(flag => `- ${flag}`).join("\n") : "- No context risk flags detected.";
-      output.textContent = `${signals.message}\n\nHTML signals\n- Forms: ${signals.html.form_count}\n- Password inputs: ${signals.html.password_input_count}\n- Credential terms: ${signals.html.credential_term_count}\n- External targets: ${signals.html.external_target_count}\n\nEmail signals\n- URLs: ${signals.email.url_count}\n- Risk terms: ${signals.email.risk_term_count}\n- Credential requests: ${signals.email.credential_request_count}\n- Calls to action: ${signals.email.call_to_action_count}\n\nRisk flags\n${flags}\n\nThese signals do not change the validated URL probability.`;
-    } catch (error) {
-      output.textContent = "Context analysis could not be completed. Please try again.";
-    }
-  }
-  document.getElementById("load-safe-context").addEventListener("click", async () => {
-    htmlInput.value = benignHtml;
-    emailInput.value = benignEmail;
-    await analyseContext();
-  });
-  document.getElementById("load-suspicious-context").addEventListener("click", async () => {
-    htmlInput.value = suspiciousHtml;
-    emailInput.value = suspiciousEmail;
-    await analyseContext();
-  });
-  document.getElementById("analyse-context").addEventListener("click", analyseContext);
-  document.getElementById("submit-correction").addEventListener("click", async () => {
-    if (!latestPrediction) { output.textContent = "Run a URL prediction before submitting feedback."; return; }
-    const predicted = latestPrediction.verdict;
-    const correct = predicted === "PHISHING" ? "LEGITIMATE" : "PHISHING";
-    const response = await fetch("/feedback",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url:latestPrediction.url,predicted_label:predicted,correct_label:correct,optional_notes:"Submitted from demo UI"})});
+async function analyseEmailContext() {
+  emailError.classList.add("hidden");
+  const emailText = emailInput.value.trim();
+  if (!emailText) { emailError.textContent = "Paste email text before analysing."; emailError.classList.remove("hidden"); return; }
+  setButtonBusy(analyseEmailBtn, true, "ANALYSE EMAIL");
+  emailResult.innerHTML = "<h3>Email Context Analysis</h3><p>Inspecting the supplied email text...</p>";
+  try {
+    const response = await fetch("/analyze-email", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email_text:emailText})});
+    const payload = await response.json();
+    const error = await responseError(response, payload, "Email analysis failed.");
+    if (error) throw new Error(error);
+    const s = payload.signals;
+    emailResult.innerHTML = `<h3>Email Context Analysis</h3>${riskMarkup(payload.context_risk)}<dl class="signal-list"><div><dt>URLs found</dt><dd>${s.url_count}</dd></div><div><dt>Implemented risk terms</dt><dd>${s.risk_term_count}</dd></div><div><dt>Credential-request phrases</dt><dd>${s.credential_request_count}</dd></div><div><dt>Exact calls to action</dt><dd>${s.call_to_action_count}</dd></div></dl><p class="separation-note">Context evidence only. No Gmail or mailbox access occurred.</p>`;
+  } catch (error) {
+    emailError.textContent = error instanceof Error ? error.message : "Email analysis failed.";
+    emailError.classList.remove("hidden");
+  } finally { setButtonBusy(analyseEmailBtn, false, "ANALYSE EMAIL"); }
+}
+
+analyseBtn.addEventListener("click", analyseUrl);
+urlInput.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); analyseUrl(); } });
+document.getElementById("loadSafeHtml").addEventListener("click", () => { htmlInput.value = safeHtml; htmlError.classList.add("hidden"); });
+document.getElementById("loadSuspiciousHtml").addEventListener("click", () => { htmlInput.value = suspiciousHtml; htmlError.classList.add("hidden"); });
+document.getElementById("loadSafeEmail").addEventListener("click", () => { emailInput.value = safeEmail; emailError.classList.add("hidden"); });
+document.getElementById("loadSuspiciousEmail").addEventListener("click", () => { emailInput.value = suspiciousEmail; emailError.classList.add("hidden"); });
+analyseHtmlBtn.addEventListener("click", analyseHtmlContext);
+analyseEmailBtn.addEventListener("click", analyseEmailContext);
+document.getElementById("submit-correction").addEventListener("click", async () => {
+  if (!latestPrediction) { urlFeedbackStatus.textContent = "Run a URL prediction before submitting feedback."; return; }
+  const predicted = latestPrediction.verdict;
+  const correct = predicted === "PHISHING" ? "LEGITIMATE" : "PHISHING";
+  try {
+    const response = await fetch("/feedback", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url:latestPrediction.url,predicted_label:predicted,correct_label:correct,optional_notes:"Submitted from demo UI"})});
     const data = await response.json();
-    output.textContent = response.ok ? "Feedback quarantined for human verification. No automatic retraining occurred." : (data.detail || "Feedback was not accepted.");
-  });
-})();
+    urlFeedbackStatus.textContent = response.ok ? "Feedback quarantined for human verification. No automatic retraining occurred." : (data.detail || "Feedback was not accepted.");
+  } catch (error) { urlFeedbackStatus.textContent = "Feedback could not be submitted."; }
+});
