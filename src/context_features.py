@@ -12,7 +12,7 @@ URL_RE = re.compile(r"https?://[^\s<>\"']+", re.I)
 
 
 class _SafeHTMLParser(HTMLParser):
-    def __init__(self, base_url: str) -> None:
+    def __init__(self, base_url: str = "") -> None:
         super().__init__(convert_charrefs=True)
         self.base_host = (urlsplit(base_url if "://" in base_url else f"http://{base_url}").hostname or "").lower()
         self.form_count = self.password_inputs = self.iframe_count = 0
@@ -29,8 +29,13 @@ class _SafeHTMLParser(HTMLParser):
         self.meta_refresh += int(tag == "meta" and values.get("http-equiv", "").lower() == "refresh")
         target = values.get("action") or values.get("href") or values.get("src")
         if target and not target.lower().startswith(("data:", "javascript:", "#")):
-            host = (urlsplit(urljoin(f"http://{self.base_host}/", target)).hostname or "").lower()
-            self.external_targets += int(bool(host and self.base_host and host != self.base_host))
+            target_parts = urlsplit(target)
+            if target_parts.scheme.lower() in {"http", "https"} and target_parts.hostname:
+                host = target_parts.hostname.lower()
+                self.external_targets += int(not self.base_host or host != self.base_host)
+            elif self.base_host:
+                host = (urlsplit(urljoin(f"http://{self.base_host}/", target)).hostname or "").lower()
+                self.external_targets += int(bool(host and host != self.base_host))
 
     def handle_data(self, data: str) -> None:
         self.text.append(data)
@@ -53,16 +58,71 @@ def extract_email_context(email_text: str | None) -> dict[str, int]:
             "call_to_action_count": sum(text.count(term) for term in CTA_TERMS)}
 
 
+def _html_risk_flags(signals: dict[str, int]) -> list[str]:
+    flags: list[str] = []
+    if signals["password_input_count"] and signals["external_target_count"]:
+        flags.append("password form references an external host")
+    if signals["password_input_count"] and signals["credential_term_count"]:
+        flags.append("HTML contains a credential form")
+    if signals["meta_refresh_count"]:
+        flags.append("HTML contains meta refresh")
+    if signals["credential_term_count"] >= 3:
+        flags.append("HTML contains repeated credential-related language")
+    return flags
+
+
+def _email_risk_flags(signals: dict[str, int]) -> list[str]:
+    flags: list[str] = []
+    if signals["credential_request_count"]:
+        flags.append("email asks for credentials")
+    if signals["risk_term_count"] >= 3 and signals["call_to_action_count"]:
+        flags.append("email combines urgency/account language with a call to action")
+    return flags
+
+
+def _context_risk(flags: list[str]) -> dict[str, object]:
+    elevated = bool(flags)
+    return {
+        "level": "ELEVATED" if elevated else "LOW",
+        "summary": (
+            "Contextual warning indicators were detected; human review is recommended."
+            if elevated
+            else "No elevated contextual warning combination was detected."
+        ),
+        "indicators": flags,
+    }
+
+
+def analyze_html(html: str) -> dict[str, object]:
+    """Analyze caller-supplied HTML text without a URL or network access."""
+    signals = extract_html_context("", html)
+    flags = _html_risk_flags(signals)
+    return {
+        "signals": signals,
+        "context_risk": _context_risk(flags),
+        "network_access": False,
+        "html_executed": False,
+        "included_in_validated_probability": False,
+    }
+
+
+def analyze_email(email_text: str) -> dict[str, object]:
+    """Analyze caller-supplied email text without mailbox or network access."""
+    signals = extract_email_context(email_text)
+    flags = _email_risk_flags(signals)
+    return {
+        "signals": signals,
+        "context_risk": _context_risk(flags),
+        "network_access": False,
+        "mailbox_access": False,
+        "included_in_validated_probability": False,
+    }
+
+
 def analyze_context(url: str, html: str | None = None, email_text: str | None = None) -> dict[str, object]:
     html_signals, email_signals = extract_html_context(url, html), extract_email_context(email_text)
     context_supplied = bool((html or "").strip() or (email_text or "").strip())
-    flags: list[str] = []
-    if html_signals["password_input_count"] and html_signals["external_target_count"]: flags.append("password form references an external host")
-    if html_signals["password_input_count"] and html_signals["credential_term_count"]: flags.append("HTML contains a credential form")
-    if html_signals["meta_refresh_count"]: flags.append("HTML contains meta refresh")
-    if html_signals["credential_term_count"] >= 3: flags.append("HTML contains repeated credential-related language")
-    if email_signals["credential_request_count"]: flags.append("email asks for credentials")
-    if email_signals["risk_term_count"] >= 3 and email_signals["call_to_action_count"]: flags.append("email combines urgency/account language with a call to action")
+    flags = _html_risk_flags(html_signals) + _email_risk_flags(email_signals)
     return {"html": html_signals, "email": email_signals, "context_risk_flags": flags,
             "context_supplied": context_supplied,
             "message": "Context signals extracted." if context_supplied else "No optional context supplied.",

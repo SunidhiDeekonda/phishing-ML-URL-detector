@@ -8,7 +8,7 @@ from pathlib import Path
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 from app.inference import URLInference
-from src.context_features import analyze_context
+from src.context_features import analyze_context, analyze_email, analyze_html
 from src.continuous_learning import FeedbackStore
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,6 +19,14 @@ class ContextRequest(BaseModel):
     url: str = Field(min_length=1, max_length=4096)
     html: str | None = Field(default=None, max_length=200_000)
     email_text: str | None = Field(default=None, max_length=200_000)
+
+
+class HTMLAnalysisRequest(BaseModel):
+    html: str = Field(max_length=200_000)
+
+
+class EmailAnalysisRequest(BaseModel):
+    email_text: str = Field(max_length=200_000)
 
 
 class FeedbackRequest(BaseModel):
@@ -48,6 +56,20 @@ def predict_context(request: ContextRequest) -> dict[str, object]:
         prediction = _inference().predict(request.url)
         return {"validated_url_prediction": prediction, "context_signals": analyze_context(request.url, request.html, request.email_text), "probabilities_mixed": False}
     except Exception as exc: raise HTTPException(500, f"Context analysis failed: {type(exc).__name__}") from exc
+
+
+@router.post("/analyze-html")
+def analyze_html_endpoint(request: HTMLAnalysisRequest) -> dict[str, object]:
+    if not request.html.strip():
+        raise HTTPException(400, "Paste HTML source or an HTML snippet before analysing.")
+    return {"analysis_type": "html", **analyze_html(request.html)}
+
+
+@router.post("/analyze-email")
+def analyze_email_endpoint(request: EmailAnalysisRequest) -> dict[str, object]:
+    if not request.email_text.strip():
+        raise HTTPException(400, "Paste email text before analysing.")
+    return {"analysis_type": "email", **analyze_email(request.email_text)}
 
 
 @router.post("/feedback")
