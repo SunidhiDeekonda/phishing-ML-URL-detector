@@ -1,39 +1,38 @@
 # How to Test the Phishing Detection App
 
-## Part 1 - Test normal URL prediction
+The application contains three independent tools. HTML and email analysis do not require a URL.
 
-Open the deployed application. Paste `https://www.google.com` into the main URL box and select **Analyse URL**. The result should be **LEGITIMATE**. The displayed canonical URL should be `https://www.google.com`.
+## TEST URL
 
-## Part 2 - Test slash/no-slash behavior
+1. Open the deployed application.
+2. In **URL Phishing Detector**, paste `https://www.google.com` and select **ANALYSE URL**.
+3. Expected: `LEGITIMATE`; the canonical URL is `https://www.google.com`.
+4. Repeat with `https://www.google.com/`. The canonical URL, verdict, and probability should match.
+5. Paste `http://secure-account-login-example.xyz/verify` as text. Do not visit it.
+6. Expected: `PHISHING`.
 
-First test `https://www.google.com`. Then test `https://www.google.com/`. Both should show the same canonical URL, verdict, and probability. Repeat with `https://github.com` and `https://github.com/`.
+The URL tool uses the validated Character-Level CNN + LightGBM ensemble. It does not visit or download the URL.
 
-## Part 3 - Test known legitimate URLs
+## TEST HTML
 
-Try `https://www.wikipedia.org/`, `https://www.microsoft.com/`, and `https://openai.com/`. These are external regression examples, not an allowlist. A failure must be reported rather than hidden.
+HTML analysis works while the URL and email fields are empty.
 
-## Part 4 - Test a synthetic phishing string
-
-Paste `http://secure-account-login-example.xyz/verify`. Do not open this string in a browser. Only submit the text to this application. The expected result is **PHISHING**.
-
-## Part 5 - What the HTML box is
-
-The HTML box analyses raw HTML text that you supply. It does not accept another URL and does not download a webpage.
-
-## Part 6 - Exactly what to paste into HTML
-
-Benign example:
+### Safe HTML
 
 ```html
 <html>
 <body>
 <h1>Welcome</h1>
-<p>Documentation page.</p>
+<p>This is a documentation page.</p>
 </body>
 </html>
 ```
 
-Synthetic suspicious-style example:
+1. Paste it into **HTML Phishing Context Analyzer**.
+2. Select **ANALYSE HTML**.
+3. Expected: no password field, no credential terms, and low contextual risk.
+
+### Suspicious-style HTML
 
 ```html
 <html>
@@ -47,46 +46,48 @@ Synthetic suspicious-style example:
 </html>
 ```
 
-## Part 7 - Expected HTML output
+1. Paste it into the HTML box.
+2. Select **ANALYSE HTML**.
+3. Expected: one form, one password field, credential-related terms, and elevated contextual risk.
 
-The benign sample should have no password input and few or no credential terms. The suspicious-style sample should show one form, one password input, credential terms, and a credential-form risk flag.
+HTML is parsed as inert text. The application does not open a website, execute HTML/JavaScript, or make a network request. The result is contextual evidence, not an ML probability.
 
-## Part 8 - What the email box is
+## TEST EMAIL
 
-The email box analyses text pasted by you. It cannot open or read your mailbox. Never paste passwords or private information.
+Email analysis works while the URL and HTML fields are empty.
 
-## Part 9 - Exactly what to paste into Email Text
+### Safe email
 
-Benign example: `Hi team, The project meeting is tomorrow at 10 AM. Please bring the final report.`
+```text
+Hi team,
 
-Synthetic suspicious-style example: `URGENT: Your account will be suspended. Verify your login immediately and confirm your password.`
+The project meeting is tomorrow at 10 AM.
+Please bring the final report.
 
-## Part 10 - What context signals mean
+Thanks.
+```
 
-Counts such as password inputs, credential terms, urgent language, and calls to action are supplementary warning signs. They are understandable indicators, not a second trained classifier.
+1. Paste it into **Email Phishing Context Analyzer**.
+2. Select **ANALYSE EMAIL**.
+3. Expected: zero or fewer risk/credential indicators and low contextual risk.
 
-## Part 11 - Why context does not change probability
+### Suspicious synthetic email
 
-The project has no properly labelled HTML/email training corpus. Mixing unvalidated rules into the calibrated URL score would make the reported accuracy misleading. The validated URL probability therefore remains separate.
+```text
+URGENT: Your account will be suspended.
 
-## Part 12 - What feedback does
+Verify your login immediately and confirm your password to prevent account closure.
+```
 
-The **Report Prediction as Incorrect** button stores a pending correction containing the canonical URL and the opposite label. It does not store HTML/email content.
+1. Paste it into the email box.
+2. Select **ANALYSE EMAIL**.
+3. Expected: multiple implemented risk terms, one credential-request phrase, and elevated contextual risk.
 
-## Part 13 - Why feedback does not automatically retrain
+The analyzer does not connect to Gmail, access an inbox, or send email. It counts only implemented risk terms, credential-request patterns, exact call-to-action phrases, and URL strings in manually pasted text.
 
-Automatic retraining would allow malicious users to poison the model. Feedback requires human review, an explicit offline candidate build, and validation gates.
+## WHAT TO EXPLAIN TO A PROFESSOR
 
-## Part 14 - What model-info means
-
-`/model-info` lists registered model versions and validation status. It does not mean every registered candidate is deployed. The prediction response names the actual production artifact.
-
-## Part 15 - Five-minute professor demonstration
-
-1. Show Google without and with the root slash and compare identical results.
-2. Show a scheme-less `www.google.com` canonicalized to HTTPS.
-3. Submit the synthetic suspicious string as text and show the phishing verdict.
-4. Load the safe context example and explain its low signal counts.
-5. Load the suspicious-style example and explain the password/credential signals.
-6. State that context is not fused into probability and no URL is fetched.
-7. Open `/model-info` and explain verified feedback, drift monitoring, and model governance.
+- URL detection is the trained and evaluated CNN + LightGBM classifier.
+- HTML and email are independent deterministic research extensions that provide understandable context evidence.
+- HTML/email signals are not fused into URL probability because the project has no properly labelled content dataset for calibrated multimodal training.
+- No submitted URL is fetched, no HTML is executed, and no mailbox is accessed.

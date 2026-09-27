@@ -315,3 +315,49 @@ The paper supplied CNN, LightGBM, 36 URL features, ensembling, and reported 100%
 **Detailed follow-up:** External temporal and labeled content evaluation. The design and measured evidence are recorded in the cited source rather than inferred from a headline metric.
 
 **Proof to open:** `docs/FINAL_REPORT.md`
+
+## Independent URL, HTML, and Email Product Questions
+
+### What is the difference between URL, HTML, and Email analysis?
+
+URL detection is the trained CNN + LightGBM classifier. HTML analysis parses structural and credential-related signals from pasted source. Email analysis counts implemented risk language, credential-request patterns, exact call-to-action phrases, and URL strings in pasted text.
+
+### Is HTML analysis machine learning?
+
+No. It is deterministic, explainable context extraction and is clearly labelled as a research extension.
+
+### Is Email analysis machine learning?
+
+No. It is deterministic language-signal extraction, not a calibrated email classifier.
+
+### Why are HTML/email signals not included in the CNN-LightGBM probability?
+
+The models were trained and evaluated on URLs. We do not have a properly labelled aligned HTML/email dataset for calibrated fusion. Adding hand-written weights would make the reported probability scientifically misleading.
+
+### Why did you implement them?
+
+The reference system focused on URL evidence and identified broader content/context analysis as future work. Phishing also uses credential forms and social-engineering language, so the extensions explore those evidence layers safely.
+
+### What features does HTML analysis inspect?
+
+Forms, password inputs, iframes, scripts, absolute external action/link/source targets, meta refresh, and occurrences of the implemented credential/risk terms in HTML text.
+
+### What signals does Email analysis inspect?
+
+URL count; occurrences of login, verify, urgent, account, password, credential, confirm, and suspend; credential-request phrase patterns; and the implemented exact call-to-action phrases.
+
+### Does HTML analysis execute pasted code?
+
+No. It parses inert text using Python's HTML parser. It does not execute HTML or JavaScript and makes no network request.
+
+### Does Email analysis access Gmail?
+
+No. It analyses only manually pasted text and has no mailbox connection.
+
+### Can HTML and Email be used independently?
+
+Yes. `POST /analyze-html` requires only HTML, and `POST /analyze-email` requires only email text. Neither requires a URL or the other context type.
+
+### What came from the original paper and what did you add?
+
+The original methodology provided URL classification using a character CNN, 36 engineered URL features, LightGBM, and ensembling. Our work reproduced that pipeline and added domain-separated evaluation, adversarial robustness, independent HTML/email context evidence, verified feedback, drift monitoring, model registry, reliability canonicalization, and production regression testing.

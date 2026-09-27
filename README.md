@@ -87,7 +87,17 @@ source .venv/bin/activate
 uvicorn app.main:app --reload
 ```
 
-Open `http://127.0.0.1:8000` and submit a URL string for local inference. The trained artifacts are included, so the demo does not require retraining.
+Open `http://127.0.0.1:8000`. The trained artifacts are included, so the demo does not require retraining.
+
+## Three independent analysis tools
+
+The browser application now separates three capabilities:
+
+1. **URL Phishing Detector** - the validated character-level CNN + 36-feature LightGBM production ensemble. It accepts only a URL string and never visits the URL.
+2. **HTML Phishing Context Analyzer** - a network-free research extension that parses manually pasted HTML text for forms, password inputs, external targets, iframes, scripts, meta refresh, and credential-related language. `POST /analyze-html` does not require a URL and does not execute HTML or JavaScript.
+3. **Email Phishing Context Analyzer** - a network-free research extension that inspects manually pasted email text for implemented risk terms, credential requests, exact call-to-action phrases, and URL strings. `POST /analyze-email` does not require a URL and never connects to a mailbox.
+
+HTML and email results are qualitative context evidence, not CNN/LightGBM probabilities. They are not fused into the validated URL ensemble because this project does not have a properly labelled content dataset for calibrated multimodal training.
 
 ## Deploy to Vercel
 
