@@ -1,0 +1,8 @@
+{
+  "method": "logistic_logit",
+  "a": 0.9823856558510333,
+  "b": 0.5669942704976151,
+  "positive_class": 1,
+  "feature_count": 36,
+  "source_model_sha256": "890575e791620d1fc8acb429eed5bfda02980d2b57502b2afd776ff26fb6936a"
+}

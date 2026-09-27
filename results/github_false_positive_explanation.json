@@ -1,0 +1,505 @@
+{
+  "reported_url": "https://github.com/SunidhiDeekonda/phishing-ML-URL-detector",
+  "prediction": {
+    "verdict": "PHISHING",
+    "cnn_probability": 0.9999998700145964,
+    "lightgbm_probability": 0.9993945513250587,
+    "reference_ensemble_probability": 0.9997577425387814,
+    "selected_ensemble_probability": 0.9999696040801196,
+    "model_version": "url-ensemble-original-onnx-1.0"
+  },
+  "all_36_features": {
+    "url_length": 59.0,
+    "host_length": 10.0,
+    "path_length": 41.0,
+    "num_dots": 1.0,
+    "num_path_segments": 2.0,
+    "num_query_params": 0.0,
+    "digit_count": 0.0,
+    "letter_count": 50.0,
+    "digit_letter_ratio": 0.0,
+    "special_char_count": 9.0,
+    "hyphen_count": 3.0,
+    "has_at_symbol": 0.0,
+    "is_https": 1.0,
+    "has_port": 0.0,
+    "has_fragment": 0.0,
+    "percent_encoded_fraction": 0.0,
+    "vowel_fraction": 0.2711864406779661,
+    "is_ip_host": 0.0,
+    "suspicious_tld": 0.0,
+    "hostname_entropy": 3.321928094887362,
+    "path_entropy": 4.308294687333842,
+    "bucket_0_20": 0.0,
+    "bucket_21_40": 0.0,
+    "bucket_41_60": 1.0,
+    "bucket_61_80": 0.0,
+    "bucket_81_100": 0.0,
+    "bucket_101_plus": 0.0,
+    "token_login": 0.0,
+    "token_signin": 0.0,
+    "token_secure": 0.0,
+    "token_webscr": 0.0,
+    "token_bank": 0.0,
+    "token_verify": 0.0,
+    "token_update": 0.0,
+    "token_account": 0.0,
+    "token_confirm": 0.0
+  },
+  "lightgbm_raw_logit_contributions": {
+    "path_length": 4.097592271937962,
+    "special_char_count": 0.5741272422572792,
+    "num_path_segments": 0.35839645183100327,
+    "url_length": 0.30210709230975014,
+    "num_dots": -0.22447881981474585,
+    "hyphen_count": -0.05259180504874949,
+    "host_length": -0.03321089174893753,
+    "vowel_fraction": -0.01928624099678007,
+    "is_https": -0.009987718912093707,
+    "digit_count": -0.004697882213372653,
+    "hostname_entropy": -0.00308873112365701,
+    "letter_count": 0.0014029158034385826,
+    "digit_letter_ratio": -0.0012086285089264227,
+    "bucket_0_20": -0.0008681421035017257,
+    "bucket_21_40": 0.00084126047258424,
+    "path_entropy": -0.00022849833578929813,
+    "suspicious_tld": -0.00014542795781787918,
+    "bucket_41_60": -5.374708418938942e-08,
+    "bucket_101_plus": 5.7351843964207974e-18,
+    "bucket_61_80": 0.0,
+    "bucket_81_100": 0.0,
+    "has_at_symbol": 0.0,
+    "has_fragment": 0.0,
+    "has_port": 0.0,
+    "is_ip_host": 0.0,
+    "num_query_params": 0.0,
+    "percent_encoded_fraction": 0.0,
+    "token_account": 0.0,
+    "token_bank": 0.0,
+    "token_confirm": 0.0,
+    "token_login": 0.0,
+    "token_secure": 0.0,
+    "token_signin": 0.0,
+    "token_update": 0.0,
+    "token_verify": 0.0,
+    "token_webscr": 0.0
+  },
+  "lightgbm_expected_value": 0.020650003122640287,
+  "feature_distribution_comparison": {
+    "url_length": {
+      "target": 59.0,
+      "legitimate_mean": 20.2973,
+      "legitimate_p95": 27.0,
+      "phishing_mean": 66.6041,
+      "phishing_p95": 175.0
+    },
+    "host_length": {
+      "target": 10.0,
+      "legitimate_mean": 12.2973,
+      "legitimate_p95": 19.0,
+      "phishing_mean": 20.1738,
+      "phishing_p95": 43.0
+    },
+    "path_length": {
+      "target": 41.0,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 21.7069,
+      "phishing_p95": 108.0
+    },
+    "num_dots": {
+      "target": 1.0,
+      "legitimate_mean": 1.0777,
+      "legitimate_p95": 2.0,
+      "phishing_mean": 2.0479,
+      "phishing_p95": 3.0
+    },
+    "num_path_segments": {
+      "target": 2.0,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 1.4171,
+      "phishing_p95": 5.0
+    },
+    "num_query_params": {
+      "target": 0.0,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.5693,
+      "phishing_p95": 3.0
+    },
+    "digit_count": {
+      "target": 0.0,
+      "legitimate_mean": 0.1316,
+      "legitimate_p95": 1.0,
+      "phishing_mean": 7.4844,
+      "phishing_p95": 24.0
+    },
+    "letter_count": {
+      "target": 50.0,
+      "legitimate_mean": 16.0053,
+      "legitimate_p95": 23.0,
+      "phishing_mean": 49.4997,
+      "phishing_p95": 138.0
+    },
+    "digit_letter_ratio": {
+      "target": 0.0,
+      "legitimate_mean": 0.01042629135652,
+      "legitimate_p95": 0.0833333333333333,
+      "phishing_mean": 0.13402727672542328,
+      "phishing_p95": 0.625
+    },
+    "special_char_count": {
+      "target": 9.0,
+      "legitimate_mean": 4.1604,
+      "legitimate_p95": 5.0,
+      "phishing_mean": 9.62,
+      "phishing_p95": 23.0
+    },
+    "hyphen_count": {
+      "target": 3.0,
+      "legitimate_mean": 0.0827,
+      "legitimate_p95": 1.0,
+      "phishing_mean": 0.8657,
+      "phishing_p95": 3.0
+    },
+    "has_at_symbol": {
+      "target": 0.0,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.009,
+      "phishing_p95": 0.0
+    },
+    "is_https": {
+      "target": 1.0,
+      "legitimate_mean": 1.0,
+      "legitimate_p95": 1.0,
+      "phishing_mean": 0.9422,
+      "phishing_p95": 1.0
+    },
+    "has_port": {
+      "target": 0.0,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.0008,
+      "phishing_p95": 0.0
+    },
+    "has_fragment": {
+      "target": 0.0,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.0094,
+      "phishing_p95": 0.0
+    },
+    "percent_encoded_fraction": {
+      "target": 0.0,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.0005401990178706377,
+      "phishing_p95": 0.0
+    },
+    "vowel_fraction": {
+      "target": 0.2711864406779661,
+      "legitimate_mean": 0.18881434465874108,
+      "legitimate_p95": 0.2857142857142857,
+      "phishing_mean": 0.18750923563132255,
+      "phishing_p95": 0.2954545454545454
+    },
+    "is_ip_host": {
+      "target": 0.0,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.0058,
+      "phishing_p95": 0.0
+    },
+    "suspicious_tld": {
+      "target": 0.0,
+      "legitimate_mean": 0.0107,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.0071,
+      "phishing_p95": 0.0
+    },
+    "hostname_entropy": {
+      "target": 3.321928094887362,
+      "legitimate_mean": 3.141283799454262,
+      "legitimate_p95": 3.6644977792004623,
+      "phishing_mean": 3.3547562850491786,
+      "phishing_p95": 4.218475183105379
+    },
+    "path_entropy": {
+      "target": 4.308294687333842,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 2.376622596581181,
+      "phishing_p95": 5.4991198267673385
+    },
+    "bucket_0_20": {
+      "target": 0.0,
+      "legitimate_mean": 0.5703,
+      "legitimate_p95": 1.0,
+      "phishing_mean": 0.0154,
+      "phishing_p95": 0.0
+    },
+    "bucket_21_40": {
+      "target": 0.0,
+      "legitimate_mean": 0.4295,
+      "legitimate_p95": 1.0,
+      "phishing_mean": 0.5108,
+      "phishing_p95": 1.0
+    },
+    "bucket_41_60": {
+      "target": 1.0,
+      "legitimate_mean": 0.0002,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.1849,
+      "phishing_p95": 1.0
+    },
+    "bucket_61_80": {
+      "target": 0.0,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.082,
+      "phishing_p95": 1.0
+    },
+    "bucket_81_100": {
+      "target": 0.0,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.0464,
+      "phishing_p95": 0.0
+    },
+    "bucket_101_plus": {
+      "target": 0.0,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.1605,
+      "phishing_p95": 1.0
+    },
+    "token_login": {
+      "target": 0.0,
+      "legitimate_mean": 0.0004,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.0204,
+      "phishing_p95": 0.0
+    },
+    "token_signin": {
+      "target": 0.0,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.0043,
+      "phishing_p95": 0.0
+    },
+    "token_secure": {
+      "target": 0.0,
+      "legitimate_mean": 0.0011,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.0037,
+      "phishing_p95": 0.0
+    },
+    "token_webscr": {
+      "target": 0.0,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.0,
+      "phishing_p95": 0.0
+    },
+    "token_bank": {
+      "target": 0.0,
+      "legitimate_mean": 0.0037,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.0041,
+      "phishing_p95": 0.0
+    },
+    "token_verify": {
+      "target": 0.0,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.0033,
+      "phishing_p95": 0.0
+    },
+    "token_update": {
+      "target": 0.0,
+      "legitimate_mean": 0.0002,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.0083,
+      "phishing_p95": 0.0
+    },
+    "token_account": {
+      "target": 0.0,
+      "legitimate_mean": 0.0001,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.0117,
+      "phishing_p95": 0.0
+    },
+    "token_confirm": {
+      "target": 0.0,
+      "legitimate_mean": 0.0,
+      "legitimate_p95": 0.0,
+      "phishing_mean": 0.0024,
+      "phishing_p95": 0.0
+    }
+  },
+  "training_membership": {
+    "github.com": {
+      "train": {
+        "count": 0,
+        "labels": {}
+      },
+      "validation": {
+        "count": 0,
+        "labels": {}
+      },
+      "test": {
+        "count": 0,
+        "labels": {}
+      }
+    },
+    "vercel.app": {
+      "train": {
+        "count": 35,
+        "labels": {
+          "1": 35
+        }
+      },
+      "validation": {
+        "count": 0,
+        "labels": {}
+      },
+      "test": {
+        "count": 0,
+        "labels": {}
+      }
+    },
+    "google.com": {
+      "train": {
+        "count": 1411,
+        "labels": {
+          "1": 1411
+        }
+      },
+      "validation": {
+        "count": 0,
+        "labels": {}
+      },
+      "test": {
+        "count": 0,
+        "labels": {}
+      }
+    },
+    "microsoft.com": {
+      "train": {
+        "count": 0,
+        "labels": {}
+      },
+      "validation": {
+        "count": 0,
+        "labels": {}
+      },
+      "test": {
+        "count": 0,
+        "labels": {}
+      }
+    },
+    "apple.com": {
+      "train": {
+        "count": 0,
+        "labels": {}
+      },
+      "validation": {
+        "count": 0,
+        "labels": {}
+      },
+      "test": {
+        "count": 0,
+        "labels": {}
+      }
+    },
+    "openai.com": {
+      "train": {
+        "count": 0,
+        "labels": {}
+      },
+      "validation": {
+        "count": 0,
+        "labels": {}
+      },
+      "test": {
+        "count": 0,
+        "labels": {}
+      }
+    },
+    "exact_project_url": {
+      "train": {
+        "count": 0,
+        "labels": {}
+      },
+      "validation": {
+        "count": 0,
+        "labels": {}
+      },
+      "test": {
+        "count": 0,
+        "labels": {}
+      }
+    }
+  },
+  "counterfactual_predictions": [
+    {
+      "url": "https://github.com/SunidhiDeekonda/phishing-ML-URL-detector",
+      "verdict": "PHISHING",
+      "cnn_probability": 0.9999998700145964,
+      "lightgbm_probability": 0.9993945513250587,
+      "selected_ensemble_probability": 0.9999696040801196
+    },
+    {
+      "url": "https://github.com",
+      "verdict": "LEGITIMATE",
+      "cnn_probability": 3.2494856885193376e-06,
+      "lightgbm_probability": 0.014551218087294114,
+      "selected_ensemble_probability": 0.0007306479157687992
+    },
+    {
+      "url": "https://github.com/SunidhiDeekonda",
+      "verdict": "PHISHING",
+      "cnn_probability": 0.9999983892945072,
+      "lightgbm_probability": 0.9994602163048053,
+      "selected_ensemble_probability": 0.9999714806450222
+    },
+    {
+      "url": "https://github.com/repository",
+      "verdict": "PHISHING",
+      "cnn_probability": 0.9999797780084915,
+      "lightgbm_probability": 0.9994602163048053,
+      "selected_ensemble_probability": 0.9999537999233071
+    },
+    {
+      "url": "https://github.com/user/project",
+      "verdict": "PHISHING",
+      "cnn_probability": 0.9999896655148465,
+      "lightgbm_probability": 0.9994603086641975,
+      "selected_ensemble_probability": 0.999963197672314
+    },
+    {
+      "url": "https://github.com/user/phishing-ML-URL-detector",
+      "verdict": "PHISHING",
+      "cnn_probability": 0.9999972162078338,
+      "lightgbm_probability": 0.9994161621779448,
+      "selected_ensemble_probability": 0.9999681635063392
+    },
+    {
+      "url": "https://github.com/user/normal-ML-URL-detector",
+      "verdict": "PHISHING",
+      "cnn_probability": 0.9999965560069373,
+      "lightgbm_probability": 0.9994161621779448,
+      "selected_ensemble_probability": 0.9999675363154875
+    },
+    {
+      "url": "https://github.com/user/phishing",
+      "verdict": "PHISHING",
+      "cnn_probability": 0.9999914947060943,
+      "lightgbm_probability": 0.9994603207999949,
+      "selected_ensemble_probability": 0.9999649360107892
+    }
+  ],
+  "preliminary_finding": "Both component models assign near-certain phishing probability; the 95% CNN ensemble weight makes the CNN the dominant cause. Long, token-rich legitimate paths are underrepresented, so lexical/path patterns learned as phishing generalize incorrectly to real repository URLs."
+}

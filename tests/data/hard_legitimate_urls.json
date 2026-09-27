@@ -1,0 +1,942 @@
+[
+  {
+    "url": "https://github.com/openai/openai-python",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official open-source repository path",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/microsoft/vscode",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official open-source repository path",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/vercel/next.js",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official open-source repository path",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/pallets/flask",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official open-source repository path",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/python/cpython",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official open-source repository path",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/mozilla-firefox/firefox",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official open-source repository path",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/kubernetes/kubernetes",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official open-source repository path",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/docker/docs",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official documentation repository path",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://docs.python.org/3/library/urllib.parse.html",
+    "expected_label": "LEGITIMATE",
+    "category": "long_documentation",
+    "reason": "Official Python documentation path",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "python.org",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://docs.python.org/3/howto/logging.html",
+    "expected_label": "LEGITIMATE",
+    "category": "long_documentation",
+    "reason": "Official Python documentation path",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "python.org",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/security/zero-trust/",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Microsoft security documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "microsoft.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/entra/identity/authentication/",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Microsoft authentication documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "microsoft.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://account.microsoft.com/account/manage-my-account",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Microsoft account page",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "microsoft.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://support.apple.com/guide/security/welcome/web",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Apple security guide",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "apple.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://appleid.apple.com/account/manage",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Apple account page",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "apple.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://help.openai.com/en/collections/3675942-account-login-and-billing",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official OpenAI help collection",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "openai.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://platform.openai.com/docs/guides/authentication",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official OpenAI authentication documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "openai.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/Security",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Mozilla security documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "mozilla.org",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://support.mozilla.org/en-US/kb/password-manager-remember-delete-edit-logins",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Mozilla password help",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "mozilla.org",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://docs.gitlab.com/user/profile/account/",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official GitLab account documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "gitlab.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://gitlab.com/users/sign_in",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official GitLab login",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "gitlab.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://bitbucket.org/account/signin/",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Bitbucket login",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "bitbucket.org",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://support.atlassian.com/security-and-access-policies/",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Atlassian security documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "atlassian.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://docs.djangoproject.com/en/stable/topics/auth/",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Django authentication documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "djangoproject.com",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://docs.djangoproject.com/en/stable/topics/security/",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Django security documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "djangoproject.com",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://flask.palletsprojects.com/en/stable/security/",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Flask security documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "palletsprojects.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://kubernetes.io/docs/reference/access-authn-authz/authentication/",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Kubernetes authentication documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "kubernetes.io",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://kubernetes.io/docs/concepts/security/",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Kubernetes security documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "kubernetes.io",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://docs.docker.com/accounts/manage-account/",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Docker account documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "docker.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://docs.docker.com/engine/security/protect-access/",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Docker security documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "docker.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://stackoverflow.com/users/login",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Stack Overflow login",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "stackoverflow.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://stackoverflow.com/help/account",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Stack Overflow account help",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "stackoverflow.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://www.login.gov/help/trouble-signing-in/overview/",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official US government login help",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "login.gov",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://www.login.gov/security/",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official US government security page",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "login.gov",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://docs.npmjs.com/creating-a-strong-password",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official npm password documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "npmjs.com",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://www.npmjs.com/login",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official npm login",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "npmjs.com",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://www.rust-lang.org/policies/security",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Rust security policy",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "rust-lang.org",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://docs.oracle.com/javase/tutorial/security/",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Oracle security tutorial",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "oracle.com",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://auth0.com/docs/authenticate/login",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Auth0 login documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "auth0.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://developers.cloudflare.com/fundamentals/account/account-security/",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Cloudflare account security documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "cloudflare.com",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://github.com/OWASP/www-project-web-security-testing-guide",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official OWASP security project repository",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/OWASP/www-project-application-security-verification-standard",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official OWASP security project repository",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/OWASP/www-project-top-ten",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official OWASP security project repository",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/rapid7/metasploit-framework",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official Metasploit repository",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/gophish/gophish",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Legitimate open-source anti-phishing repository",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://www.cisa.gov/news-events/news/avoiding-social-engineering-and-phishing-attacks",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official government phishing guidance",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "cisa.gov",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://www.ftc.gov/business-guidance/small-businesses/cybersecurity/phishing",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official government phishing guidance",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "ftc.gov",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://www.ncsc.gov.uk/guidance/phishing",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official government phishing guidance",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "ncsc.gov.uk",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/defender-office-365/anti-phishing-protection-about",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Microsoft anti-phishing documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "microsoft.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://support.google.com/a/answer/9157861",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Google phishing-protection documentation",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "google.com",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://www.google.com/",
+    "expected_label": "LEGITIMATE",
+    "category": "official_root",
+    "reason": "Official Google root",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "google.com",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://github.com/",
+    "expected_label": "LEGITIMATE",
+    "category": "official_root",
+    "reason": "Official GitHub root",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://www.microsoft.com/",
+    "expected_label": "LEGITIMATE",
+    "category": "official_root",
+    "reason": "Official Microsoft root",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "microsoft.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://www.apple.com/",
+    "expected_label": "LEGITIMATE",
+    "category": "official_root",
+    "reason": "Official Apple root",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "apple.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://openai.com/",
+    "expected_label": "LEGITIMATE",
+    "category": "official_root",
+    "reason": "Official OpenAI root",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "openai.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://vercel.com/",
+    "expected_label": "LEGITIMATE",
+    "category": "official_root",
+    "reason": "Official Vercel root",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "vercel.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://www.python.org/",
+    "expected_label": "LEGITIMATE",
+    "category": "official_root",
+    "reason": "Official Python root",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "python.org",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://www.wikipedia.org/",
+    "expected_label": "LEGITIMATE",
+    "category": "official_root",
+    "reason": "Official Wikipedia root",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "wikipedia.org",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://phishing-ml-url-detector-seven.vercel.app/",
+    "expected_label": "LEGITIMATE",
+    "category": "deployment_url",
+    "reason": "Documented project deployment root",
+    "hard_negative_split": "train",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "vercel.app",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://github.com/psf/requests",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official Python Software Foundation repository",
+    "hard_negative_split": "validation",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/encode/fastapi",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official FastAPI repository",
+    "hard_negative_split": "validation",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/pandas-dev/pandas",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official pandas repository",
+    "hard_negative_split": "validation",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/numpy/numpy",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official NumPy repository",
+    "hard_negative_split": "validation",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://docs.python.org/3/reference/import.html",
+    "expected_label": "LEGITIMATE",
+    "category": "long_documentation",
+    "reason": "Official Python documentation path",
+    "hard_negative_split": "validation",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "python.org",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/defender-for-identity/",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Microsoft security documentation",
+    "hard_negative_split": "validation",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "microsoft.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://support.apple.com/en-us/102660",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Apple support page",
+    "hard_negative_split": "validation",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "apple.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://help.openai.com/en/articles/6614161-how-can-i-contact-support",
+    "expected_label": "LEGITIMATE",
+    "category": "long_documentation",
+    "reason": "Official OpenAI help article",
+    "hard_negative_split": "validation",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "openai.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Mozilla authentication documentation",
+    "hard_negative_split": "validation",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "mozilla.org",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://docs.gitlab.com/user/profile/passwords/",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official GitLab password documentation",
+    "hard_negative_split": "validation",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "gitlab.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://docs.npmjs.com/about-two-factor-authentication",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official npm authentication documentation",
+    "hard_negative_split": "validation",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "npmjs.com",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://doc.rust-lang.org/book/ch01-01-installation.html",
+    "expected_label": "LEGITIMATE",
+    "category": "long_documentation",
+    "reason": "Official Rust documentation",
+    "hard_negative_split": "validation",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "rust-lang.org",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://login.oracle.com/",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Oracle login",
+    "hard_negative_split": "validation",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "oracle.com",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://auth0.com/docs/secure/attack-protection",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Auth0 security documentation",
+    "hard_negative_split": "validation",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "auth0.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://dash.cloudflare.com/login",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Cloudflare login",
+    "hard_negative_split": "validation",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "cloudflare.com",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://github.com/SunidhiDeekonda/phishing-ML-URL-detector",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Reported legitimate project repository",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/facebook/react",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official React repository",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/torvalds/linux",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official Linux repository",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/nodejs/node",
+    "expected_label": "LEGITIMATE",
+    "category": "developer_repository",
+    "reason": "Official Node.js repository",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://github.com/login",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official GitHub login",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "github.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://accounts.google.com/",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Google account endpoint",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "google.com",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://myaccount.google.com/security",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Google account security page",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "google.com",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://vercel.com/docs/security",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official Vercel documentation",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "vercel.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://vercel.com/login",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Vercel login",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "vercel.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://openai.com/security-and-privacy/",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official OpenAI security page",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "openai.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://platform.openai.com/login",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official OpenAI platform login",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "openai.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://support.microsoft.com/en-us/account-billing",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Microsoft account support",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "microsoft.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://account.apple.com/sign-in",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official Apple account sign-in",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "apple.com",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Phishing",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Legitimate encyclopedia article about phishing",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "wikipedia.org",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official government phishing guidance",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "cisa.gov",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://www.ftc.gov/news-events/topics/identity-theft/phishing-scams",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official government phishing guidance",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "ftc.gov",
+    "registered_domain_present_in_training": true
+  },
+  {
+    "url": "https://www.ncsc.gov.uk/collection/phishing-scams",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official government phishing guidance",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "ncsc.gov.uk",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://owasp.org/www-community/attacks/Phishing",
+    "expected_label": "LEGITIMATE",
+    "category": "security_keyword",
+    "reason": "Official OWASP security documentation",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "owasp.org",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://pages.nist.gov/800-63-3/sp800-63b.html",
+    "expected_label": "LEGITIMATE",
+    "category": "long_documentation",
+    "reason": "Official NIST authentication guidance",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "nist.gov",
+    "registered_domain_present_in_training": false
+  },
+  {
+    "url": "https://www.harvard.edu/information-security/account-protection/",
+    "expected_label": "LEGITIMATE",
+    "category": "login_account",
+    "reason": "Official university security guidance",
+    "hard_negative_split": "test",
+    "exact_url_present_in_original_dataset": false,
+    "registered_domain": "harvard.edu",
+    "registered_domain_present_in_training": false
+  }
+]

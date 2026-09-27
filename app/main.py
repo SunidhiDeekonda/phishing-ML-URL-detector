@@ -50,6 +50,8 @@ class URLPredictionResponse(BaseModel):
     reference_weights: dict[str, float]
     threshold: float
     important_features: dict[str, Any]
+    notable_signals: list[str]
+    explanation_caveat: str
 
 
 @app.get("/health")
@@ -97,9 +99,6 @@ async def predict(payload: URLRequest, service: URLInference = Depends(get_infer
 
 
 app.state.inference_weights = {
-    "selected": {
-        "cnn": SELECTED_CNN_WEIGHT,
-        "lightgbm": SELECTED_LIGHTGBM_WEIGHT,
-    },
+    "selected": "loaded from models/production_v2_config.json",
     "threshold": THRESHOLD,
 }

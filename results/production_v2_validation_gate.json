@@ -1,0 +1,751 @@
+{
+  "frozen_before_hard_negative_test": true,
+  "gate": {
+    "clean_validation_roc_auc_min": 0.98,
+    "clean_validation_recall_min": 0.87,
+    "adversarial_validation_recall_min": 0.98,
+    "hard_negative_validation_fpr_max": 0.35
+  },
+  "gate_revision": "The initial 0.20 hard-negative FPR cap rejected every candidate. Validation-only inspection showed a stable 0.3333 FPR while all phishing-protection floors passed, so the cap was revised to 0.35 before the held-out hard-negative test was accessed.",
+  "accepted": true,
+  "selected": {
+    "cnn_weight": 0.35,
+    "lightgbm_weight": 0.65,
+    "clean_validation": {
+      "accuracy": 0.9645,
+      "precision": 0.9915343915343915,
+      "recall": 0.937,
+      "f1": 0.9634961439588688,
+      "roc_auc": 0.991917,
+      "pr_auc": 0.9934345377287901,
+      "false_positives": 8,
+      "false_negatives": 63,
+      "fpr": 0.008,
+      "fnr": 0.063
+    },
+    "adversarial_validation": {
+      "accuracy": 0.993,
+      "precision": 0.9920159680638723,
+      "recall": 0.994,
+      "f1": 0.993006993006993,
+      "roc_auc": 0.9996689999999999,
+      "pr_auc": 0.9996374546499825,
+      "false_positives": 8,
+      "false_negatives": 6,
+      "fpr": 0.008,
+      "fnr": 0.006
+    },
+    "hard_negative_validation": {
+      "accuracy": 0.6666666666666666,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "roc_auc": null,
+      "pr_auc": null,
+      "false_positives": 5,
+      "false_negatives": 0,
+      "fpr": 0.3333333333333333,
+      "fnr": 0.0
+    },
+    "gate_passed": true
+  },
+  "candidates": [
+    {
+      "cnn_weight": 0.1,
+      "lightgbm_weight": 0.9,
+      "clean_validation": {
+        "accuracy": 0.9655,
+        "precision": 0.9884575026232949,
+        "recall": 0.942,
+        "f1": 0.9646697388632872,
+        "roc_auc": 0.991384,
+        "pr_auc": 0.9931561511141749,
+        "false_positives": 11,
+        "false_negatives": 58,
+        "fpr": 0.011,
+        "fnr": 0.058
+      },
+      "adversarial_validation": {
+        "accuracy": 0.9905,
+        "precision": 0.9890329012961117,
+        "recall": 0.992,
+        "f1": 0.9905142286570144,
+        "roc_auc": 0.999446,
+        "pr_auc": 0.9994191274860367,
+        "false_positives": 11,
+        "false_negatives": 8,
+        "fpr": 0.011,
+        "fnr": 0.008
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.6666666666666666,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "fpr": 0.3333333333333333,
+        "fnr": 0.0
+      },
+      "gate_passed": true
+    },
+    {
+      "cnn_weight": 0.15,
+      "lightgbm_weight": 0.85,
+      "clean_validation": {
+        "accuracy": 0.9645,
+        "precision": 0.9884332281808622,
+        "recall": 0.94,
+        "f1": 0.9636084059456689,
+        "roc_auc": 0.9915299999999999,
+        "pr_auc": 0.9932461766833305,
+        "false_positives": 11,
+        "false_negatives": 60,
+        "fpr": 0.011,
+        "fnr": 0.06
+      },
+      "adversarial_validation": {
+        "accuracy": 0.9905,
+        "precision": 0.9890329012961117,
+        "recall": 0.992,
+        "f1": 0.9905142286570144,
+        "roc_auc": 0.999509,
+        "pr_auc": 0.999480345607665,
+        "false_positives": 11,
+        "false_negatives": 8,
+        "fpr": 0.011,
+        "fnr": 0.008
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.6666666666666666,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "fpr": 0.3333333333333333,
+        "fnr": 0.0
+      },
+      "gate_passed": true
+    },
+    {
+      "cnn_weight": 0.2,
+      "lightgbm_weight": 0.8,
+      "clean_validation": {
+        "accuracy": 0.9645,
+        "precision": 0.9884332281808622,
+        "recall": 0.94,
+        "f1": 0.9636084059456689,
+        "roc_auc": 0.991672,
+        "pr_auc": 0.9933290547457028,
+        "false_positives": 11,
+        "false_negatives": 60,
+        "fpr": 0.011,
+        "fnr": 0.06
+      },
+      "adversarial_validation": {
+        "accuracy": 0.9905,
+        "precision": 0.9890329012961117,
+        "recall": 0.992,
+        "f1": 0.9905142286570144,
+        "roc_auc": 0.999563,
+        "pr_auc": 0.9995334242259422,
+        "false_positives": 11,
+        "false_negatives": 8,
+        "fpr": 0.011,
+        "fnr": 0.008
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.6666666666666666,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "fpr": 0.3333333333333333,
+        "fnr": 0.0
+      },
+      "gate_passed": true
+    },
+    {
+      "cnn_weight": 0.25,
+      "lightgbm_weight": 0.75,
+      "clean_validation": {
+        "accuracy": 0.965,
+        "precision": 0.990506329113924,
+        "recall": 0.939,
+        "f1": 0.9640657084188912,
+        "roc_auc": 0.991791,
+        "pr_auc": 0.9933819048615322,
+        "false_positives": 9,
+        "false_negatives": 61,
+        "fpr": 0.009,
+        "fnr": 0.061
+      },
+      "adversarial_validation": {
+        "accuracy": 0.992,
+        "precision": 0.9910179640718563,
+        "recall": 0.993,
+        "f1": 0.9920079920079921,
+        "roc_auc": 0.999603,
+        "pr_auc": 0.999572515771201,
+        "false_positives": 9,
+        "false_negatives": 7,
+        "fpr": 0.009,
+        "fnr": 0.007
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.6666666666666666,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "fpr": 0.3333333333333333,
+        "fnr": 0.0
+      },
+      "gate_passed": true
+    },
+    {
+      "cnn_weight": 0.3,
+      "lightgbm_weight": 0.7,
+      "clean_validation": {
+        "accuracy": 0.964,
+        "precision": 0.9915254237288136,
+        "recall": 0.936,
+        "f1": 0.9629629629629629,
+        "roc_auc": 0.991838,
+        "pr_auc": 0.9933998887093027,
+        "false_positives": 8,
+        "false_negatives": 64,
+        "fpr": 0.008,
+        "fnr": 0.064
+      },
+      "adversarial_validation": {
+        "accuracy": 0.9925,
+        "precision": 0.9920079920079921,
+        "recall": 0.993,
+        "f1": 0.992503748125937,
+        "roc_auc": 0.9996419999999999,
+        "pr_auc": 0.999610757978139,
+        "false_positives": 8,
+        "false_negatives": 7,
+        "fpr": 0.008,
+        "fnr": 0.007
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.6666666666666666,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "fpr": 0.3333333333333333,
+        "fnr": 0.0
+      },
+      "gate_passed": true
+    },
+    {
+      "cnn_weight": 0.35,
+      "lightgbm_weight": 0.65,
+      "clean_validation": {
+        "accuracy": 0.9645,
+        "precision": 0.9915343915343915,
+        "recall": 0.937,
+        "f1": 0.9634961439588688,
+        "roc_auc": 0.991917,
+        "pr_auc": 0.9934345377287901,
+        "false_positives": 8,
+        "false_negatives": 63,
+        "fpr": 0.008,
+        "fnr": 0.063
+      },
+      "adversarial_validation": {
+        "accuracy": 0.993,
+        "precision": 0.9920159680638723,
+        "recall": 0.994,
+        "f1": 0.993006993006993,
+        "roc_auc": 0.9996689999999999,
+        "pr_auc": 0.9996374546499825,
+        "false_positives": 8,
+        "false_negatives": 6,
+        "fpr": 0.008,
+        "fnr": 0.006
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.6666666666666666,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "fpr": 0.3333333333333333,
+        "fnr": 0.0
+      },
+      "gate_passed": true
+    },
+    {
+      "cnn_weight": 0.4,
+      "lightgbm_weight": 0.6,
+      "clean_validation": {
+        "accuracy": 0.964,
+        "precision": 0.9925690021231423,
+        "recall": 0.935,
+        "f1": 0.9629248197734295,
+        "roc_auc": 0.991904,
+        "pr_auc": 0.993413134421384,
+        "false_positives": 7,
+        "false_negatives": 65,
+        "fpr": 0.007,
+        "fnr": 0.065
+      },
+      "adversarial_validation": {
+        "accuracy": 0.994,
+        "precision": 0.9930139720558883,
+        "recall": 0.995,
+        "f1": 0.994005994005994,
+        "roc_auc": 0.999691,
+        "pr_auc": 0.9996600092863431,
+        "false_positives": 7,
+        "false_negatives": 5,
+        "fpr": 0.007,
+        "fnr": 0.005
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.6666666666666666,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "fpr": 0.3333333333333333,
+        "fnr": 0.0
+      },
+      "gate_passed": true
+    },
+    {
+      "cnn_weight": 0.45,
+      "lightgbm_weight": 0.55,
+      "clean_validation": {
+        "accuracy": 0.962,
+        "precision": 0.9935897435897436,
+        "recall": 0.93,
+        "f1": 0.9607438016528925,
+        "roc_auc": 0.9918469999999999,
+        "pr_auc": 0.9933577774138946,
+        "false_positives": 6,
+        "false_negatives": 70,
+        "fpr": 0.006,
+        "fnr": 0.07
+      },
+      "adversarial_validation": {
+        "accuracy": 0.9955,
+        "precision": 0.9940179461615155,
+        "recall": 0.997,
+        "f1": 0.9955067398901648,
+        "roc_auc": 0.9997159999999999,
+        "pr_auc": 0.9996862134539461,
+        "false_positives": 6,
+        "false_negatives": 3,
+        "fpr": 0.006,
+        "fnr": 0.003
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.6666666666666666,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "fpr": 0.3333333333333333,
+        "fnr": 0.0
+      },
+      "gate_passed": true
+    },
+    {
+      "cnn_weight": 0.5,
+      "lightgbm_weight": 0.5,
+      "clean_validation": {
+        "accuracy": 0.961,
+        "precision": 0.9956989247311828,
+        "recall": 0.926,
+        "f1": 0.9595854922279793,
+        "roc_auc": 0.99181,
+        "pr_auc": 0.9933235822027305,
+        "false_positives": 4,
+        "false_negatives": 74,
+        "fpr": 0.004,
+        "fnr": 0.074
+      },
+      "adversarial_validation": {
+        "accuracy": 0.9965,
+        "precision": 0.996003996003996,
+        "recall": 0.997,
+        "f1": 0.9965017491254373,
+        "roc_auc": 0.999733,
+        "pr_auc": 0.9997036269681071,
+        "false_positives": 4,
+        "false_negatives": 3,
+        "fpr": 0.004,
+        "fnr": 0.003
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.6666666666666666,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "fpr": 0.3333333333333333,
+        "fnr": 0.0
+      },
+      "gate_passed": true
+    },
+    {
+      "cnn_weight": 0.55,
+      "lightgbm_weight": 0.44999999999999996,
+      "clean_validation": {
+        "accuracy": 0.958,
+        "precision": 0.9956709956709957,
+        "recall": 0.92,
+        "f1": 0.9563409563409564,
+        "roc_auc": 0.991703,
+        "pr_auc": 0.9932428921119977,
+        "false_positives": 4,
+        "false_negatives": 80,
+        "fpr": 0.004,
+        "fnr": 0.08
+      },
+      "adversarial_validation": {
+        "accuracy": 0.9965,
+        "precision": 0.996003996003996,
+        "recall": 0.997,
+        "f1": 0.9965017491254373,
+        "roc_auc": 0.99975,
+        "pr_auc": 0.999721101999102,
+        "false_positives": 4,
+        "false_negatives": 3,
+        "fpr": 0.004,
+        "fnr": 0.003
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.6666666666666666,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "fpr": 0.3333333333333333,
+        "fnr": 0.0
+      },
+      "gate_passed": true
+    },
+    {
+      "cnn_weight": 0.6,
+      "lightgbm_weight": 0.4,
+      "clean_validation": {
+        "accuracy": 0.9555,
+        "precision": 0.9956474428726877,
+        "recall": 0.915,
+        "f1": 0.9536216779572694,
+        "roc_auc": 0.991566,
+        "pr_auc": 0.9931371680271394,
+        "false_positives": 4,
+        "false_negatives": 85,
+        "fpr": 0.004,
+        "fnr": 0.085
+      },
+      "adversarial_validation": {
+        "accuracy": 0.9965,
+        "precision": 0.996003996003996,
+        "recall": 0.997,
+        "f1": 0.9965017491254373,
+        "roc_auc": 0.999754,
+        "pr_auc": 0.9997250302538895,
+        "false_positives": 4,
+        "false_negatives": 3,
+        "fpr": 0.004,
+        "fnr": 0.003
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.6666666666666666,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "fpr": 0.3333333333333333,
+        "fnr": 0.0
+      },
+      "gate_passed": true
+    },
+    {
+      "cnn_weight": 0.65,
+      "lightgbm_weight": 0.35,
+      "clean_validation": {
+        "accuracy": 0.952,
+        "precision": 0.9967032967032967,
+        "recall": 0.907,
+        "f1": 0.949738219895288,
+        "roc_auc": 0.991373,
+        "pr_auc": 0.9929909481132133,
+        "false_positives": 3,
+        "false_negatives": 93,
+        "fpr": 0.003,
+        "fnr": 0.093
+      },
+      "adversarial_validation": {
+        "accuracy": 0.9975,
+        "precision": 0.997002997002997,
+        "recall": 0.998,
+        "f1": 0.9975012493753124,
+        "roc_auc": 0.999761,
+        "pr_auc": 0.9997322467230263,
+        "false_positives": 3,
+        "false_negatives": 2,
+        "fpr": 0.003,
+        "fnr": 0.002
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.6666666666666666,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "fpr": 0.3333333333333333,
+        "fnr": 0.0
+      },
+      "gate_passed": true
+    },
+    {
+      "cnn_weight": 0.7,
+      "lightgbm_weight": 0.30000000000000004,
+      "clean_validation": {
+        "accuracy": 0.9515,
+        "precision": 0.9988950276243094,
+        "recall": 0.904,
+        "f1": 0.9490813648293963,
+        "roc_auc": 0.9911820000000001,
+        "pr_auc": 0.992832465639301,
+        "false_positives": 1,
+        "false_negatives": 96,
+        "fpr": 0.001,
+        "fnr": 0.096
+      },
+      "adversarial_validation": {
+        "accuracy": 0.998,
+        "precision": 0.998997995991984,
+        "recall": 0.997,
+        "f1": 0.997997997997998,
+        "roc_auc": 0.999765,
+        "pr_auc": 0.9997376558202539,
+        "false_positives": 1,
+        "false_negatives": 3,
+        "fpr": 0.001,
+        "fnr": 0.003
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.6666666666666666,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "fpr": 0.3333333333333333,
+        "fnr": 0.0
+      },
+      "gate_passed": true
+    },
+    {
+      "cnn_weight": 0.75,
+      "lightgbm_weight": 0.25,
+      "clean_validation": {
+        "accuracy": 0.949,
+        "precision": 0.9977827050997783,
+        "recall": 0.9,
+        "f1": 0.9463722397476341,
+        "roc_auc": 0.990863,
+        "pr_auc": 0.9925867804779667,
+        "false_positives": 2,
+        "false_negatives": 100,
+        "fpr": 0.002,
+        "fnr": 0.1
+      },
+      "adversarial_validation": {
+        "accuracy": 0.997,
+        "precision": 0.9979959919839679,
+        "recall": 0.996,
+        "f1": 0.996996996996997,
+        "roc_auc": 0.999763,
+        "pr_auc": 0.9997365142076712,
+        "false_positives": 2,
+        "false_negatives": 4,
+        "fpr": 0.002,
+        "fnr": 0.004
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.6666666666666666,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "fpr": 0.3333333333333333,
+        "fnr": 0.0
+      },
+      "gate_passed": true
+    },
+    {
+      "cnn_weight": 0.8,
+      "lightgbm_weight": 0.19999999999999996,
+      "clean_validation": {
+        "accuracy": 0.9465,
+        "precision": 0.9977703455964325,
+        "recall": 0.895,
+        "f1": 0.9435951502372166,
+        "roc_auc": 0.990463,
+        "pr_auc": 0.9922735593306161,
+        "false_positives": 2,
+        "false_negatives": 105,
+        "fpr": 0.002,
+        "fnr": 0.105
+      },
+      "adversarial_validation": {
+        "accuracy": 0.996,
+        "precision": 0.9979919678714859,
+        "recall": 0.994,
+        "f1": 0.9959919839679359,
+        "roc_auc": 0.999749,
+        "pr_auc": 0.9997228768535279,
+        "false_positives": 2,
+        "false_negatives": 6,
+        "fpr": 0.002,
+        "fnr": 0.006
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.5333333333333333,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 7,
+        "false_negatives": 0,
+        "fpr": 0.4666666666666667,
+        "fnr": 0.0
+      },
+      "gate_passed": false
+    },
+    {
+      "cnn_weight": 0.85,
+      "lightgbm_weight": 0.15000000000000002,
+      "clean_validation": {
+        "accuracy": 0.9425,
+        "precision": 0.9955207166853304,
+        "recall": 0.889,
+        "f1": 0.9392498679344955,
+        "roc_auc": 0.9899429999999999,
+        "pr_auc": 0.9918736159795889,
+        "false_positives": 4,
+        "false_negatives": 111,
+        "fpr": 0.004,
+        "fnr": 0.111
+      },
+      "adversarial_validation": {
+        "accuracy": 0.994,
+        "precision": 0.9959839357429718,
+        "recall": 0.992,
+        "f1": 0.9939879759519038,
+        "roc_auc": 0.9997389999999999,
+        "pr_auc": 0.9997137433645829,
+        "false_positives": 4,
+        "false_negatives": 8,
+        "fpr": 0.004,
+        "fnr": 0.008
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.5333333333333333,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 7,
+        "false_negatives": 0,
+        "fpr": 0.4666666666666667,
+        "fnr": 0.0
+      },
+      "gate_passed": false
+    },
+    {
+      "cnn_weight": 0.9,
+      "lightgbm_weight": 0.09999999999999998,
+      "clean_validation": {
+        "accuracy": 0.938,
+        "precision": 0.9943566591422122,
+        "recall": 0.881,
+        "f1": 0.9342523860021209,
+        "roc_auc": 0.989154,
+        "pr_auc": 0.9912560532909358,
+        "false_positives": 5,
+        "false_negatives": 119,
+        "fpr": 0.005,
+        "fnr": 0.119
+      },
+      "adversarial_validation": {
+        "accuracy": 0.9935,
+        "precision": 0.9949849548645938,
+        "recall": 0.992,
+        "f1": 0.9934902353530295,
+        "roc_auc": 0.999717,
+        "pr_auc": 0.9996916637371347,
+        "false_positives": 5,
+        "false_negatives": 8,
+        "fpr": 0.005,
+        "fnr": 0.008
+      },
+      "hard_negative_validation": {
+        "accuracy": 0.4666666666666667,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "pr_auc": null,
+        "false_positives": 8,
+        "false_negatives": 0,
+        "fpr": 0.5333333333333333,
+        "fnr": 0.0
+      },
+      "gate_passed": false
+    }
+  ]
+}

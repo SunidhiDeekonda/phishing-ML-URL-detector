@@ -1,0 +1,6 @@
+{
+  "model_version": "url-ensemble-production-v2.0",
+  "cnn_weight": 0.35,
+  "lightgbm_weight": 0.65,
+  "threshold": 0.5
+}

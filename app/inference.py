@@ -24,7 +24,7 @@ SELECTED_CNN_WEIGHT = 0.95
 SELECTED_LIGHTGBM_WEIGHT = 0.05
 THRESHOLD = 0.50
 MAX_URL_LENGTH = 2048
-MODEL_VERSION = "url-ensemble-original-onnx-1.0"
+MODEL_VERSION = "url-ensemble-production-v2.0"
 
 def _prepare_feature_columns() -> list[str]:
     features_path = PROJECT_ROOT / "data/processed/features.csv"
@@ -51,6 +51,7 @@ def _extract_signals(features: Mapping[str, float]) -> Dict[str, float | str]:
 @dataclass
 class LightGBMOnnxModel:
     session: object
+    calibration_method: str
     calibration_a: float
     calibration_b: float
 
@@ -77,10 +78,20 @@ class URLInference:
         feature_columns = _prepare_feature_columns()
         vocab = build_vocab([])
 
-        lightgbm_path = PROJECT_ROOT / "models/lightgbm.onnx"
+        config_path = PROJECT_ROOT / "models/production_v2_config.json"
+        production_v2_available = config_path.exists()
+        if production_v2_available:
+            config = json.loads(config_path.read_text(encoding="utf-8"))
+            self.cnn_weight = float(config["cnn_weight"])
+            self.lightgbm_weight = float(config["lightgbm_weight"])
+        else:
+            self.cnn_weight = SELECTED_CNN_WEIGHT
+            self.lightgbm_weight = SELECTED_LIGHTGBM_WEIGHT
+
+        lightgbm_path = PROJECT_ROOT / ("models/lightgbm_production_v2.onnx" if production_v2_available else "models/lightgbm.onnx")
         if not lightgbm_path.exists():
             raise FileNotFoundError(f"Missing model file: {lightgbm_path}")
-        calibration_path = PROJECT_ROOT / "models/lightgbm_calibration.json"
+        calibration_path = PROJECT_ROOT / ("models/lightgbm_production_v2_calibration.json" if production_v2_available else "models/lightgbm_calibration.json")
         if not calibration_path.exists():
             raise FileNotFoundError(f"Missing calibration file: {calibration_path}")
         try:
@@ -90,10 +101,11 @@ class URLInference:
                 str(lightgbm_path), providers=["CPUExecutionProvider"]
             )
             calibration = json.loads(calibration_path.read_text(encoding="utf-8"))
-            if calibration.get("method") != "sigmoid":
+            if calibration.get("method") not in {"sigmoid", "logistic_logit"}:
                 raise ValueError("Unsupported LightGBM calibration method")
             lightgbm_model = LightGBMOnnxModel(
                 session=lightgbm_session,
+                calibration_method=str(calibration["method"]),
                 calibration_a=float(calibration["a"]),
                 calibration_b=float(calibration["b"]),
             )
@@ -102,7 +114,7 @@ class URLInference:
                 f"Failed to load portable LightGBM artifacts: {type(exc).__name__}: {exc}"
             ) from exc
 
-        cnn_path = PROJECT_ROOT / "models/char_cnn.onnx"
+        cnn_path = PROJECT_ROOT / ("models/char_cnn_production_v2.onnx" if production_v2_available else "models/char_cnn.onnx")
         if not cnn_path.exists():
             raise FileNotFoundError(f"Missing model file: {cnn_path}")
 
@@ -133,11 +145,21 @@ class URLInference:
             ["probabilities"], {"input": model_input}
         )[0]
         raw_score = float(raw_scores[0][1])
-        calibrated_logit = model.calibration_a * raw_score + model.calibration_b
+        calibration_input = raw_score
+        if model.calibration_method == "logistic_logit":
+            clipped = min(max(raw_score, 1e-6), 1 - 1e-6)
+            calibration_input = float(np.log(clipped / (1 - clipped)))
+        calibrated_logit = model.calibration_a * calibration_input + model.calibration_b
+        if model.calibration_method == "sigmoid":
+            if calibrated_logit >= 0:
+                exp_negative = float(np.exp(-calibrated_logit))
+                return exp_negative / (1.0 + exp_negative)
+            return 1.0 / (1.0 + float(np.exp(calibrated_logit)))
         if calibrated_logit >= 0:
             exp_negative = float(np.exp(-calibrated_logit))
-            return exp_negative / (1.0 + exp_negative)
-        return 1.0 / (1.0 + float(np.exp(calibrated_logit)))
+            return 1.0 / (1.0 + exp_negative)
+        exp_positive = float(np.exp(calibrated_logit))
+        return exp_positive / (1.0 + exp_positive)
 
     def _predict_cnn(self, sequence: np.ndarray, bundle: ModelBundle) -> float:
         if bundle.cnn_model is None:
@@ -178,16 +200,27 @@ class URLInference:
             REFERENCE_CNN_WEIGHT * cnn_probability
             + REFERENCE_LIGHTGBM_WEIGHT * lightgbm_probability
         )
-        selected_ensemble_probability = (
-            SELECTED_CNN_WEIGHT * cnn_probability
-            + SELECTED_LIGHTGBM_WEIGHT * lightgbm_probability
-        )
+        selected_ensemble_probability = self.cnn_weight * cnn_probability + self.lightgbm_weight * lightgbm_probability
 
         phishing_probability = selected_ensemble_probability
         verdict = "PHISHING" if phishing_probability >= THRESHOLD else "LEGITIMATE"
         confidence = phishing_probability if verdict == "PHISHING" else (1 - phishing_probability)
 
         important_features = _extract_signals(url_features)
+        notable_signals = []
+        if verdict == "PHISHING":
+            checks = [
+                (url_features["suspicious_tld"] > 0, "The top-level domain is in the model's suspicious-TLD feature list."),
+                (url_features["is_ip_host"] > 0, "The hostname is an IP address."),
+                (url_features["has_at_symbol"] > 0, "The URL contains an @ symbol."),
+                (url_features["url_length"] >= 60, f"The URL is relatively long ({int(url_features['url_length'])} characters)."),
+                (url_features["path_length"] >= 25, f"The path is relatively long ({int(url_features['path_length'])} characters)."),
+                (url_features["hyphen_count"] >= 3, f"The URL contains several hyphens ({int(url_features['hyphen_count'])})."),
+                (url_features["token_login"] > 0, "The URL text contains the token 'login'."),
+                (url_features["token_verify"] > 0, "The URL text contains the token 'verify'."),
+                (url_features["token_account"] > 0, "The URL text contains the token 'account'."),
+            ]
+            notable_signals = [message for matched, message in checks if matched][:5]
 
         return {
             "url": normalized_url,
@@ -200,8 +233,8 @@ class URLInference:
             "reference_ensemble_probability": reference_ensemble_probability,
             "selected_ensemble_probability": selected_ensemble_probability,
             "selected_weights": {
-                "cnn": SELECTED_CNN_WEIGHT,
-                "lightgbm": SELECTED_LIGHTGBM_WEIGHT,
+                "cnn": self.cnn_weight,
+                "lightgbm": self.lightgbm_weight,
             },
             "reference_weights": {
                 "cnn": REFERENCE_CNN_WEIGHT,
@@ -209,6 +242,8 @@ class URLInference:
             },
             "threshold": THRESHOLD,
             "important_features": important_features,
+            "notable_signals": notable_signals,
+            "explanation_caveat": "Notable values are descriptive signals, not proof of causation. This probabilistic prediction can produce false positives.",
         }
 
 

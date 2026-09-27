@@ -1,0 +1,211 @@
+{
+  "health": {
+    "status": "ok",
+    "lightgbm_loaded": true,
+    "cnn_loaded": true,
+    "device": "cpu",
+    "model_version": "url-ensemble-production-v2.0"
+  },
+  "github": {
+    "url": "https://github.com/SunidhiDeekonda/phishing-ML-URL-detector",
+    "model_version": "url-ensemble-production-v2.0",
+    "verdict": "LEGITIMATE",
+    "phishing_probability": 0.2510582084826035,
+    "confidence": 0.7489417915173965,
+    "cnn_probability": 0.5902850892622048,
+    "lightgbm_probability": 0.06839758037051057,
+    "reference_ensemble_probability": 0.3815300857055271,
+    "selected_ensemble_probability": 0.2510582084826035,
+    "selected_weights": {
+      "cnn": 0.35,
+      "lightgbm": 0.65
+    },
+    "reference_weights": {
+      "cnn": 0.6,
+      "lightgbm": 0.4
+    },
+    "threshold": 0.5,
+    "important_features": {
+      "URL Length": 59,
+      "Host Length": 10,
+      "Hostname Entropy": 3.321928094887362,
+      "Number of Dots": 1,
+      "Digit/Letter Ratio": 0.0,
+      "Number of Dots in Path": 2,
+      "Suspicious TLD": false,
+      "Contains Login Keyword": false,
+      "Contains Verify Keyword": false
+    },
+    "notable_signals": [],
+    "explanation_caveat": "Notable values are descriptive signals, not proof of causation. This probabilistic prediction can produce false positives."
+  },
+  "safe_html": {
+    "analysis_type": "html",
+    "signals": {
+      "form_count": 0,
+      "password_input_count": 0,
+      "iframe_count": 0,
+      "script_count": 0,
+      "external_target_count": 0,
+      "meta_refresh_count": 0,
+      "credential_term_count": 0
+    },
+    "context_risk": {
+      "level": "LOW",
+      "summary": "No elevated contextual warning combination was detected.",
+      "indicators": []
+    },
+    "network_access": false,
+    "html_executed": false,
+    "included_in_validated_probability": false
+  },
+  "suspicious_html": {
+    "analysis_type": "html",
+    "signals": {
+      "form_count": 1,
+      "password_input_count": 1,
+      "iframe_count": 0,
+      "script_count": 0,
+      "external_target_count": 0,
+      "meta_refresh_count": 0,
+      "credential_term_count": 2
+    },
+    "context_risk": {
+      "level": "ELEVATED",
+      "summary": "Contextual warning indicators were detected; human review is recommended.",
+      "indicators": [
+        "HTML contains a credential form"
+      ]
+    },
+    "network_access": false,
+    "html_executed": false,
+    "included_in_validated_probability": false
+  },
+  "large_html": {
+    "analysis_type": "html",
+    "signals": {
+      "form_count": 0,
+      "password_input_count": 0,
+      "iframe_count": 0,
+      "script_count": 200,
+      "external_target_count": 0,
+      "meta_refresh_count": 0,
+      "credential_term_count": 0
+    },
+    "context_risk": {
+      "level": "LOW",
+      "summary": "No elevated contextual warning combination was detected.",
+      "indicators": []
+    },
+    "network_access": false,
+    "html_executed": false,
+    "included_in_validated_probability": false
+  },
+  "safe_email": {
+    "analysis_type": "email",
+    "signals": {
+      "url_count": 0,
+      "risk_term_count": 0,
+      "credential_request_count": 0,
+      "call_to_action_count": 0
+    },
+    "context_risk": {
+      "level": "LOW",
+      "summary": "No elevated contextual warning combination was detected.",
+      "indicators": []
+    },
+    "network_access": false,
+    "mailbox_access": false,
+    "included_in_validated_probability": false
+  },
+  "suspicious_email": {
+    "analysis_type": "email",
+    "signals": {
+      "url_count": 0,
+      "risk_term_count": 7,
+      "credential_request_count": 1,
+      "call_to_action_count": 0
+    },
+    "context_risk": {
+      "level": "ELEVATED",
+      "summary": "Contextual warning indicators were detected; human review is recommended.",
+      "indicators": [
+        "email asks for credentials"
+      ]
+    },
+    "network_access": false,
+    "mailbox_access": false,
+    "included_in_validated_probability": false
+  },
+  "model_info": {
+    "models": [
+      {
+        "clean_validation_metrics": {
+          "roc_auc": 0.9970640000000001
+        },
+        "data_count": 14002,
+        "robustness_validation_metrics": {
+          "roc_auc": 0.999886
+        },
+        "status": "historical_research",
+        "training_date": "2026-08-28",
+        "version": "url-ensemble-original-1.0"
+      },
+      {
+        "clean_validation_metrics": {
+          "roc_auc": 0.997065
+        },
+        "data_count": 15753,
+        "robustness_validation_metrics": {
+          "roc_auc": 0.999917
+        },
+        "status": "validated_research_candidate",
+        "training_date": "2026-09-22",
+        "version": "url-ensemble-robust-1.0"
+      },
+      {
+        "version": "url-ensemble-production-v2.0",
+        "training_date": "2026-09-27",
+        "data_count": 17169,
+        "clean_validation_metrics": {
+          "accuracy": 0.9645,
+          "precision": 0.9915343915343915,
+          "recall": 0.937,
+          "f1": 0.9634961439588688,
+          "roc_auc": 0.991917,
+          "pr_auc": 0.9934345377287901,
+          "false_positives": 8,
+          "false_negatives": 63,
+          "fpr": 0.008,
+          "fnr": 0.063
+        },
+        "robustness_validation_metrics": {
+          "accuracy": 0.993,
+          "precision": 0.9920159680638723,
+          "recall": 0.994,
+          "f1": 0.993006993006993,
+          "roc_auc": 0.9996689999999999,
+          "pr_auc": 0.9996374546499825,
+          "false_positives": 8,
+          "false_negatives": 6,
+          "fpr": 0.008,
+          "fnr": 0.006
+        },
+        "hard_negative_validation_metrics": {
+          "accuracy": 0.6666666666666666,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "roc_auc": null,
+          "pr_auc": null,
+          "false_positives": 5,
+          "false_negatives": 0,
+          "fpr": 0.3333333333333333,
+          "fnr": 0.0
+        },
+        "status": "production",
+        "historical_results_unchanged": true
+      }
+    ]
+  }
+}
