@@ -48,10 +48,12 @@ VOWELS = set("aeiou")
 
 
 def _extract_text(url: str) -> str:
+    """Return a stripped string representation of the URL, or empty string if None."""
     return "" if url is None else str(url).strip()
 
 
 def _to_int(value: bool | int | float) -> int:
+    """Convert a boolean, integer, or whole-number float to int."""
     if isinstance(value, bool):
         return int(value)
     if isinstance(value, (int, float)) and float(value).is_integer():
@@ -60,6 +62,10 @@ def _to_int(value: bool | int | float) -> int:
 
 
 def _safe_entropy(text: str) -> float:
+    """Compute Shannon entropy (in bits) of the characters in *text*.
+
+    Returns 0.0 for empty or None input.
+    """
     text = _extract_text(text)
     if not text:
         return 0.0
@@ -73,6 +79,10 @@ def _safe_entropy(text: str) -> float:
 
 
 def _url_parse_target(url: str) -> str:
+    """Ensure *url* has a scheme so that ``urlparse`` can extract host and path.
+
+    Prepends ``http://`` when no ``://`` is present.
+    """
     normalized = _extract_text(url)
     if "://" in normalized:
         return normalized
@@ -80,6 +90,10 @@ def _url_parse_target(url: str) -> str:
 
 
 def _length_bucket(value: int) -> List[int]:
+    """Return a one-hot list indicating which URL-length bucket *value* falls into.
+
+    Buckets: 0–20, 21–40, 41–60, 61–80, 81–100, 101+.
+    """
     bins = [
         (0, 20, "0_20"),
         (21, 40, "21_40"),
