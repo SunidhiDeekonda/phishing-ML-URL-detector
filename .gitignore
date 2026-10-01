@@ -15,3 +15,14 @@ __pycache__/
 *.swp
 *.swo
 tmp/
+
+# Python packaging
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node (if frontend tooling is added)
+node_modules/
