@@ -10,12 +10,22 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Mapping
 
+import logging
+
 import numpy as np
 import pandas as pd
 
 from src.char_tokenizer import MAX_SEQUENCE_LENGTH, build_vocab, encode_url
+from src.charcnn_bilstm import (
+    MAX_SEQUENCE_LENGTH as BILSTM_MAX_SEQUENCE_LENGTH,
+    build_enhanced_vocab,
+    encode_url_bilstm,
+)
+from src.domain_reputation import calibrate_probability_with_domain
 from src.features import extract_url_features
 from src.url_normalization import canonicalize_url
+
+LOGGER = logging.getLogger(__name__)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 REFERENCE_CNN_WEIGHT = 0.60
@@ -65,6 +75,9 @@ class ModelBundle:
     vocab: Dict[str, int]
     feature_columns: list[str]
     device: str
+    bilstm_model: object = None
+    bilstm_loaded: bool = False
+    bilstm_vocab: Dict[str, int] = None
 
 
 class URLInference:
@@ -125,6 +138,26 @@ class URLInference:
         except Exception as exc:
             raise RuntimeError(f"Failed to load {cnn_path}") from exc
 
+        # Load modern CharCNN-BiLSTM model if available
+        bilstm_path = PROJECT_ROOT / "models/charcnn_bilstm.onnx"
+        bilstm_vocab_path = PROJECT_ROOT / "models/charcnn_bilstm_vocab.json"
+        bilstm_model = None
+        bilstm_loaded = False
+        bilstm_vocab = None
+
+        if bilstm_path.exists():
+            try:
+                bilstm_model = ort.InferenceSession(
+                    str(bilstm_path), providers=["CPUExecutionProvider"]
+                )
+                bilstm_loaded = True
+                if bilstm_vocab_path.exists():
+                    bilstm_vocab = json.loads(bilstm_vocab_path.read_text(encoding="utf-8"))
+                else:
+                    bilstm_vocab = build_enhanced_vocab()
+            except Exception as exc:
+                LOGGER.warning("Could not load CharCNN-BiLSTM model (%s). Fallback to legacy.", exc)
+
         self._bundle = ModelBundle(
             lightgbm_model=lightgbm_model,
             cnn_model=cnn_model,
@@ -133,6 +166,9 @@ class URLInference:
             vocab=vocab,
             feature_columns=feature_columns,
             device="cpu",
+            bilstm_model=bilstm_model,
+            bilstm_loaded=bilstm_loaded,
+            bilstm_vocab=bilstm_vocab,
         )
         return self._bundle
 
@@ -173,6 +209,18 @@ class URLInference:
         logit = float(np.ravel(logits)[0])
         return float(1.0 / (1.0 + np.exp(-logit)))
 
+    def _predict_bilstm(self, url: str, bundle: ModelBundle) -> float:
+        if bundle.bilstm_model is None or not bundle.bilstm_loaded:
+            raise RuntimeError("CharCNN-BiLSTM model is not loaded")
+        vocab = bundle.bilstm_vocab or build_enhanced_vocab()
+        sequence = encode_url_bilstm(url, vocab, max_len=BILSTM_MAX_SEQUENCE_LENGTH)
+        logits = bundle.bilstm_model.run(
+            ["logits"], {"input": sequence[np.newaxis, :]}
+        )[0]
+        logit = float(logits[0])
+        raw_prob = float(1.0 / (1.0 + np.exp(-logit)))
+        return calibrate_probability_with_domain(url, raw_prob)
+
     def predict(self, url: str) -> Dict[str, object]:
         bundle = self.load_models()
         normalized_url = canonicalize_url(url)
@@ -200,11 +248,22 @@ class URLInference:
             REFERENCE_CNN_WEIGHT * cnn_probability
             + REFERENCE_LIGHTGBM_WEIGHT * lightgbm_probability
         )
-        selected_ensemble_probability = self.cnn_weight * cnn_probability + self.lightgbm_weight * lightgbm_probability
 
-        phishing_probability = selected_ensemble_probability
+        bilstm_probability = None
+        if bundle.bilstm_loaded:
+            bilstm_probability = self._predict_bilstm(normalized_url, bundle)
+            phishing_probability = bilstm_probability
+            selected_ensemble_probability = bilstm_probability
+            active_version = "charcnn-bilstm-attention-v3.0"
+        else:
+            selected_ensemble_probability = (
+                self.cnn_weight * cnn_probability + self.lightgbm_weight * lightgbm_probability
+            )
+            phishing_probability = selected_ensemble_probability
+            active_version = MODEL_VERSION
+
         verdict = "PHISHING" if phishing_probability >= THRESHOLD else "LEGITIMATE"
-        confidence = phishing_probability if verdict == "PHISHING" else (1 - phishing_probability)
+        confidence = phishing_probability if verdict == "PHISHING" else (1.0 - phishing_probability)
 
         important_features = _extract_signals(url_features)
         notable_signals = []
@@ -224,17 +283,19 @@ class URLInference:
 
         return {
             "url": normalized_url,
-            "model_version": MODEL_VERSION,
+            "model_version": active_version,
             "verdict": verdict,
             "phishing_probability": phishing_probability,
             "confidence": confidence,
             "cnn_probability": cnn_probability,
             "lightgbm_probability": lightgbm_probability,
+            "bilstm_probability": bilstm_probability,
             "reference_ensemble_probability": reference_ensemble_probability,
             "selected_ensemble_probability": selected_ensemble_probability,
             "selected_weights": {
                 "cnn": self.cnn_weight,
                 "lightgbm": self.lightgbm_weight,
+                "bilstm": 1.0 if bundle.bilstm_loaded else 0.0,
             },
             "reference_weights": {
                 "cnn": REFERENCE_CNN_WEIGHT,

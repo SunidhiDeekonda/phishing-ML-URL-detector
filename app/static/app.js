@@ -45,7 +45,17 @@ function setUrlResult(payload) {
   const explanation = payload.verdict === "PHISHING" ? `<div class="prediction-explanation"><h4>Why might the model be suspicious?</h4>${payload.notable_signals.length ? `<ul>${payload.notable_signals.map((value) => `<li>${escapeHtml(value)}</li>`).join("")}</ul>` : "<p>No single notable engineered value explains this result.</p>"}<p class="small">${escapeHtml(payload.explanation_caveat)}</p></div>` : "";
   resultCard.innerHTML = `<div class="verdict">${payload.verdict}</div><p class="muted">Confidence: ${(payload.confidence * 100).toFixed(1)}%</p><p class="muted">Selected Ensemble: ${(payload.selected_ensemble_probability * 100).toFixed(1)}% phishing probability</p><p class="muted">Canonical URL analysed: ${escapeHtml(payload.url)}</p>${explanation}`;
   breakdownEl.replaceChildren();
-  [["Char-CNN",payload.cnn_probability],["LightGBM",payload.lightgbm_probability],["Reference Ensemble (60/40)",payload.reference_ensemble_probability],[`Production Ensemble (${Math.round(payload.selected_weights.cnn * 100)}/${Math.round(payload.selected_weights.lightgbm * 100)})`,payload.selected_ensemble_probability]].forEach(([name,value]) => {
+  const breakdownItems = [];
+  if (payload.bilstm_probability !== undefined && payload.bilstm_probability !== null) {
+    breakdownItems.push(["CharCNN + BiLSTM + Attention (Active)", payload.bilstm_probability]);
+  }
+  breakdownItems.push(["Char-CNN (Legacy)", payload.cnn_probability]);
+  breakdownItems.push(["LightGBM (Tabular)", payload.lightgbm_probability]);
+  breakdownItems.push(["Reference Ensemble (60/40)", payload.reference_ensemble_probability]);
+  if (payload.bilstm_probability === undefined || payload.bilstm_probability === null) {
+    breakdownItems.push([`Production Ensemble (${Math.round(payload.selected_weights.cnn * 100)}/${Math.round(payload.selected_weights.lightgbm * 100)})`, payload.selected_ensemble_probability]);
+  }
+  breakdownItems.forEach(([name, value]) => {
     const item = document.createElement("li"); item.textContent = `${name}: ${(value * 100).toFixed(1)}%`; breakdownEl.appendChild(item);
   });
   signalsEl.replaceChildren();

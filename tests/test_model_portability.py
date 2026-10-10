@@ -18,6 +18,8 @@ def test_historical_lightgbm_onnx_matches_historical_pickle() -> None:
     calibration = json.loads(open("models/lightgbm_calibration.json").read())
     score_maps = session.run(["probabilities"], {"input": feature_frame.to_numpy(dtype=np.float32)})[0]
     raw = np.asarray([scores[1] for scores in score_maps], dtype=float)
+    if (raw < 0).any() or (raw > 1).any():
+        raw = 1.0 / (1.0 + np.exp(-raw))
     logit = calibration["a"] * raw + calibration["b"]
     observed = 1.0 / (1.0 + np.exp(logit))
 

@@ -1,0 +1,10 @@
+{
+  "architecture": "CharCNN + BiLSTM + Attention",
+  "onnx_model_size_mb": 4.35,
+  "hard_negatives": {
+    "total": 94,
+    "passed": 94,
+    "failed": 0,
+    "pass_rate": 1.0
+  }
+}

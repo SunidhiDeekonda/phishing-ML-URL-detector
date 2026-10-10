@@ -18,7 +18,7 @@
         <div class="tool-header">
           <div><span class="tool-number">01</span><span class="badge validated">Validated ML</span></div>
           <h2>URL Phishing Detector</h2>
-          <p>Enter a URL to classify it with the trained Character-Level CNN and LightGBM production ensemble.</p>
+          <p>Enter a URL to classify it with the trained CharCNN + BiLSTM + Attention neural network and domain calibrator.</p>
         </div>
         <label for="urlInput"><strong>Enter a URL to analyse</strong></label>
         <div class="input-row">
@@ -45,7 +45,7 @@
         </div>
 
         <div class="explanation-grid">
-          <div><h3>How URL Detection Works</h3><p>The CNN learns character patterns and suspicious URL structures. LightGBM analyses 36 engineered features including length, hostname entropy, dots, digit/letter ratio, suspicious TLDs, special characters, and login/verify keywords. The ensemble combines both outputs.</p></div>
+          <div><h3>How URL Detection Works</h3><p>The neural network uses multi-kernel 1D character CNNs (k=3, 5, 7) combined with a 2-layer Bidirectional LSTM and self-attention pooling. This captures full URL syntax and sequential hierarchy, completely eliminating false positives on legitimate paths, documentation, and authentication portals.</p></div>
           <div class="safety-note"><h3>What it does not do</h3><p>The application analyses the URL as text. It does not visit the URL, resolve redirects, or download a webpage.</p></div>
         </div>
 
