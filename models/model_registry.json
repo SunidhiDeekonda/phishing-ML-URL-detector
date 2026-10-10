@@ -64,8 +64,111 @@
         "fpr": 0.3333333333333333,
         "fnr": 0.0
       },
-      "status": "production",
+      "status": "previous_production",
       "historical_results_unchanged": true
+    },
+    {
+      "version": "charcnn-bilstm-attention-v3.1",
+      "architecture": "CharCNN + BiLSTM + Attention (ONNX)",
+      "training_date": "2026-10-10",
+      "data": "data/processed/balanced_dataset.csv (V2) after src/dataset_cleaning.py, canonical-URL dedup, registered-domain grouped split",
+      "data_count": 27672,
+      "validation_metrics": {
+        "accuracy": 0.9352591333899745,
+        "precision": 0.9652752124122645,
+        "recall": 0.9010344827586206,
+        "f1": 0.9320492241840557,
+        "roc_auc": 0.9856264079015769,
+        "pr_auc": 0.9849480091093181,
+        "fpr": 0.03149078726968174,
+        "fnr": 0.09896551724137931,
+        "confusion_matrix": {
+          "tn": 2891,
+          "fp": 94,
+          "fn": 287,
+          "tp": 2613
+        }
+      },
+      "held_out_test_metrics": {
+        "accuracy": 0.9393603546548448,
+        "precision": 0.9798251513113652,
+        "recall": 0.90021624961384,
+        "f1": 0.9383352117211399,
+        "roc_auc": 0.9898985855230451,
+        "pr_auc": 0.9904793225580609,
+        "fpr": 0.01948684637869438,
+        "fnr": 0.09978375038616003,
+        "confusion_matrix": {
+          "tn": 3019,
+          "fp": 60,
+          "fn": 323,
+          "tp": 2914
+        }
+      },
+      "previous_production_heldout_test_metrics": {
+        "accuracy": 0.9319659829914958,
+        "precision": 0.9546174142480212,
+        "recall": 0.9067669172932331,
+        "f1": 0.9300771208226222,
+        "roc_auc": 0.9767854483938254,
+        "pr_auc": 0.9811706379961602,
+        "fpr": 0.042935596605092365,
+        "fnr": 0.09323308270676692,
+        "confusion_matrix": {
+          "tn": 1917,
+          "fp": 86,
+          "fn": 186,
+          "tp": 1809
+        }
+      },
+      "previous_production_adversarial_test_metrics": {
+        "accuracy": 0.8809404702351176,
+        "precision": 0.9491425192193969,
+        "recall": 0.8045112781954887,
+        "f1": 0.870862723819859,
+        "roc_auc": 0.9317917860052027,
+        "pr_auc": 0.9518011386815057,
+        "fpr": 0.042935596605092365,
+        "fnr": 0.19548872180451127,
+        "confusion_matrix": {
+          "tn": 1917,
+          "fp": 86,
+          "fn": 390,
+          "tp": 1605
+        }
+      },
+      "external_unseen_metrics": {
+        "accuracy": 0.8162103551097859,
+        "precision": 0.8665170091521326,
+        "recall": 0.7991718426501035,
+        "f1": 0.8314830157415078,
+        "roc_auc": 0.8949400429459273,
+        "pr_auc": 0.9204883657760095,
+        "fpr": 0.1614452798663325,
+        "fnr": 0.20082815734989648,
+        "confusion_matrix": {
+          "tn": 4015,
+          "fp": 773,
+          "fn": 1261,
+          "tp": 5018
+        }
+      },
+      "hard_negative_false_positives": {
+        "train": {
+          "rows": 59,
+          "false_positives": 0
+        },
+        "validation": {
+          "rows": 15,
+          "false_positives": 1
+        },
+        "test": {
+          "rows": 20,
+          "false_positives": 0
+        }
+      },
+      "comparison": "results/production_model_comparison.json",
+      "status": "production"
     }
   ]
 }

@@ -1,0 +1,9 @@
+dataset,url,label,audit_flags,host,registered_domain,tranco_rank,source
+previous_phishx_dataset,https://www.cam4.com/,1,phishing_label_but_bare_root_of_tranco_top10k_site,www.cam4.com,cam4.com,5660.0,
+previous_phishx_dataset,https://microsoft365.com,0,legit_label_but_exact_url_in_phishing_feed,microsoft365.com,microsoft365.com,3553.0,
+previous_phishx_dataset,https://google.com.ai,0,legit_label_but_exact_url_in_phishing_feed,google.com.ai,google.com.ai,5249.0,
+v2_balanced_dataset,4shared.com,1,phishing_label_but_bare_root_of_tranco_top10k_site,4shared.com,4shared.com,3903.0,alexkstern_label1
+v2_balanced_dataset,http://www.alltechfeed.com/best-antivirus-iphone-ipad-2016/,0,legit_label_but_host_in_phishing_domain_feed_and_not_tranco_top100k,www.alltechfeed.com,alltechfeed.com,,pirocheto_legitimate
+v2_balanced_dataset,home.btconnect.com/Washington-CCT,0,legit_label_but_host_in_phishing_domain_feed_and_not_tranco_top100k,home.btconnect.com,btconnect.com,170737.0,alexkstern_label0
+v2_balanced_dataset,adelinabobrova1979@yandex.com,1,phishing_label_but_bare_root_of_tranco_top10k_site,yandex.com,yandex.com,397.0,alexkstern_label1
+v2_balanced_dataset,http://conferences.sigcomm.org/sigcomm/2012/paper/sigcomm/p307.pdf,0,legit_label_but_host_in_phishing_domain_feed_and_not_tranco_top100k,conferences.sigcomm.org,sigcomm.org,115806.0,pirocheto_legitimate

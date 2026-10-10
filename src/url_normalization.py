@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import re
 from urllib.parse import urlsplit, urlunsplit
 
 
 DEFAULT_SCHEME = "https"
+_SCHEME_PREFIX = re.compile(r"^[a-zA-Z][a-zA-Z0-9+.-]*://")
 
 
 def canonicalize_url(url: str | None, default_scheme: str = DEFAULT_SCHEME) -> str:
@@ -19,7 +21,7 @@ def canonicalize_url(url: str | None, default_scheme: str = DEFAULT_SCHEME) -> s
     if not text:
         return ""
 
-    candidate = text if "://" in text else f"{default_scheme}://{text}"
+    candidate = text if _SCHEME_PREFIX.match(text) else f"{default_scheme}://{text}"
     parsed = urlsplit(candidate)
     if not parsed.hostname:
         return candidate

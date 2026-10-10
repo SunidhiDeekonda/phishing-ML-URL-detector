@@ -18,7 +18,7 @@
         <div class="tool-header">
           <div><span class="tool-number">01</span><span class="badge validated">Validated ML</span></div>
           <h2>URL Phishing Detector</h2>
-          <p>Enter a URL to classify it with the trained Character-Level CNN and LightGBM production ensemble.</p>
+          <p>Enter a URL to classify it with the trained character-level CNN + BiLSTM + Attention model.</p>
         </div>
         <label for="urlInput"><strong>Enter a URL to analyse</strong></label>
         <div class="input-row">
@@ -45,7 +45,7 @@
         </div>
 
         <div class="explanation-grid">
-          <div><h3>How URL Detection Works</h3><p>The CNN learns character patterns and suspicious URL structures. LightGBM analyses 36 engineered features including length, hostname entropy, dots, digit/letter ratio, suspicious TLDs, special characters, and login/verify keywords. The ensemble combines both outputs.</p></div>
+          <div><h3>How URL Detection Works</h3><p>The canonical URL is read character by character. Convolutions (kernel sizes 3, 5 and 7) detect local character patterns, a two-layer bidirectional LSTM models their order across the whole URL, and attention pooling feeds a classifier that outputs the phishing probability. The earlier Char-CNN and LightGBM scores are still shown for reference but do not decide the verdict.</p></div>
           <div class="safety-note"><h3>What it does not do</h3><p>The application analyses the URL as text. It does not visit the URL, resolve redirects, or download a webpage.</p></div>
         </div>
 
@@ -59,7 +59,7 @@
       <header class="section-intro">
         <p class="eyebrow">Research Extensions</p>
         <h2>Independent Context Evidence</h2>
-        <p>These analyzers inspect only text you paste. They are not trained URL-model probabilities and do not alter the validated ensemble.</p>
+        <p>These analyzers inspect only text you paste. They are not trained URL-model probabilities and do not alter the validated URL probability.</p>
       </header>
 
       <section class="panel tool-section html-tool" id="html-analyzer">
@@ -82,7 +82,7 @@
           <div class="safety-note"><h3>What it does not do</h3><p>It does not open a website, execute HTML or JavaScript, or make network requests. Only pasted text is parsed.</p></div>
           <div class="why-note"><h3>Why we added this</h3><p>The reference system focused primarily on URL analysis. This module explores HTML-level evidence without altering the validated URL classifier.</p></div>
         </div>
-        <p class="scientific-note"><strong>Scientific distinction:</strong> HTML produces contextual risk evidence, not CNN, LightGBM, or validated phishing probability. A labelled HTML-content dataset would be required for calibrated fusion.</p>
+        <p class="scientific-note"><strong>Scientific distinction:</strong> HTML produces contextual risk evidence, not a validated URL-model phishing probability. A labelled HTML-content dataset would be required for calibrated fusion.</p>
         <section id="htmlResult" class="context-result" aria-live="polite">
           <h3>HTML Context Analysis</h3>
           <p>No HTML has been analysed yet.</p>
@@ -109,7 +109,7 @@
           <div class="safety-note"><h3>What it does not do</h3><p>It does not connect to Gmail, access an inbox, or send the text to an external mailbox service. Only manually pasted text is analysed.</p></div>
           <div class="why-note"><h3>Why we added this</h3><p>Phishing often reaches users through social-engineering email. This module extends the system beyond URL-only evidence.</p></div>
         </div>
-        <p class="scientific-note"><strong>Scientific distinction:</strong> Email results are contextual evidence only. They are not included in the validated CNN + LightGBM probability.</p>
+        <p class="scientific-note"><strong>Scientific distinction:</strong> Email results are contextual evidence only. They are not included in the validated URL-model probability.</p>
         <section id="emailResult" class="context-result" aria-live="polite">
           <h3>Email Context Analysis</h3>
           <p>No email text has been analysed yet.</p>
@@ -120,7 +120,7 @@
         <details>
           <summary>Research and Model Information</summary>
           <div class="about">
-            <p><strong>Production URL classifier:</strong> hard-negative-aware Character-Level CNN + calibrated LightGBM using 36 URL features and validation-selected production weights.</p>
+            <p><strong>Production URL classifier:</strong> character-level CNN + BiLSTM + Attention trained on the cleaned V2 URL dataset (domain-grouped split, checkpoint selected on validation only). The previous CNN + LightGBM ensemble is reported alongside for reference.</p>
             <p><strong>Experimental extensions:</strong> standalone deterministic HTML and email context evidence, adversarial robustness, verified feedback, drift monitoring, and model registry.</p>
             <p><strong>Historical URL experiment:</strong> 20,000 URLs; domain-separated 14,002/2,000/3,998 split; 95/5 ensemble; accuracy 99.525%; precision 100.000%; recall 99.048%; ROC-AUC 99.931%. Production V2 is a separately documented reliability model.</p>
             <p>These historical URL metrics do not apply to the HTML or email analyzers.</p>

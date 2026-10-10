@@ -148,3 +148,12 @@ Production inference now uses one network-free canonicalization contract before 
 ## Production Model V2
 
 A post-experiment reliability audit found that the original dataset accidentally made path presence a near-perfect class cue: legitimate rows were roots, while almost all phishing rows contained paths. Production V2 adds partitioned legitimate hard paths and adversarial training, then applies a validation gate before held-out evaluation. It does not whitelist GitHub, alter the 0.5 threshold, overwrite historical models, or revise original academic metrics. See [GITHUB_FALSE_POSITIVE_ANALYSIS.md](docs/GITHUB_FALSE_POSITIVE_ANALYSIS.md).
+
+## Production Model V3.1: CharCNN + BiLSTM + Attention
+
+The API now serves `charcnn-bilstm-attention-v3.1` (`models/charcnn_bilstm.onnx`): a character-level CNN (kernels 3/5/7) feeding a two-layer bidirectional LSTM with attention and max pooling. It is trained on the V2 dataset `data/processed/balanced_dataset.csv` by `python scripts/train_bilstm.py`, which cleans confirmed scraping artefacts (`src/dataset_cleaning.py`), deduplicates on the canonical URL, splits by registered domain, selects the checkpoint on validation only, and encodes every URL with the same `canonicalize_url` the API uses. No domain allowlist or post-hoc probability adjustment is applied. The previous ensemble scores are still returned for reference but do not decide the verdict.
+
+The label audit (`python scripts/audit_dataset_labels.py --evidence-dir <dir>`, output in `results/dataset_label_audit.json`) found no reversed or inconsistent label mappings in either dataset, but did find class-correlated formatting artefacts and that about 48% of V2 legitimate rows are generated URLs (`<PhishX root> + /login` etc.) whose existence was never verified.
+
+The like-for-like comparison is in `results/production_model_comparison.json` (`python scripts/compare_production_models.py`). The new model has far fewer false positives on legitimate URLs with paths and on the hard-negative suite, but lower phishing recall than the previous ensemble on the previous held-out test, its adversarial variants, and the external OpenPhish/Phishing.Database feeds, and more false positives on popular root domains. It is not an across-the-board improvement.
+

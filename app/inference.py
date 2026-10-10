@@ -5,6 +5,7 @@ This module loads models once and exposes deterministic prediction for URL input
 
 from __future__ import annotations
 
+import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -14,6 +15,7 @@ import numpy as np
 import pandas as pd
 
 from src.char_tokenizer import MAX_SEQUENCE_LENGTH, build_vocab, encode_url
+from src.charcnn_bilstm import MAX_SEQUENCE_LENGTH as BILSTM_MAX_SEQUENCE_LENGTH, encode_url_bilstm
 from src.features import extract_url_features
 from src.url_normalization import canonicalize_url
 
@@ -25,6 +27,9 @@ SELECTED_LIGHTGBM_WEIGHT = 0.05
 THRESHOLD = 0.50
 MAX_URL_LENGTH = 2048
 MODEL_VERSION = "url-ensemble-production-v2.0"
+BILSTM_CONFIG = "models/charcnn_bilstm_config.json"
+BILSTM_ONNX = "models/charcnn_bilstm.onnx"
+BILSTM_VOCAB = "models/charcnn_bilstm_vocab.json"
 
 def _prepare_feature_columns() -> list[str]:
     features_path = PROJECT_ROOT / "data/processed/features.csv"
@@ -65,6 +70,10 @@ class ModelBundle:
     vocab: Dict[str, int]
     feature_columns: list[str]
     device: str
+    model_version: str = MODEL_VERSION
+    bilstm_model: object = None
+    bilstm_loaded: bool = False
+    bilstm_vocab: Dict[str, int] | None = None
 
 
 class URLInference:
@@ -125,6 +134,30 @@ class URLInference:
         except Exception as exc:
             raise RuntimeError(f"Failed to load {cnn_path}") from exc
 
+        # The CharCNN-BiLSTM model is served whenever its config is present; a
+        # missing or mismatched artifact is an error rather than a silent fallback.
+        bilstm_model = None
+        bilstm_vocab = None
+        model_version = MODEL_VERSION
+        bilstm_config_path = PROJECT_ROOT / BILSTM_CONFIG
+        if bilstm_config_path.exists():
+            bilstm_config = json.loads(bilstm_config_path.read_text(encoding="utf-8"))
+            bilstm_path = PROJECT_ROOT / BILSTM_ONNX
+            if not bilstm_path.exists():
+                raise FileNotFoundError(f"Missing model file: {bilstm_path}")
+            if hashlib.sha256(bilstm_path.read_bytes()).hexdigest() != bilstm_config["onnx_sha256"]:
+                raise RuntimeError(f"{bilstm_path} does not match the sha256 recorded in {bilstm_config_path}")
+            if int(bilstm_config["max_sequence_length"]) != BILSTM_MAX_SEQUENCE_LENGTH:
+                raise RuntimeError("CharCNN-BiLSTM sequence length does not match the encoder")
+            if float(bilstm_config["threshold"]) != THRESHOLD:
+                raise RuntimeError("CharCNN-BiLSTM threshold does not match the API threshold")
+            try:
+                bilstm_model = ort.InferenceSession(str(bilstm_path), providers=["CPUExecutionProvider"])
+                bilstm_vocab = json.loads((PROJECT_ROOT / BILSTM_VOCAB).read_text(encoding="utf-8"))
+            except Exception as exc:
+                raise RuntimeError(f"Failed to load {bilstm_path}: {type(exc).__name__}: {exc}") from exc
+            model_version = str(bilstm_config["model_version"])
+
         self._bundle = ModelBundle(
             lightgbm_model=lightgbm_model,
             cnn_model=cnn_model,
@@ -133,6 +166,10 @@ class URLInference:
             vocab=vocab,
             feature_columns=feature_columns,
             device="cpu",
+            model_version=model_version,
+            bilstm_model=bilstm_model,
+            bilstm_loaded=bilstm_model is not None,
+            bilstm_vocab=bilstm_vocab,
         )
         return self._bundle
 
@@ -173,6 +210,14 @@ class URLInference:
         logit = float(np.ravel(logits)[0])
         return float(1.0 / (1.0 + np.exp(-logit)))
 
+    def _predict_bilstm(self, normalized_url: str, bundle: ModelBundle) -> float:
+        if bundle.bilstm_model is None:
+            raise RuntimeError("CharCNN-BiLSTM model is not loaded")
+        sequence = encode_url_bilstm(normalized_url, bundle.bilstm_vocab, max_len=BILSTM_MAX_SEQUENCE_LENGTH)
+        logits = bundle.bilstm_model.run(["logits"], {"input": sequence[np.newaxis, :]})[0]
+        logit = float(np.ravel(logits)[0])
+        return float(1.0 / (1.0 + np.exp(-logit)))
+
     def predict(self, url: str) -> Dict[str, object]:
         bundle = self.load_models()
         normalized_url = canonicalize_url(url)
@@ -202,7 +247,14 @@ class URLInference:
         )
         selected_ensemble_probability = self.cnn_weight * cnn_probability + self.lightgbm_weight * lightgbm_probability
 
-        phishing_probability = selected_ensemble_probability
+        bilstm_probability = None
+        if bundle.bilstm_loaded:
+            bilstm_probability = self._predict_bilstm(normalized_url, bundle)
+            if not np.isfinite(bilstm_probability):
+                raise RuntimeError("Invalid CharCNN-BiLSTM probability output")
+            phishing_probability = bilstm_probability
+        else:
+            phishing_probability = selected_ensemble_probability
         verdict = "PHISHING" if phishing_probability >= THRESHOLD else "LEGITIMATE"
         confidence = phishing_probability if verdict == "PHISHING" else (1 - phishing_probability)
 
@@ -224,10 +276,11 @@ class URLInference:
 
         return {
             "url": normalized_url,
-            "model_version": MODEL_VERSION,
+            "model_version": bundle.model_version,
             "verdict": verdict,
             "phishing_probability": phishing_probability,
             "confidence": confidence,
+            "bilstm_probability": bilstm_probability,
             "cnn_probability": cnn_probability,
             "lightgbm_probability": lightgbm_probability,
             "reference_ensemble_probability": reference_ensemble_probability,

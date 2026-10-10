@@ -1,0 +1,327 @@
+{
+  "evidence_sources": {
+    "phishing_urls": "openphish.com/feed.txt + mitchellkrogza/Phishing.Database phishing-links-ACTIVE.txt",
+    "phishing_hosts": "mitchellkrogza/Phishing.Database phishing-domains-ACTIVE.txt",
+    "popularity": "Tranco top-1M (list 8PX5V)",
+    "phishtank": "not used: data.phishtank.com returned HTTP 429 (rate limited) at audit time"
+  },
+  "label_convention": "All project datasets use 1 = phishing, 0 = legitimate.",
+  "previous_phishx_dataset": {
+    "columns": [
+      "url",
+      "label"
+    ],
+    "label_values": [
+      0,
+      1
+    ],
+    "class_counts": {
+      "0": 10000,
+      "1": 10000
+    },
+    "duplicates": {
+      "exact_duplicate_urls": 0,
+      "loose_duplicate_urls": 28,
+      "loose_keys_with_conflicting_labels": 1,
+      "empty_or_whitespace_urls": 0,
+      "null_urls": 0,
+      "malformed_urls_rejected_by_canonicalize_url": 0
+    },
+    "structure_by_label": {
+      "0": {
+        "rows": 10000,
+        "has_scheme": 1.0,
+        "https": 1.0,
+        "www_prefix": 0.0003,
+        "has_path_or_query": 0.0,
+        "trailing_slash": 0.0,
+        "median_length": 20.0,
+        "quote_or_escape_artifacts": 0.0
+      },
+      "1": {
+        "rows": 10000,
+        "has_scheme": 1.0,
+        "https": 0.9422,
+        "www_prefix": 0.0301,
+        "has_path_or_query": 0.6855,
+        "trailing_slash": 0.3123,
+        "median_length": 39.0,
+        "quote_or_escape_artifacts": 0.0
+      }
+    },
+    "evidence_by_label": {
+      "0": {
+        "rows": 10000,
+        "exact_url_in_phishing_feed": 0.0002,
+        "host_in_phishing_domain_feed": 0.0009,
+        "registered_domain_in_tranco_top10k": 0.1895,
+        "registered_domain_in_tranco_top1m": 0.9607
+      },
+      "1": {
+        "rows": 10000,
+        "exact_url_in_phishing_feed": 0.0484,
+        "host_in_phishing_domain_feed": 0.1971,
+        "registered_domain_in_tranco_top10k": 0.3629,
+        "registered_domain_in_tranco_top1m": 0.6181
+      }
+    },
+    "flag_counts": {
+      "legit_label_but_exact_url_in_phishing_feed": 2,
+      "phishing_label_but_bare_root_of_tranco_top10k_site": 1
+    }
+  },
+  "v2_balanced_dataset": {
+    "columns": [
+      "url",
+      "label",
+      "source"
+    ],
+    "label_values": [
+      0,
+      1
+    ],
+    "class_counts": {
+      "0": 20000,
+      "1": 20000
+    },
+    "duplicates": {
+      "exact_duplicate_urls": 0,
+      "loose_duplicate_urls": 96,
+      "loose_keys_with_conflicting_labels": 0,
+      "empty_or_whitespace_urls": 0,
+      "null_urls": 0,
+      "malformed_urls_rejected_by_canonicalize_url": 0
+    },
+    "structure_by_label": {
+      "0": {
+        "rows": 20000,
+        "has_scheme": 0.6846,
+        "https": 0.62345,
+        "www_prefix": 0.0945,
+        "has_path_or_query": 0.89945,
+        "trailing_slash": 0.0828,
+        "median_length": 31.0,
+        "quote_or_escape_artifacts": 0.00015
+      },
+      "1": {
+        "rows": 20000,
+        "has_scheme": 0.40035,
+        "https": 0.376,
+        "www_prefix": 0.0937,
+        "has_path_or_query": 0.8256,
+        "trailing_slash": 0.28455,
+        "median_length": 43.0,
+        "quote_or_escape_artifacts": 0.01795
+      }
+    },
+    "evidence_by_label": {
+      "0": {
+        "rows": 20000,
+        "exact_url_in_phishing_feed": 0.0,
+        "host_in_phishing_domain_feed": 0.00415,
+        "registered_domain_in_tranco_top10k": 0.66055,
+        "registered_domain_in_tranco_top1m": 0.88205
+      },
+      "1": {
+        "rows": 20000,
+        "exact_url_in_phishing_feed": 0.01915,
+        "host_in_phishing_domain_feed": 0.0885,
+        "registered_domain_in_tranco_top10k": 0.15945,
+        "registered_domain_in_tranco_top1m": 0.3039
+      }
+    },
+    "flag_counts": {
+      "legit_label_but_host_in_phishing_domain_feed_and_not_tranco_top100k": 3,
+      "phishing_label_but_bare_root_of_tranco_top10k_site": 2
+    },
+    "rows_by_source": [
+      {
+        "source": "alexkstern_label0",
+        "label": 0,
+        "rows": 6308
+      },
+      {
+        "source": "alexkstern_label1",
+        "label": 1,
+        "rows": 12000
+      },
+      {
+        "source": "hard_negative_suite",
+        "label": 0,
+        "rows": 94
+      },
+      {
+        "source": "phishx_legit_root",
+        "label": 0,
+        "rows": 2000
+      },
+      {
+        "source": "phishx_phishing",
+        "label": 1,
+        "rows": 8000
+      },
+      {
+        "source": "pirocheto_legitimate",
+        "label": 0,
+        "rows": 2000
+      },
+      {
+        "source": "synthetic_benign_path_on_phishx_legit_root",
+        "label": 0,
+        "rows": 9598
+      }
+    ],
+    "evidence_by_source": {
+      "alexkstern_label0": {
+        "rows": 6308,
+        "exact_url_in_phishing_feed": 0.0,
+        "host_in_phishing_domain_feed": 0.006499682942295497,
+        "registered_domain_in_tranco_top10k": 0.3876030437539632,
+        "registered_domain_in_tranco_top1m": 0.7070386810399493
+      },
+      "alexkstern_label1": {
+        "rows": 12000,
+        "exact_url_in_phishing_feed": 0.0015,
+        "host_in_phishing_domain_feed": 0.01633333333333333,
+        "registered_domain_in_tranco_top10k": 0.025666666666666667,
+        "registered_domain_in_tranco_top1m": 0.10291666666666667
+      },
+      "hard_negative_suite": {
+        "rows": 94,
+        "exact_url_in_phishing_feed": 0.0,
+        "host_in_phishing_domain_feed": 0.0,
+        "registered_domain_in_tranco_top10k": 0.9574468085106383,
+        "registered_domain_in_tranco_top1m": 0.9893617021276596
+      },
+      "phishx_legit_root": {
+        "rows": 2000,
+        "exact_url_in_phishing_feed": 0.0,
+        "host_in_phishing_domain_feed": 0.001,
+        "registered_domain_in_tranco_top10k": 0.193,
+        "registered_domain_in_tranco_top1m": 0.964
+      },
+      "phishx_phishing": {
+        "rows": 8000,
+        "exact_url_in_phishing_feed": 0.045625,
+        "host_in_phishing_domain_feed": 0.19675,
+        "registered_domain_in_tranco_top10k": 0.360125,
+        "registered_domain_in_tranco_top1m": 0.605375
+      },
+      "pirocheto_legitimate": {
+        "rows": 2000,
+        "exact_url_in_phishing_feed": 0.0,
+        "host_in_phishing_domain_feed": 0.004,
+        "registered_domain_in_tranco_top10k": 0.386,
+        "registered_domain_in_tranco_top1m": 0.789
+      },
+      "synthetic_benign_path_on_phishx_legit_root": {
+        "rows": 9598,
+        "exact_url_in_phishing_feed": 0.0,
+        "host_in_phishing_domain_feed": 0.003334027922483851,
+        "registered_domain_in_tranco_top10k": 0.9916649301937904,
+        "registered_domain_in_tranco_top1m": 0.9983329860387581
+      }
+    },
+    "structure_by_source": {
+      "alexkstern_label0": {
+        "rows": 6308,
+        "has_scheme": 0.0,
+        "https": 0.0,
+        "www_prefix": 0.09115409004438808,
+        "has_path_or_query": 1.0,
+        "trailing_slash": 0.18452758402029168,
+        "median_length": 43.0,
+        "quote_or_escape_artifacts": 0.0004755865567533291
+      },
+      "alexkstern_label1": {
+        "rows": 12000,
+        "has_scheme": 0.0005833333333333334,
+        "https": 8.333333333333333e-05,
+        "www_prefix": 0.13508333333333333,
+        "has_path_or_query": 0.9190833333333334,
+        "trailing_slash": 0.268,
+        "median_length": 48.0,
+        "quote_or_escape_artifacts": 0.029916666666666668
+      },
+      "hard_negative_suite": {
+        "rows": 94,
+        "has_scheme": 1.0,
+        "https": 1.0,
+        "www_prefix": 0.1702127659574468,
+        "has_path_or_query": 0.8829787234042553,
+        "trailing_slash": 0.32978723404255317,
+        "median_length": 43.5,
+        "quote_or_escape_artifacts": 0.0
+      },
+      "phishx_legit_root": {
+        "rows": 2000,
+        "has_scheme": 1.0,
+        "https": 1.0,
+        "www_prefix": 0.0,
+        "has_path_or_query": 0.0,
+        "trailing_slash": 0.0,
+        "median_length": 20.0,
+        "quote_or_escape_artifacts": 0.0
+      },
+      "phishx_phishing": {
+        "rows": 8000,
+        "has_scheme": 1.0,
+        "https": 0.939875,
+        "www_prefix": 0.031625,
+        "has_path_or_query": 0.685375,
+        "trailing_slash": 0.309375,
+        "median_length": 39.0,
+        "quote_or_escape_artifacts": 0.0
+      },
+      "pirocheto_legitimate": {
+        "rows": 2000,
+        "has_scheme": 1.0,
+        "https": 0.3885,
+        "www_prefix": 0.6415,
+        "has_path_or_query": 1.0,
+        "trailing_slash": 0.2305,
+        "median_length": 55.0,
+        "quote_or_escape_artifacts": 0.0
+      },
+      "synthetic_benign_path_on_phishx_legit_root": {
+        "rows": 9598,
+        "has_scheme": 1.0,
+        "https": 1.0,
+        "www_prefix": 0.0016670139612419254,
+        "has_path_or_query": 1.0,
+        "trailing_slash": 0.0,
+        "median_length": 28.0,
+        "quote_or_escape_artifacts": 0.0
+      }
+    },
+    "flag_counts_by_source": {
+      "alexkstern_label0": 1,
+      "alexkstern_label1": 2,
+      "pirocheto_legitimate": 2
+    }
+  },
+  "alexkstern_label_mapping_check": {
+    "note": "Seeded 40k-row sample of the full alexkstern dataset; used to confirm what label 0/1 mean.",
+    "label_0": {
+      "rows": 31064,
+      "exact_url_in_phishing_feed": 0.0,
+      "host_in_phishing_domain_feed": 0.005247231522019057,
+      "registered_domain_in_tranco_top10k": 0.34657481328869433,
+      "registered_domain_in_tranco_top1m": 0.6523628637651301
+    },
+    "label_1": {
+      "rows": 8936,
+      "exact_url_in_phishing_feed": 0.0008952551477170994,
+      "host_in_phishing_domain_feed": 0.02036705461056401,
+      "registered_domain_in_tranco_top10k": 0.030774395702775292,
+      "registered_domain_in_tranco_top1m": 0.1103401969561325
+    }
+  },
+  "v2_synthetic_rows": {
+    "rows": 9598,
+    "share_of_legit_class": 0.4799,
+    "distinct_roots": 600,
+    "rows_on_hard_negative_test_registered_domains": 127,
+    "note": "Generated as <PhishX legit root> + fixed benign path; existence of these URLs was never verified."
+  }
+}

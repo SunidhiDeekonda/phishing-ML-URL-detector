@@ -12,7 +12,6 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from .inference import (
-    MODEL_VERSION,
     THRESHOLD,
     SELECTED_CNN_WEIGHT,
     SELECTED_LIGHTGBM_WEIGHT,
@@ -42,6 +41,7 @@ class URLPredictionResponse(BaseModel):
     verdict: str
     phishing_probability: float
     confidence: float
+    bilstm_probability: float | None = None
     cnn_probability: float
     lightgbm_probability: float
     reference_ensemble_probability: float
@@ -74,8 +74,9 @@ async def health() -> dict[str, object]:
         "status": "ok",
         "lightgbm_loaded": bundle.lightgbm_loaded,
         "cnn_loaded": bundle.cnn_model_loaded,
+        "bilstm_loaded": bundle.bilstm_loaded,
         "device": bundle.device,
-        "model_version": MODEL_VERSION,
+        "model_version": bundle.model_version,
     }
 
 
@@ -99,6 +100,6 @@ async def predict(payload: URLRequest, service: URLInference = Depends(get_infer
 
 
 app.state.inference_weights = {
-    "selected": "loaded from models/production_v2_config.json",
+    "selected": "models/charcnn_bilstm.onnx when models/charcnn_bilstm_config.json exists, else models/production_v2_config.json",
     "threshold": THRESHOLD,
 }
