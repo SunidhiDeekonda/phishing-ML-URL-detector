@@ -1,0 +1,9 @@
+{
+  "model_version": "charcnn-bilstm-attention-v3.2-hostsplit",
+  "threshold": 0.5,
+  "max_sequence_length": 256,
+  "onnx_sha256": "bbe9181d3eecc419f7ee63f0d2b16026bbf2f202fa06b38dc1551a4bf6492106",
+  "dataset_sha256": "0231f1073f662e424797b8ed86753391cf6eeda3c00f4690403851e9576a7e67",
+  "training_date": "2026-10-11",
+  "preprocessing": "src.charcnn_bilstm.encode_url_bilstm (canonicalize_url, first 256 characters)"
+}

@@ -6,7 +6,8 @@ Pipeline guarantees:
 * every URL is cleaned (src/dataset_cleaning.py) and encoded with the same
   ``canonicalize_url`` the API uses, so training and serving inputs match;
 * duplicates are removed on the canonical URL, so no URL appears in two splits;
-* the split is grouped by registered domain (private PSL suffixes included);
+* the split is grouped by registered domain (private PSL suffixes included),
+  or by full hostname with ``--group-by hostname``;
 * hard-negative URLs keep their designated split from tests/data/hard_legitimate_urls.json;
 * any URL that is in the previous production model's held-out or adversarial
   test set is forced into the test split, so both models can be compared on
@@ -14,13 +15,15 @@ Pipeline guarantees:
 * the checkpoint is selected on validation ROC-AUC only; the test split is
   scored once, after selection.
 
-Outputs: models/charcnn_bilstm.onnx, models/charcnn_bilstm_best.pt,
-models/charcnn_bilstm_vocab.json, models/charcnn_bilstm_config.json,
-results/charcnn_bilstm_metrics.json, results/charcnn_bilstm_test_set.csv.
+Outputs: models/charcnn_bilstm{tag}.onnx, models/charcnn_bilstm{tag}_best.pt,
+models/charcnn_bilstm_vocab.json, models/charcnn_bilstm{tag}_config.json,
+results/charcnn_bilstm{tag}_metrics.json, results/charcnn_bilstm{tag}_test_set.csv,
+where ``{tag}`` is empty unless ``--output-tag`` is given.
 """
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import random
@@ -52,6 +55,7 @@ MODELS_DIR = ROOT / "models"
 RESULTS_DIR = ROOT / "results"
 DATASET_PATH = ROOT / "data/processed/balanced_dataset.csv"
 MODEL_VERSION = "charcnn-bilstm-attention-v3.1"
+HOSTSPLIT_MODEL_VERSION = "charcnn-bilstm-attention-v3.2-hostsplit"
 
 SEED = 42
 BATCH_SIZE = 128
@@ -84,6 +88,11 @@ def registered_domain(url: str) -> str:
     return ".".join(p for p in (parts.domain, parts.suffix) if p).lower() or canonicalize_url(url)
 
 
+def hostname(url: str) -> str:
+    host = canonical_key(url).split("/", 1)[0].split("?", 1)[0].split("#", 1)[0]
+    return host.rsplit("@", 1)[-1].split(":", 1)[0] if not host.startswith("[") else host
+
+
 def compute_metrics(y_true: np.ndarray, y_prob: np.ndarray, threshold: float = THRESHOLD) -> dict:
     y_pred = (y_prob >= threshold).astype(int)
     tn, fp, fn, tp = confusion_matrix(y_true, y_pred, labels=[0, 1]).ravel()
@@ -112,7 +121,7 @@ def predict(model: nn.Module, sequences: np.ndarray) -> np.ndarray:
     return np.concatenate(out)
 
 
-def prepare_splits() -> tuple[dict[str, pd.DataFrame], dict]:
+def prepare_splits(group_by: str = "registered_domain") -> tuple[dict[str, pd.DataFrame], dict]:
     raw = pd.read_csv(DATASET_PATH)
     report: dict[str, object] = {"source_rows": int(len(raw)), "source_sha256": hashlib.sha256(DATASET_PATH.read_bytes()).hexdigest()}
 
@@ -131,7 +140,8 @@ def prepare_splits() -> tuple[dict[str, pd.DataFrame], dict]:
     data = data[~data.key.isin(conflicting)]
     report["dropped_duplicate_rows"] = int(data.key.duplicated().sum())
     data = data.drop_duplicates("key").reset_index(drop=True)
-    data["group"] = data.clean_url.map(registered_domain)
+    report["group_by"] = group_by
+    data["group"] = data.clean_url.map(registered_domain if group_by == "registered_domain" else hostname)
 
     hard = json.loads((ROOT / "tests/data/hard_legitimate_urls.json").read_text(encoding="utf-8"))
     hard_split = {canonical_key(c["url"]): c["hard_negative_split"] for c in hard}
@@ -158,7 +168,7 @@ def prepare_splits() -> tuple[dict[str, pd.DataFrame], dict]:
         name: {
             "rows": int(len(frame)),
             "class_counts": {str(k): int(v) for k, v in frame.label.value_counts().sort_index().items()},
-            "rows_whose_registered_domain_is_in_train": int(frame.group.isin(train_groups).sum()) if name != "train" else None,
+            "rows_whose_group_is_in_train": int(frame.group.isin(train_groups).sum()) if name != "train" else None,
         }
         for name, frame in splits.items()
     }
@@ -171,9 +181,17 @@ def prepare_splits() -> tuple[dict[str, pd.DataFrame], dict]:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--group-by", choices=("registered_domain", "hostname"), default="registered_domain")
+    parser.add_argument("--output-tag", default="", help="suffix for model/result files, e.g. _hostsplit")
+    parser.add_argument("--model-version", default=None)
+    args = parser.parse_args()
+    tag = args.output_tag
+    model_version = args.model_version or (MODEL_VERSION if args.group_by == "registered_domain" else HOSTSPLIT_MODEL_VERSION)
+
     seed_everything()
     torch.set_num_threads(4)
-    splits, report = prepare_splits()
+    splits, report = prepare_splits(args.group_by)
     print(json.dumps(report, indent=2))
 
     vocab = build_enhanced_vocab()
@@ -196,7 +214,7 @@ def main() -> None:
     criterion = nn.BCEWithLogitsLoss()
     optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="max", factor=0.5, patience=1)
-    checkpoint = MODELS_DIR / "charcnn_bilstm_best.pt"
+    checkpoint = MODELS_DIR / f"charcnn_bilstm{tag}_best.pt"
     best_auc, patience, history = 0.0, 0, []
     for epoch in range(1, MAX_EPOCHS + 1):
         start = time.time()
@@ -223,7 +241,7 @@ def main() -> None:
 
     model.load_state_dict(torch.load(checkpoint, weights_only=True))
     model.eval()
-    onnx_path = MODELS_DIR / "charcnn_bilstm.onnx"
+    onnx_path = MODELS_DIR / f"charcnn_bilstm{tag}.onnx"
     torch.onnx.export(
         model, torch.zeros((1, MAX_SEQUENCE_LENGTH), dtype=torch.long), str(onnx_path),
         input_names=["input"], output_names=["logits"],
@@ -248,7 +266,7 @@ def main() -> None:
     }
 
     metrics = {
-        "model_version": MODEL_VERSION,
+        "model_version": model_version,
         "architecture": "CharCNN + BiLSTM + Attention",
         "parameters": int(sum(p.numel() for p in model.parameters())),
         "threshold": THRESHOLD,
@@ -260,10 +278,10 @@ def main() -> None:
         "hard_negatives": hard_eval,
         "onnx_parity_max_abs_diff": float(np.max(np.abs(onnx_logits - torch_logits))),
     }
-    (RESULTS_DIR / "charcnn_bilstm_metrics.json").write_text(json.dumps(metrics, indent=2) + "\n", encoding="utf-8")
-    test[["url", "clean_url", "label", "group"]].assign(probability=test_prob).to_csv(RESULTS_DIR / "charcnn_bilstm_test_set.csv", index=False)
+    (RESULTS_DIR / f"charcnn_bilstm{tag}_metrics.json").write_text(json.dumps(metrics, indent=2) + "\n", encoding="utf-8")
+    test[["url", "clean_url", "label", "group"]].assign(probability=test_prob).to_csv(RESULTS_DIR / f"charcnn_bilstm{tag}_test_set.csv", index=False)
     config = {
-        "model_version": MODEL_VERSION,
+        "model_version": model_version,
         "threshold": THRESHOLD,
         "max_sequence_length": MAX_SEQUENCE_LENGTH,
         "onnx_sha256": hashlib.sha256(onnx_path.read_bytes()).hexdigest(),
@@ -271,7 +289,7 @@ def main() -> None:
         "training_date": date.today().isoformat(),
         "preprocessing": "src.charcnn_bilstm.encode_url_bilstm (canonicalize_url, first 256 characters)",
     }
-    (MODELS_DIR / "charcnn_bilstm_config.json").write_text(json.dumps(config, indent=2) + "\n", encoding="utf-8")
+    (MODELS_DIR / f"charcnn_bilstm{tag}_config.json").write_text(json.dumps(config, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({k: metrics[k] for k in ("selected_epoch", "validation", "test", "hard_negatives")}, indent=2))
 
 

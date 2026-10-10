@@ -1,0 +1,42 @@
+{
+  "written_at": "2026-10-10T23:50:00 local, before the fresh snapshot was downloaded and before the candidate was trained",
+  "base_commit": "3f7187b",
+  "candidate": {
+    "model_version": "charcnn-bilstm-attention-v3.2-hostsplit",
+    "command": "python scripts/train_bilstm.py --group-by hostname --output-tag _hostsplit",
+    "only_change_vs_v3.1": "split groups are full hostnames instead of registered domains; data, cleaning, seed, hyperparameters, epochs, hard-negative and forced-test rules, validation-only checkpoint selection and threshold 0.5 are unchanged",
+    "runs": 1,
+    "expectation_from_definition": "hostname grouping can only spread subdomain-based families (e.g. *.weebly.com) across splits; single-host path shorteners such as qrco.de, q-r.to and ead.me stay in one group, so their effect is not addressed by this change"
+  },
+  "compared_models": [
+    "url-ensemble-production-v2.0 (previous main, f16143e)",
+    "charcnn-bilstm-attention-v3.1 (3f7187b)",
+    "charcnn-bilstm-attention-v3.2-hostsplit (candidate)"
+  ],
+  "fresh_evaluation_data": {
+    "rule": "downloaded or sampled after this file is written; every URL whose canonical key appears in data/processed/dataset.csv, data/processed/balanced_dataset.csv, data/processed/adversarial_*.csv or results/external_eval_sets.csv is removed; frozen with a sha256 before any model scores it",
+    "primary": "fresh_openphish: current OpenPhish public feed, label 1",
+    "secondary": [
+      "fresh_phishing_database: up to 3000 Phishing.Database ACTIVE links not previously scored, label 1",
+      "fresh_tranco_roots: up to 2000 Tranco top-100k domains not previously scored, as https://domain/, label 0",
+      "fresh_mitake: up to 3000 benign and 3000 phishing Mitake rows not previously scored (provenance undocumented)"
+    ]
+  },
+  "decision_rule": {
+    "threshold": 0.5,
+    "candidate_replaces_v3.1_only_if": [
+      "fresh_openphish recall is at least 2 percentage points higher than v3.1, and",
+      "recall on fresh_openphish + fresh_phishing_database combined is not lower than v3.1, and",
+      "FPR on fresh_tranco_roots + fresh_mitake benign combined is not more than 1 percentage point higher than v3.1"
+    ],
+    "otherwise": "v3.1 stays the served BiLSTM; the candidate artefacts are kept under the _hostsplit names for reference",
+    "push_recommendation": "neither BiLSTM is recommended for push unless it also matches the previous ensemble's phishing recall on the fresh phishing sets within 2 percentage points; this is reported, not acted on, without the user's approval",
+    "statistics": "paired McNemar exact test on per-URL correctness for each fresh set"
+  },
+  "amendment_1": {
+    "written_at": "2026-10-11T00:05 local, after the fresh sets were frozen (row counts only) and before any model scored them",
+    "reason": "the OpenPhish public feed downloaded at 23:48 contained 300 URLs, all of which were already in the 19:49 snapshot used in results/external_eval_sets.csv, so fresh_openphish has 0 rows",
+    "change": "fresh_phishing_database (3000 Phishing.Database ACTIVE links never scored by any model) replaces fresh_openphish as the primary set; the first check becomes 'fresh_phishing_database recall at least 2 percentage points higher than v3.1'; all other checks and thresholds are unchanged",
+    "note": "fresh_phishing_database, fresh_mitake_* and fresh_tranco_* are 'never scored', not 'newly published': they come from lists that were available earlier today"
+  }
+}

@@ -168,7 +168,106 @@
         }
       },
       "comparison": "results/production_model_comparison.json",
-      "status": "production"
+      "status": "production",
+      "fresh_snapshot_metrics": {
+        "accuracy": 0.8627272727272727,
+        "precision": 0.9165120593692022,
+        "recall": 0.8233333333333334,
+        "f1": 0.8674275680421422,
+        "roc_auc": 0.9369178499999999,
+        "pr_auc": 0.9517779750609683,
+        "fpr": 0.09,
+        "fnr": 0.17666666666666667,
+        "confusion_matrix": {
+          "tn": 4550,
+          "fp": 450,
+          "fn": 1060,
+          "tp": 4940
+        }
+      }
+    },
+    {
+      "version": "charcnn-bilstm-attention-v3.2-hostsplit",
+      "architecture": "CharCNN + BiLSTM + Attention (ONNX)",
+      "training_date": "2026-10-11",
+      "data": "same as charcnn-bilstm-attention-v3.1, split grouped by hostname instead of registered domain",
+      "data_count": 27606,
+      "validation_metrics": {
+        "accuracy": 0.9332431975663343,
+        "precision": 0.9265993265993266,
+        "recall": 0.9395698190508706,
+        "f1": 0.9330394982200373,
+        "roc_auc": 0.9843810772851278,
+        "pr_auc": 0.9846329817896698,
+        "fpr": 0.07295850066934405,
+        "fnr": 0.06043018094912939,
+        "confusion_matrix": {
+          "tn": 2770,
+          "fp": 218,
+          "fn": 177,
+          "tp": 2752
+        }
+      },
+      "held_out_test_metrics_not_comparable_to_v3_1": {
+        "accuracy": 0.9513385826771653,
+        "precision": 0.9441776710684273,
+        "recall": 0.9623738146222086,
+        "f1": 0.9531889107710952,
+        "roc_auc": 0.9891731746961737,
+        "pr_auc": 0.9889186018606894,
+        "fpr": 0.06037000973709834,
+        "fnr": 0.037626185377791374,
+        "confusion_matrix": {
+          "tn": 2895,
+          "fp": 186,
+          "fn": 123,
+          "tp": 3146
+        }
+      },
+      "fresh_snapshot_metrics": {
+        "accuracy": 0.8946363636363637,
+        "precision": 0.896868339071979,
+        "recall": 0.9116666666666666,
+        "f1": 0.9042069592528309,
+        "roc_auc": 0.9484896833333333,
+        "pr_auc": 0.9574532859995479,
+        "fpr": 0.1258,
+        "fnr": 0.08833333333333333,
+        "confusion_matrix": {
+          "tn": 4371,
+          "fp": 629,
+          "fn": 530,
+          "tp": 5470
+        }
+      },
+      "hard_negative_false_positives": {
+        "train": {
+          "rows": 59,
+          "false_positives": 1
+        },
+        "validation": {
+          "rows": 15,
+          "false_positives": 1
+        },
+        "test": {
+          "rows": 20,
+          "false_positives": 0
+        }
+      },
+      "preregistration": "results/hostsplit_preregistration.json",
+      "comparison": "results/fresh_snapshot_evaluation.json",
+      "decision": {
+        "checks": {
+          "fresh_phishing_database_recall_gain_at_least_2pp": true,
+          "combined_phishing_recall_not_lower": true,
+          "benign_fpr_increase_at_most_1pp": false
+        },
+        "primary_set": "fresh_phishing_database",
+        "primary_recall_gain": 0.09099999999999997,
+        "selected_bilstm": "bilstm_v3_1",
+        "selected_bilstm_within_2pp_of_previous_ensemble_phishing_recall": false
+      },
+      "status": "candidate_not_selected"
     }
   ]
 }
