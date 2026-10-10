@@ -22,7 +22,8 @@ from src.dataset_cleaning import clean_training_url
 from src.url_normalization import canonicalize_url
 
 ROOT = Path(__file__).resolve().parents[1]
-CONFIG = json.loads((ROOT / "models/charcnn_bilstm_config.json").read_text())
+CONFIG = json.loads((ROOT / inference.BILSTM_CONFIG).read_text())
+CHECKPOINT = inference.BILSTM_ONNX.replace(".onnx", "_best.pt")
 
 
 @pytest.fixture(scope="module")
@@ -67,8 +68,8 @@ def test_encoder_shape_padding_and_truncation() -> None:
 
 
 def test_served_probability_is_unmodified_bilstm_output(service: URLInference) -> None:
-    session = ort.InferenceSession(str(ROOT / "models/charcnn_bilstm.onnx"), providers=["CPUExecutionProvider"])
-    vocab = json.loads((ROOT / "models/charcnn_bilstm_vocab.json").read_text())
+    session = ort.InferenceSession(str(ROOT / inference.BILSTM_ONNX), providers=["CPUExecutionProvider"])
+    vocab = json.loads((ROOT / inference.BILSTM_VOCAB).read_text())
     for url in ["https://github.com/login", "https://sites.google.com/view/account-verify", "http://paypal-verify.example.tk/login"]:
         result = service.predict(url)
         logit = session.run(["logits"], {"input": encode_url_bilstm(result["url"], vocab)[np.newaxis, :]})[0][0]
@@ -101,11 +102,11 @@ def test_onnx_matches_pytorch_checkpoint() -> None:
         "from src.charcnn_bilstm import build_enhanced_vocab, encode_url_bilstm\n"
         "from src.charcnn_bilstm_model import CharCNNBiLSTMAttention\n"
         "model = CharCNNBiLSTMAttention()\n"
-        "model.load_state_dict(torch.load('models/charcnn_bilstm_best.pt', map_location='cpu', weights_only=True))\n"
+        f"model.load_state_dict(torch.load('{CHECKPOINT}', map_location='cpu', weights_only=True))\n"
         "model.eval()\n"
         "vocab = build_enhanced_vocab()\n"
         "batch = np.stack([encode_url_bilstm(u, vocab) for u in ['https://github.com/login', 'http://1.2.3.4/a.php', 'example.org']])\n"
-        "session = ort.InferenceSession('models/charcnn_bilstm.onnx', providers=['CPUExecutionProvider'])\n"
+        f"session = ort.InferenceSession('{inference.BILSTM_ONNX}', providers=['CPUExecutionProvider'])\n"
         "with torch.no_grad():\n"
         "    expected = model(torch.as_tensor(batch)).numpy()\n"
         "np.testing.assert_allclose(session.run(['logits'], {'input': batch})[0], expected, atol=1e-4)\n"

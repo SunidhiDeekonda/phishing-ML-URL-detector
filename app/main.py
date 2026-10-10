@@ -100,6 +100,6 @@ async def predict(payload: URLRequest, service: URLInference = Depends(get_infer
 
 
 app.state.inference_weights = {
-    "selected": "models/charcnn_bilstm.onnx when models/charcnn_bilstm_config.json exists, else models/production_v2_config.json",
+    "selected": "models/charcnn_bilstm_hostsplit.onnx when models/charcnn_bilstm_hostsplit_config.json exists, else models/production_v2_config.json",
     "threshold": THRESHOLD,
 }

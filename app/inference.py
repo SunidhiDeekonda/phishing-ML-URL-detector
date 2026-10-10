@@ -27,8 +27,8 @@ SELECTED_LIGHTGBM_WEIGHT = 0.05
 THRESHOLD = 0.50
 MAX_URL_LENGTH = 2048
 MODEL_VERSION = "url-ensemble-production-v2.0"
-BILSTM_CONFIG = "models/charcnn_bilstm_config.json"
-BILSTM_ONNX = "models/charcnn_bilstm.onnx"
+BILSTM_CONFIG = "models/charcnn_bilstm_hostsplit_config.json"
+BILSTM_ONNX = "models/charcnn_bilstm_hostsplit.onnx"
 BILSTM_VOCAB = "models/charcnn_bilstm_vocab.json"
 
 def _prepare_feature_columns() -> list[str]:
