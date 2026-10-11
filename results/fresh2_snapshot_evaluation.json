@@ -1,0 +1,651 @@
+{
+  "excluded_due_to_errors": 2,
+  "metrics": {
+    "fresh2_openphish": {
+      "previous_ensemble": {
+        "n": 273,
+        "accuracy": 0.9340659340659341,
+        "precision": 1.0,
+        "recall": 0.9340659340659341,
+        "f1": 0.9659090909090909,
+        "fpr": null,
+        "fnr": 0.06593406593406594,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 18,
+          "tp": 255
+        }
+      },
+      "bilstm_v3_2_hostsplit": {
+        "n": 273,
+        "accuracy": 0.8241758241758241,
+        "precision": 1.0,
+        "recall": 0.8241758241758241,
+        "f1": 0.9036144578313253,
+        "fpr": null,
+        "fnr": 0.17582417582417584,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 48,
+          "tp": 225
+        }
+      },
+      "bilstm_v3_3": {
+        "n": 273,
+        "accuracy": 0.8424908424908425,
+        "precision": 1.0,
+        "recall": 0.8424908424908425,
+        "f1": 0.9145129224652087,
+        "fpr": null,
+        "fnr": 0.1575091575091575,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 43,
+          "tp": 230
+        }
+      }
+    },
+    "fresh2_phishing_database": {
+      "previous_ensemble": {
+        "n": 2998,
+        "accuracy": 0.9486324216144096,
+        "precision": 1.0,
+        "recall": 0.9486324216144096,
+        "f1": 0.9736391646696337,
+        "fpr": null,
+        "fnr": 0.0513675783855904,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 154,
+          "tp": 2844
+        }
+      },
+      "bilstm_v3_2_hostsplit": {
+        "n": 2998,
+        "accuracy": 0.8985990660440294,
+        "precision": 1.0,
+        "recall": 0.8985990660440294,
+        "f1": 0.9465917076598735,
+        "fpr": null,
+        "fnr": 0.10140093395597065,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 304,
+          "tp": 2694
+        }
+      },
+      "bilstm_v3_3": {
+        "n": 2998,
+        "accuracy": 0.9242828552368245,
+        "precision": 1.0,
+        "recall": 0.9242828552368245,
+        "f1": 0.9606517594037095,
+        "fpr": null,
+        "fnr": 0.07571714476317545,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 227,
+          "tp": 2771
+        }
+      }
+    },
+    "fresh2_tranco_rank_20k_100k_roots": {
+      "previous_ensemble": {
+        "n": 2000,
+        "accuracy": 0.9745,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "fpr": 0.0255,
+        "fnr": null,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 1949,
+          "fp": 51,
+          "fn": 0,
+          "tp": 0
+        }
+      },
+      "bilstm_v3_2_hostsplit": {
+        "n": 2000,
+        "accuracy": 0.9405,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "fpr": 0.0595,
+        "fnr": null,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 1881,
+          "fp": 119,
+          "fn": 0,
+          "tp": 0
+        }
+      },
+      "bilstm_v3_3": {
+        "n": 2000,
+        "accuracy": 0.9755,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "fpr": 0.0245,
+        "fnr": null,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 1951,
+          "fp": 49,
+          "fn": 0,
+          "tp": 0
+        }
+      }
+    },
+    "fresh2_mitake_benign": {
+      "previous_ensemble": {
+        "n": 3000,
+        "accuracy": 0.29133333333333333,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "fpr": 0.7086666666666667,
+        "fnr": null,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 874,
+          "fp": 2126,
+          "fn": 0,
+          "tp": 0
+        }
+      },
+      "bilstm_v3_2_hostsplit": {
+        "n": 3000,
+        "accuracy": 0.8156666666666667,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "fpr": 0.18433333333333332,
+        "fnr": null,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 2447,
+          "fp": 553,
+          "fn": 0,
+          "tp": 0
+        }
+      },
+      "bilstm_v3_3": {
+        "n": 3000,
+        "accuracy": 0.8883333333333333,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "fpr": 0.11166666666666666,
+        "fnr": null,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 2665,
+          "fp": 335,
+          "fn": 0,
+          "tp": 0
+        }
+      }
+    },
+    "fresh2_mitake_phishing": {
+      "previous_ensemble": {
+        "n": 3000,
+        "accuracy": 0.9016666666666666,
+        "precision": 1.0,
+        "recall": 0.9016666666666666,
+        "f1": 0.9482909728308501,
+        "fpr": null,
+        "fnr": 0.09833333333333333,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 295,
+          "tp": 2705
+        }
+      },
+      "bilstm_v3_2_hostsplit": {
+        "n": 3000,
+        "accuracy": 0.9236666666666666,
+        "precision": 1.0,
+        "recall": 0.9236666666666666,
+        "f1": 0.9603188355570959,
+        "fpr": null,
+        "fnr": 0.07633333333333334,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 229,
+          "tp": 2771
+        }
+      },
+      "bilstm_v3_3": {
+        "n": 3000,
+        "accuracy": 0.9076666666666666,
+        "precision": 1.0,
+        "recall": 0.9076666666666666,
+        "f1": 0.9515988118119867,
+        "fpr": null,
+        "fnr": 0.09233333333333334,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 277,
+          "tp": 2723
+        }
+      }
+    },
+    "fresh2_phishing_openphish_plus_phishing_database": {
+      "previous_ensemble": {
+        "n": 3271,
+        "accuracy": 0.9474166921430756,
+        "precision": 1.0,
+        "recall": 0.9474166921430756,
+        "f1": 0.9729984301412873,
+        "fpr": null,
+        "fnr": 0.052583307856924486,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 172,
+          "tp": 3099
+        }
+      },
+      "bilstm_v3_2_hostsplit": {
+        "n": 3271,
+        "accuracy": 0.8923876490369917,
+        "precision": 1.0,
+        "recall": 0.8923876490369917,
+        "f1": 0.9431340872374798,
+        "fpr": null,
+        "fnr": 0.10761235096300825,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 352,
+          "tp": 2919
+        }
+      },
+      "bilstm_v3_3": {
+        "n": 3271,
+        "accuracy": 0.9174564353408744,
+        "precision": 1.0,
+        "recall": 0.9174564353408744,
+        "f1": 0.9569515306122449,
+        "fpr": null,
+        "fnr": 0.08254356465912564,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 270,
+          "tp": 3001
+        }
+      }
+    },
+    "fresh2_all_phishing": {
+      "previous_ensemble": {
+        "n": 6271,
+        "accuracy": 0.9255302184659544,
+        "precision": 1.0,
+        "recall": 0.9255302184659544,
+        "f1": 0.9613250517598344,
+        "fpr": null,
+        "fnr": 0.07446978153404561,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 467,
+          "tp": 5804
+        }
+      },
+      "bilstm_v3_2_hostsplit": {
+        "n": 6271,
+        "accuracy": 0.9073512996332324,
+        "precision": 1.0,
+        "recall": 0.9073512996332324,
+        "f1": 0.9514254660981524,
+        "fpr": null,
+        "fnr": 0.09264870036676766,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 581,
+          "tp": 5690
+        }
+      },
+      "bilstm_v3_3": {
+        "n": 6271,
+        "accuracy": 0.9127730824429916,
+        "precision": 1.0,
+        "recall": 0.9127730824429916,
+        "f1": 0.9543976656940392,
+        "fpr": null,
+        "fnr": 0.08722691755700845,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 547,
+          "tp": 5724
+        }
+      }
+    },
+    "fresh2_benign_tranco_plus_mitake": {
+      "previous_ensemble": {
+        "n": 5000,
+        "accuracy": 0.5646,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "fpr": 0.4354,
+        "fnr": null,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 2823,
+          "fp": 2177,
+          "fn": 0,
+          "tp": 0
+        }
+      },
+      "bilstm_v3_2_hostsplit": {
+        "n": 5000,
+        "accuracy": 0.8656,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "fpr": 0.1344,
+        "fnr": null,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 4328,
+          "fp": 672,
+          "fn": 0,
+          "tp": 0
+        }
+      },
+      "bilstm_v3_3": {
+        "n": 5000,
+        "accuracy": 0.9232,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "fpr": 0.0768,
+        "fnr": null,
+        "roc_auc": null,
+        "pr_auc": null,
+        "confusion_matrix": {
+          "tn": 4616,
+          "fp": 384,
+          "fn": 0,
+          "tp": 0
+        }
+      }
+    },
+    "fresh2_all": {
+      "previous_ensemble": {
+        "n": 11271,
+        "accuracy": 0.7654156685298554,
+        "precision": 0.7272271645157249,
+        "recall": 0.9255302184659544,
+        "f1": 0.8144821779399383,
+        "fpr": 0.4354,
+        "fnr": 0.07446978153404561,
+        "roc_auc": 0.8079728910859512,
+        "pr_auc": 0.8268636897563827,
+        "confusion_matrix": {
+          "tn": 2823,
+          "fp": 2177,
+          "fn": 467,
+          "tp": 5804
+        }
+      },
+      "bilstm_v3_2_hostsplit": {
+        "n": 11271,
+        "accuracy": 0.8888297400408127,
+        "precision": 0.8943728387299591,
+        "recall": 0.9073512996332324,
+        "f1": 0.9008153249426106,
+        "fpr": 0.1344,
+        "fnr": 0.09264870036676766,
+        "roc_auc": 0.9482970020730347,
+        "pr_auc": 0.9589115666075891,
+        "confusion_matrix": {
+          "tn": 4328,
+          "fp": 672,
+          "fn": 581,
+          "tp": 5690
+        }
+      },
+      "bilstm_v3_3": {
+        "n": 11271,
+        "accuracy": 0.9173986336616095,
+        "precision": 0.93713163064833,
+        "recall": 0.9127730824429916,
+        "f1": 0.9247919864286293,
+        "fpr": 0.0768,
+        "fnr": 0.08722691755700845,
+        "roc_auc": 0.9648913889331845,
+        "pr_auc": 0.9707823454586543,
+        "confusion_matrix": {
+          "tn": 4616,
+          "fp": 384,
+          "fn": 547,
+          "tp": 5724
+        }
+      }
+    }
+  },
+  "mcnemar": {
+    "fresh2_openphish": {
+      "bilstm_v3_3_vs_bilstm_v3_2_hostsplit": {
+        "only_first_correct": 22,
+        "only_second_correct": 17,
+        "p_value": 0.5223973804968411
+      },
+      "bilstm_v3_3_vs_previous_ensemble": {
+        "only_first_correct": 5,
+        "only_second_correct": 30,
+        "p_value": 2.2361520677804947e-05
+      },
+      "bilstm_v3_2_hostsplit_vs_previous_ensemble": {
+        "only_first_correct": 9,
+        "only_second_correct": 39,
+        "p_value": 1.5221826110689564e-05
+      }
+    },
+    "fresh2_phishing_database": {
+      "bilstm_v3_3_vs_bilstm_v3_2_hostsplit": {
+        "only_first_correct": 146,
+        "only_second_correct": 69,
+        "p_value": 1.6265467921323032e-07
+      },
+      "bilstm_v3_3_vs_previous_ensemble": {
+        "only_first_correct": 57,
+        "only_second_correct": 130,
+        "p_value": 9.740659662828555e-08
+      },
+      "bilstm_v3_2_hostsplit_vs_previous_ensemble": {
+        "only_first_correct": 61,
+        "only_second_correct": 211,
+        "p_value": 1.5979488531694268e-20
+      }
+    },
+    "fresh2_tranco_rank_20k_100k_roots": {
+      "bilstm_v3_3_vs_bilstm_v3_2_hostsplit": {
+        "only_first_correct": 85,
+        "only_second_correct": 15,
+        "p_value": 4.825421503937195e-13
+      },
+      "bilstm_v3_3_vs_previous_ensemble": {
+        "only_first_correct": 44,
+        "only_second_correct": 42,
+        "p_value": 0.9142116370824499
+      },
+      "bilstm_v3_2_hostsplit_vs_previous_ensemble": {
+        "only_first_correct": 34,
+        "only_second_correct": 102,
+        "p_value": 4.379138784366244e-09
+      }
+    },
+    "fresh2_mitake_benign": {
+      "bilstm_v3_3_vs_bilstm_v3_2_hostsplit": {
+        "only_first_correct": 267,
+        "only_second_correct": 49,
+        "p_value": 1.8087175130351068e-37
+      },
+      "bilstm_v3_3_vs_previous_ensemble": {
+        "only_first_correct": 1839,
+        "only_second_correct": 48,
+        "p_value": 0.0
+      },
+      "bilstm_v3_2_hostsplit_vs_previous_ensemble": {
+        "only_first_correct": 1667,
+        "only_second_correct": 94,
+        "p_value": 0.0
+      }
+    },
+    "fresh2_mitake_phishing": {
+      "bilstm_v3_3_vs_bilstm_v3_2_hostsplit": {
+        "only_first_correct": 72,
+        "only_second_correct": 120,
+        "p_value": 0.0006550303498023459
+      },
+      "bilstm_v3_3_vs_previous_ensemble": {
+        "only_first_correct": 169,
+        "only_second_correct": 151,
+        "p_value": 0.3419578705491413
+      },
+      "bilstm_v3_2_hostsplit_vs_previous_ensemble": {
+        "only_first_correct": 158,
+        "only_second_correct": 92,
+        "p_value": 3.575920472852718e-05
+      }
+    },
+    "fresh2_phishing_openphish_plus_phishing_database": {
+      "bilstm_v3_3_vs_bilstm_v3_2_hostsplit": {
+        "only_first_correct": 168,
+        "only_second_correct": 86,
+        "p_value": 2.9690492820527515e-07
+      },
+      "bilstm_v3_3_vs_previous_ensemble": {
+        "only_first_correct": 62,
+        "only_second_correct": 160,
+        "p_value": 3.6144189516316553e-11
+      },
+      "bilstm_v3_2_hostsplit_vs_previous_ensemble": {
+        "only_first_correct": 70,
+        "only_second_correct": 250,
+        "p_value": 7.076476061024147e-25
+      }
+    },
+    "fresh2_all_phishing": {
+      "bilstm_v3_3_vs_bilstm_v3_2_hostsplit": {
+        "only_first_correct": 240,
+        "only_second_correct": 206,
+        "p_value": 0.1180487594793311
+      },
+      "bilstm_v3_3_vs_previous_ensemble": {
+        "only_first_correct": 231,
+        "only_second_correct": 311,
+        "p_value": 0.0006766520089267412
+      },
+      "bilstm_v3_2_hostsplit_vs_previous_ensemble": {
+        "only_first_correct": 228,
+        "only_second_correct": 342,
+        "p_value": 2.053639057635103e-06
+      }
+    },
+    "fresh2_benign_tranco_plus_mitake": {
+      "bilstm_v3_3_vs_bilstm_v3_2_hostsplit": {
+        "only_first_correct": 352,
+        "only_second_correct": 64,
+        "p_value": 2.8631552190884143e-49
+      },
+      "bilstm_v3_3_vs_previous_ensemble": {
+        "only_first_correct": 1883,
+        "only_second_correct": 90,
+        "p_value": 0.0
+      },
+      "bilstm_v3_2_hostsplit_vs_previous_ensemble": {
+        "only_first_correct": 1701,
+        "only_second_correct": 196,
+        "p_value": 3.647514282789207e-299
+      }
+    },
+    "fresh2_all": {
+      "bilstm_v3_3_vs_bilstm_v3_2_hostsplit": {
+        "only_first_correct": 592,
+        "only_second_correct": 270,
+        "p_value": 1.8479512949842908e-28
+      },
+      "bilstm_v3_3_vs_previous_ensemble": {
+        "only_first_correct": 2114,
+        "only_second_correct": 401,
+        "p_value": 7.22765492676386e-280
+      },
+      "bilstm_v3_2_hostsplit_vs_previous_ensemble": {
+        "only_first_correct": 1929,
+        "only_second_correct": 538,
+        "p_value": 1.01209554434015e-182
+      }
+    }
+  },
+  "decision": {
+    "checks": {
+      "openphish_recall_not_lower": true,
+      "all_phishing_recall_gain_at_least_2pp": false,
+      "benign_fpr_increase_at_most_1pp": true,
+      "hard_negative_test_false_positives_at_most_plus_1": true
+    },
+    "hard_negative_test_false_positives": {
+      "bilstm_v3_2_hostsplit": 0,
+      "bilstm_v3_3": 0
+    },
+    "selected_bilstm": "bilstm_v3_2_hostsplit",
+    "selected_bilstm_within_2pp_of_previous_ensemble_phishing_recall": true
+  }
+}

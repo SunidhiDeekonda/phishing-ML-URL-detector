@@ -121,9 +121,13 @@ def predict(model: nn.Module, sequences: np.ndarray) -> np.ndarray:
     return np.concatenate(out)
 
 
-def prepare_splits(group_by: str = "registered_domain") -> tuple[dict[str, pd.DataFrame], dict]:
+def prepare_splits(group_by: str = "registered_domain", extra_data: Path | None = None) -> tuple[dict[str, pd.DataFrame], dict]:
     raw = pd.read_csv(DATASET_PATH)
     report: dict[str, object] = {"source_rows": int(len(raw)), "source_sha256": hashlib.sha256(DATASET_PATH.read_bytes()).hexdigest()}
+    if extra_data is not None:
+        extra = pd.read_csv(extra_data)
+        report["extra_data"] = {"path": str(extra_data.relative_to(ROOT)), "rows": int(len(extra)), "sha256": hashlib.sha256(extra_data.read_bytes()).hexdigest()}
+        raw = pd.concat([raw[["url", "label"]], extra[["url", "label"]]], ignore_index=True)
 
     cleaned = raw.url.map(clean_training_url)
     raw["clean_url"] = cleaned.str[0]
@@ -185,13 +189,14 @@ def main() -> None:
     parser.add_argument("--group-by", choices=("registered_domain", "hostname"), default="registered_domain")
     parser.add_argument("--output-tag", default="", help="suffix for model/result files, e.g. _hostsplit")
     parser.add_argument("--model-version", default=None)
+    parser.add_argument("--extra-data", type=Path, default=None, help="additional url,label CSV, e.g. data/processed/augmentation_v3_3.csv")
     args = parser.parse_args()
     tag = args.output_tag
     model_version = args.model_version or (MODEL_VERSION if args.group_by == "registered_domain" else HOSTSPLIT_MODEL_VERSION)
 
     seed_everything()
     torch.set_num_threads(4)
-    splits, report = prepare_splits(args.group_by)
+    splits, report = prepare_splits(args.group_by, args.extra_data.resolve() if args.extra_data else None)
     print(json.dumps(report, indent=2))
 
     vocab = build_enhanced_vocab()
@@ -286,6 +291,7 @@ def main() -> None:
         "max_sequence_length": MAX_SEQUENCE_LENGTH,
         "onnx_sha256": hashlib.sha256(onnx_path.read_bytes()).hexdigest(),
         "dataset_sha256": report["source_sha256"],
+        "extra_data_sha256": report.get("extra_data", {}).get("sha256"),
         "training_date": date.today().isoformat(),
         "preprocessing": "src.charcnn_bilstm.encode_url_bilstm (canonicalize_url, first 256 characters)",
     }

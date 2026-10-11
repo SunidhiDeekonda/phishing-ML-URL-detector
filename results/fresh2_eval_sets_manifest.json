@@ -1,0 +1,14 @@
+{
+  "sets_sha256": "806cc789e4c02de6795d47a985cfc04a278ce712800551cb58e3bdcf6ffd75ee",
+  "source_sha256": {
+    "openphish_feed.txt": "8a87b6438c9957868ccb42a66b93f9067f34dcc503ab014978dcbed822e513ec",
+    "pdb_links_active.txt": "be4a179b3ac92b7135595b459c2c9867fe681c12209489dd99517db8407a67c6"
+  },
+  "rows": {
+    "fresh2_openphish": 273,
+    "fresh2_phishing_database": 3000,
+    "fresh2_tranco_rank_20k_100k_roots": 2000,
+    "fresh2_mitake_benign": 3000,
+    "fresh2_mitake_phishing": 3000
+  }
+}

@@ -269,6 +269,93 @@
       },
       "status": "production",
       "selection_note": "served by maintainer decision on 2026-10-11, overriding the pre-registered rule, which it failed on the fresh benign false-positive limit (12.6% vs 9.0% for v3.1)"
+    },
+    {
+      "version": "charcnn-bilstm-attention-v3.3",
+      "architecture": "CharCNN + BiLSTM + Attention (ONNX)",
+      "training_date": "2026-10-11",
+      "data": "V2 dataset plus data/processed/augmentation_v3_3.csv (12k Phishing.Database phishing, 9k alexkstern legitimate with paths, 3k Tranco roots), hostname-grouped split",
+      "data_count": 44404,
+      "validation_metrics": {
+        "accuracy": 0.9465448435202688,
+        "precision": 0.9627601314348302,
+        "recall": 0.9283903675538656,
+        "f1": 0.9452629314980106,
+        "roc_auc": 0.9871780210983734,
+        "pr_auc": 0.9884679049105064,
+        "fpr": 0.035505430242272346,
+        "fnr": 0.07160963244613434,
+        "confusion_matrix": {
+          "tn": 4618,
+          "fp": 170,
+          "fn": 339,
+          "tp": 4395
+        }
+      },
+      "held_out_test_metrics_not_comparable_to_v3_2": {
+        "accuracy": 0.9255051774404343,
+        "precision": 0.9517443074994778,
+        "recall": 0.8993288590604027,
+        "f1": 0.9247944788389323,
+        "roc_auc": 0.9792977321361712,
+        "pr_auc": 0.9816521082807781,
+        "fpr": 0.04732636754763368,
+        "fnr": 0.10067114093959731,
+        "confusion_matrix": {
+          "tn": 4650,
+          "fp": 231,
+          "fn": 510,
+          "tp": 4556
+        }
+      },
+      "fresh2_snapshot_metrics": {
+        "accuracy": 0.9173986336616095,
+        "precision": 0.93713163064833,
+        "recall": 0.9127730824429916,
+        "f1": 0.9247919864286293,
+        "roc_auc": 0.9648913889331845,
+        "pr_auc": 0.9707823454586543,
+        "fpr": 0.0768,
+        "fnr": 0.08722691755700845,
+        "confusion_matrix": {
+          "tn": 4616,
+          "fp": 384,
+          "fn": 547,
+          "tp": 5724
+        }
+      },
+      "hard_negative_false_positives": {
+        "train": {
+          "rows": 59,
+          "false_positives": 0
+        },
+        "validation": {
+          "rows": 15,
+          "false_positives": 1
+        },
+        "test": {
+          "rows": 20,
+          "false_positives": 0
+        }
+      },
+      "preregistration": "results/v3_3_preregistration.json",
+      "comparison": "results/fresh2_snapshot_evaluation.json",
+      "decision": {
+        "checks": {
+          "openphish_recall_not_lower": true,
+          "all_phishing_recall_gain_at_least_2pp": false,
+          "benign_fpr_increase_at_most_1pp": true,
+          "hard_negative_test_false_positives_at_most_plus_1": true
+        },
+        "hard_negative_test_false_positives": {
+          "bilstm_v3_2_hostsplit": 0,
+          "bilstm_v3_3": 0
+        },
+        "selected_bilstm": "bilstm_v3_2_hostsplit",
+        "selected_bilstm_within_2pp_of_previous_ensemble_phishing_recall": true
+      },
+      "known_issue": "flags https://www.paypal.com/signin (0.915); https://login.microsoftonline.com/ is flagged by both v3.2 and v3.3",
+      "status": "candidate_not_selected"
     }
   ]
 }

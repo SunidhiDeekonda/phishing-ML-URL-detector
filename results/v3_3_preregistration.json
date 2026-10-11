@@ -1,0 +1,37 @@
+{
+  "written_at": "2026-10-11T19:55 local, before the fresh2 test set was built and before the candidate was trained",
+  "base_commit": "1a366c3 (serves charcnn-bilstm-attention-v3.2-hostsplit)",
+  "problem": "user-reported phishing URLs such as http://000025123.com/banks/cibc are classified legitimate; on results/fresh_eval_sets.csv v3.2 misses 9.8% of Phishing.Database links, mostly bare random-looking domains and short clean brand/login paths",
+  "diagnosis": "scripts/prepare_balanced_dataset.py labels 9,600 generated URLs (600 reputable roots x 16 fixed paths such as /login, /verify, /account) as legitimate, so short clean login-style paths are learned as a legitimate cue; real phishing examples with that shape and bare random-looking phishing domains are scarce",
+  "candidate": {
+    "model_version": "charcnn-bilstm-attention-v3.3",
+    "command": "python scripts/train_bilstm.py --group-by hostname --output-tag _v3_3 --extra-data data/processed/augmentation_v3_3.csv --model-version charcnn-bilstm-attention-v3.3",
+    "only_change_vs_v3.2": "extra real training rows from data/processed/augmentation_v3_3.csv; data/processed/balanced_dataset.csv is not modified; cleaning, dedup, hostname grouping, seed, hyperparameters, validation-only checkpoint selection and threshold 0.5 unchanged",
+    "augmentation": {
+      "phishing": "12,000 Phishing.Database ACTIVE links, excluding bare roots of Tranco top-100k domains",
+      "legitimate": "9,000 unused alexkstern legitimate URLs with a path, excluding hosts in the Phishing.Database domain list; 3,000 Tranco rank 100k-1M domains as https://domain/, excluding domains in the Phishing.Database domain list",
+      "exclusions": "every canonical URL in any evaluation set (previous held-out/adversarial, results/external_eval_sets.csv, results/fresh_eval_sets.csv, results/fresh2_eval_sets.csv) and every V2 row"
+    },
+    "runs": 1
+  },
+  "test_set_fresh2": {
+    "rule": "built and frozen (sha256) before the augmentation file and before training; excludes every URL seen before, including results/fresh_eval_sets.csv, which became a development set once its errors were inspected",
+    "primary": "fresh2_openphish: OpenPhish public feed downloaded 2026-10-11 19:50, all 300 URLs new since the previous snapshot",
+    "secondary": [
+      "fresh2_phishing_database: 3000 never-used Phishing.Database ACTIVE links (same list as the augmentation source, so optimistic for v3.3)",
+      "fresh2_tranco_rank_20k_100k_roots: 2000 never-used Tranco rank 20k-100k domains, label 0",
+      "fresh2_mitake_benign / fresh2_mitake_phishing: 3000 each, never used; Mitake is not used for training"
+    ]
+  },
+  "decision_rule": {
+    "threshold": 0.5,
+    "candidate_replaces_v3.2_only_if": [
+      "fresh2_openphish recall is not lower than v3.2, and",
+      "recall on all fresh2 phishing rows is at least 2 percentage points higher than v3.2, and",
+      "FPR on all fresh2 legitimate rows is not more than 1 percentage point higher than v3.2, and",
+      "hard-negative test-split false positives are at most v3.2's plus 1"
+    ],
+    "otherwise": "v3.2 stays served; the candidate is kept under the _v3_3 names for reference",
+    "reported_but_not_used_for_the_decision": "the six user-reported URLs, results/fresh_eval_sets.csv (development set), tests/data/external_url_regression.json"
+  }
+}
