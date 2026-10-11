@@ -120,7 +120,7 @@
         <details>
           <summary>Research and Model Information</summary>
           <div class="about">
-            <p><strong>Production URL classifier:</strong> character-level CNN + BiLSTM + Attention trained on the cleaned V2 URL dataset (hostname-grouped split, checkpoint selected on validation only). The previous CNN + LightGBM ensemble is reported alongside for reference.</p>
+            <p><strong>Production URL classifier:</strong> character-level CNN + BiLSTM + Attention trained on the cleaned V2 URL dataset plus real Phishing.Database, alexkstern and Tranco URLs (hostname-grouped split, checkpoint selected on validation only). The previous CNN + LightGBM ensemble is reported alongside for reference.</p>
             <p><strong>Experimental extensions:</strong> standalone deterministic HTML and email context evidence, adversarial robustness, verified feedback, drift monitoring, and model registry.</p>
             <p><strong>Historical URL experiment:</strong> 20,000 URLs; domain-separated 14,002/2,000/3,998 split; 95/5 ensemble; accuracy 99.525%; precision 100.000%; recall 99.048%; ROC-AUC 99.931%. Production V2 is a separately documented reliability model.</p>
             <p>These historical URL metrics do not apply to the HTML or email analyzers.</p>
