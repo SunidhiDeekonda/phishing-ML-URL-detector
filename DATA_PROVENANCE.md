@@ -27,3 +27,22 @@ Legitimate sampled rows: 10000
 Final rows: 20000
 
 The complete source dataset contains substantially more URLs, but a balanced deterministic subset of 20,000 URLs was selected for this local reproduction experiment to reduce computational requirements while preserving both classes.
+
+## Production BiLSTM datasets (v3.1-v3.3)
+
+### V2 balanced dataset
+File: data/processed/balanced_dataset.csv (40,000 rows, 20,000 per class)
+SHA256: 0231f1073f662e424797b8ed86753391cf6eeda3c00f4690403851e9576a7e67
+Generator: scripts/prepare_balanced_dataset.py (alexkstern and pirocheto Hugging Face datasets, PhishX raw files, hard negatives)
+Known issues (results/dataset_label_audit.json): 9,598 legitimate rows are generated as <PhishX root> + fixed paths such as /login; phishing rows carry formatting artefacts. Training repairs or rejects artefacts with src/dataset_cleaning.py; the file itself is unmodified.
+
+### v3.3 augmentation
+File: data/processed/augmentation_v3_3.csv (24,000 rows, 12,000 per class)
+SHA256: 1b7cbb68242a362e78e8512d68b56e2f3337fe594ae93d9de6bdc1e1b2dab5d4
+Generator: scripts/build_augmentation_data.py
+Phishing: 12,000 Phishing.Database phishing-links-ACTIVE.txt links, minus bare roots of Tranco top-100k domains.
+Legitimate: 9,000 unused alexkstern legitimate URLs with a path and 3,000 Tranco rank 100k-1M roots, both minus hosts in Phishing.Database phishing-domains-ACTIVE.txt.
+Every URL in any evaluation set and every V2 row is excluded.
+
+### Frozen evaluation sets
+results/external_eval_sets.csv, results/fresh_eval_sets.csv (development set since its errors were inspected) and results/fresh2_eval_sets.csv (pre-registered test set, results/v3_3_preregistration.json). Sources: OpenPhish public feed, Phishing.Database, Tranco list 8PX5V, Mitake (provenance undocumented). Hashes are in the matching *_manifest.json files.

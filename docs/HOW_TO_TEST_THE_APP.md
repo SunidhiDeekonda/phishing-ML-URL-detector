@@ -11,7 +11,7 @@ The application contains three independent tools. HTML and email analysis do not
 5. Paste `http://secure-account-login-example.xyz/verify` as text. Do not visit it.
 6. Expected: `PHISHING`.
 
-The URL tool uses the validated Character-Level CNN + LightGBM ensemble. It does not visit or download the URL.
+The URL tool uses the Character-Level CNN + BiLSTM + Attention model (v3.3); the original CNN + LightGBM ensemble scores are shown for reference only. It does not visit or download the URL.
 
 ## TEST HTML
 
@@ -87,7 +87,7 @@ The analyzer does not connect to Gmail, access an inbox, or send email. It count
 
 ## WHAT TO EXPLAIN TO A PROFESSOR
 
-- URL detection is the trained and evaluated CNN + LightGBM classifier.
+- URL detection is the trained and evaluated CNN + BiLSTM + Attention classifier (v3.3). The original CNN + LightGBM ensemble is kept as a reference; results are in `results/fresh2_snapshot_evaluation.json`.
 - HTML and email are independent deterministic research extensions that provide understandable context evidence.
 - HTML/email signals are not fused into URL probability because the project has no properly labelled content dataset for calibrated multimodal training.
 - No submitted URL is fetched, no HTML is executed, and no mailbox is accessed.

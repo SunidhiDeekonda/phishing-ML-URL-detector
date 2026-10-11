@@ -2,12 +2,22 @@
 
 An academic phishing URL detector that combines a Character-Level CNN with a calibrated LightGBM model through a probability ensemble. The project includes the complete preprocessing pipeline, domain-separated splits, trained models, held-out evaluation, automated tests, a FastAPI demonstration application, and the final academic report.
 
+The deployed API now serves a newer character-level CNN + BiLSTM + Attention model (`charcnn-bilstm-attention-v3.3`); see [Production Model V3.1](#production-model-v31-charcnn--bilstm--attention) and the sections after it. The ensemble described below is the original academic reproduction, and its scores are still returned for reference.
+
 ## Architecture
+
+Served model (v3.3):
+
+```text
+URL string --> canonicalize --> characters (256) --> Conv1d 3/5/7 --> 2-layer BiLSTM --> attention + max pooling --> probability --> verdict
+```
+
+Original academic ensemble (reference scores only):
 
 ```text
 URL string
   +-- Character encoding (200) --> Char-CNN --------+
-  +-- 36 engineered URL features --> LightGBM ------+--> weighted probability --> verdict
+  +-- 36 engineered URL features --> LightGBM ------+--> weighted probability
 ```
 
 The application analyses each URL only as text. It does not perform DNS lookups, fetch webpages, execute scripts, or visit submitted destinations.
@@ -64,7 +74,7 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-The demo uses compact `models/char_cnn.onnx` and `models/lightgbm.onnx` artifacts through ONNX Runtime. It does not install PyTorch or the native LightGBM library at runtime.
+The demo uses compact ONNX artifacts through ONNX Runtime: `models/charcnn_bilstm_v3_3.onnx` for the verdict, and `models/char_cnn_production_v2.onnx` / `models/lightgbm_production_v2.onnx` for the reference ensemble scores. It does not install PyTorch or the native LightGBM library at runtime.
 
 ### Train, export models, or run the full test suite
 
@@ -78,7 +88,7 @@ python -m pip install -r requirements-dev.txt
 pytest
 ```
 
-The final audited suite contains 24 passing tests and 0 failures.
+The current suite contains 91 passing tests and 0 failures.
 
 ## Run the local demo
 
@@ -93,7 +103,7 @@ Open `http://127.0.0.1:8000`. The trained artifacts are included, so the demo do
 
 The browser application now separates three capabilities:
 
-1. **URL Phishing Detector** - the validated character-level CNN + 36-feature LightGBM production ensemble. It accepts only a URL string and never visits the URL.
+1. **URL Phishing Detector** - the character-level CNN + BiLSTM + Attention model (v3.3); the original CNN + LightGBM ensemble scores are shown for reference. It accepts only a URL string and never visits the URL.
 2. **HTML Phishing Context Analyzer** - a network-free research extension that parses manually pasted HTML text for forms, password inputs, external targets, iframes, scripts, meta refresh, and credential-related language. `POST /analyze-html` does not require a URL and does not execute HTML or JavaScript.
 3. **Email Phishing Context Analyzer** - a network-free research extension that inspects manually pasted email text for implemented risk terms, credential requests, exact call-to-action phrases, and URL strings. `POST /analyze-email` does not require a URL and never connects to a mailbox.
 

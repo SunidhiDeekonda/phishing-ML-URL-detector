@@ -19,3 +19,6 @@ models/lightgbm_robust.pkl
 data/processed/adversarial_validation.csv
 data/processed/adversarial_test.csv
 requirements-dev.txt
+models/*_best.pt
+data/processed/balanced_dataset.csv
+data/processed/augmentation_v3_3.csv
