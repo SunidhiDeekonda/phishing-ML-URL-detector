@@ -1,6 +1,6 @@
 # AI-Based Phishing Detection System Using Ensemble Learning
 
-An academic phishing URL detector that combines a Character-Level CNN with a calibrated LightGBM model through a probability ensemble. The project includes the complete preprocessing pipeline, domain-separated splits, trained models, held-out evaluation, automated tests, a FastAPI demonstration application, and the final academic report.
+An academic phishing-detection project that began with a Character-Level CNN and calibrated LightGBM ensemble. The historical reproduction used domain-separated splits. The current deployed model is a different experiment: CharCNN + BiLSTM + additive attention v3.3, whose later integrity audit found split contamination. Do not apply the historical ensemble's accuracy or leakage guarantees to the deployed model.
 
 The deployed API now serves a newer character-level CNN + BiLSTM + Attention model (`charcnn-bilstm-attention-v3.3`); see [Production Model V3.1](#production-model-v31-charcnn--bilstm--attention) and the sections after it. The ensemble described below is the original academic reproduction, and its scores are still returned for reference.
 
@@ -161,7 +161,7 @@ A post-experiment reliability audit found that the original dataset accidentally
 
 ## Production Model V3.1: CharCNN + BiLSTM + Attention
 
-The API now serves `charcnn-bilstm-attention-v3.3` (`models/charcnn_bilstm_v3_3.onnx`; earlier versions are `models/charcnn_bilstm_hostsplit.onnx` (v3.2) and `models/charcnn_bilstm.onnx` (v3.1)): a character-level CNN (kernels 3/5/7) feeding a two-layer bidirectional LSTM with attention and max pooling. It is trained on the V2 dataset `data/processed/balanced_dataset.csv` by `python scripts/train_bilstm.py`, which cleans confirmed scraping artefacts (`src/dataset_cleaning.py`), deduplicates on the canonical URL, splits by registered domain, selects the checkpoint on validation only, and encodes every URL with the same `canonicalize_url` the API uses. No domain allowlist or post-hoc probability adjustment is applied. The previous ensemble scores are still returned for reference but do not decide the verdict.
+The API serves `charcnn-bilstm-attention-v3.3` (`models/charcnn_bilstm_v3_3.onnx`; earlier artifacts are `models/charcnn_bilstm_hostsplit.onnx` and `models/charcnn_bilstm.onnx`). It uses parallel character CNN kernels 3/5/7, a two-layer bidirectional LSTM, additive attention and temporal max pooling. Training used the V2 dataset plus v3.3 augmentation with hostname-based grouping; this did not establish registered-domain separation. The later reconstruction found overlap even between cleaned hostname groups. Cleaning uses `src/dataset_cleaning.py`; character encoding uses the same `canonicalize_url` contract as inference. No domain allowlist or post-hoc probability adjustment is applied. The previous ensemble scores remain reference outputs and do not decide the verdict. See the [claim audit](docs/LATEST_RESEARCH_CLAIM_AUDIT.md) for the version-specific evidence.
 
 The label audit (`python scripts/audit_dataset_labels.py --evidence-dir <dir>`, output in `results/dataset_label_audit.json`) found no reversed or inconsistent label mappings in either dataset, but did find class-correlated formatting artefacts and that about 48% of V2 legitimate rows are generated URLs (`<PhishX root> + /login` etc.) whose existence was never verified.
 
@@ -169,5 +169,20 @@ The like-for-like comparison is in `results/production_model_comparison.json` (`
 
 A second, pre-registered run (`results/hostsplit_preregistration.json`) grouped the split by hostname instead (`python scripts/train_bilstm.py --group-by hostname --output-tag _hostsplit`) and was judged on 11,000 URLs that no model had scored before (`python scripts/evaluate_fresh_snapshot.py`, results in `results/fresh_snapshot_evaluation.json`). It caught more phishing than v3.1 (Phishing.Database recall 90.2% vs 81.1%) but flagged more legitimate URLs (12.6% vs 9.0%), so it failed the pre-registered false-positive limit. The maintainer chose to serve it anyway (`models/charcnn_bilstm_hostsplit.onnx`, best fresh-snapshot F1 0.904 and ROC-AUC 0.948 of the three models); v3.1 is kept as the previous version. Neither BiLSTM matches the previous ensemble's phishing recall (95.0%), although the ensemble flags 42.7% of the fresh legitimate URLs.
 
-v3.3 adds 24,000 real training URLs (`python scripts/build_augmentation_data.py`, output `data/processed/augmentation_v3_3.csv`) because the V2 dataset's 9,600 generated `<reputable root>/login`-style legitimate rows taught v3.2 to pass phishing such as `http://000025123.com/banks/cibc`. On a second pre-registered set of 11,273 never-used URLs (`results/v3_3_preregistration.json`, `results/fresh2_snapshot_evaluation.json`) it lowers legitimate false positives from 13.4% to 7.7% and raises phishing recall from 90.7% to 91.3%. That missed the pre-registered 2-point recall gain; the maintainer chose to serve it anyway. Known false positives include `https://www.paypal.com/signin` and `https://login.microsoftonline.com/`: a URL-text model cannot verify who owns a domain.
+v3.3 adds 24,000 source-labelled URLs (`scripts/build_augmentation_data.py`, `data/processed/augmentation_v3_3.csv`) to address the V2 dataset's generated legitimate paths and observed errors. The second pre-registered snapshot contains 11,273 strings, of which 11,271 satisfy the API length limit. On those compatible rows, v3.3 has 384 false positives and 547 false negatives (accuracy 91.740%, recall 91.277%). It missed the pre-registered two-percentage-point recall gain; the maintainer chose to serve it anyway. The later audit found two cleaned training-input matches and 2,555 evaluation rows on training registered domains. The earlier description "never-used" is therefore withdrawn. This is a previously inspected observational benchmark, not proof of unseen-domain generalization. Known false positives include official login endpoints; a URL-text model cannot verify domain ownership.
 
+## Verified output refresh: October 2026
+
+| Experiment | Status | Interpretation |
+|---|---|---|
+| Initial 20,000-URL CNN-LightGBM reproduction | Historical | 99.525% accuracy belongs only to that frozen experiment. |
+| CharCNN-BiLSTM-attention v3.3 | Current production | Integrity issues and maintainer promotion override disclosed. |
+| Same architecture, domain-separated v3.4 | Local research candidate; not promoted | 92.876% accuracy / 90.696% recall on its own 31,795-row test; not a production score. |
+
+On a common 11,271-row external snapshot, v3.4 reduces false positives from 384 to 324 but increases false negatives from 547 to 738. The different training histories and prior inspection limit causal conclusions. No application/model changes or deployment are part of this documentation-only release. The production-source test suite passed **91 tests**; 107 tests belongs to a separate local research-branch run, not this branch.
+
+Final materials:
+- [Five-page IEEE paper](paper/AI_Phishing_Research_Paper_Updated.pdf) and [LaTeX/build notes](paper/README.md).
+- [Editable poster](output/poster/AI_Phishing_Detection_Project_Poster_UPDATED.pptx), [print PDF](output/poster/AI_Phishing_Detection_Project_Poster_UPDATED.pdf), [PNG](output/poster/AI_Phishing_Detection_Project_Poster_UPDATED.png).
+- [Updated 30-page college report](docs/AI_Based_Phishing_Detection_System_KLH_Bachupally_UPDATED.pdf).
+- [Claim audit](docs/LATEST_RESEARCH_CLAIM_AUDIT.md), [output decisions](docs/LATEST_OUTPUT_REFRESH_AUDIT.md), [local-change inventory](docs/LOCAL_CHANGE_CLASSIFICATION.csv), and [viva guide](docs/VIVA_DEFENSE.md).

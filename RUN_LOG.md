@@ -462,3 +462,14 @@ READY FOR HUMAN REVIEW BEFORE PDF: YES
 - Pushed four meaningful commits normally to `origin/main` and verified Vercel health with both ONNX models loaded.
 - Deployed audit: 0 local/deployed mismatches across 87 cases; Google and GitHub root pairs stable; HTML, email, model-info, and feedback endpoints passed.
 - Production feedback accepted a real project-URL false-positive report for human verification; Vercel reported non-persistent storage and automatic retraining remained disabled.
+
+## 2026-10-13 - Necessary final-output refresh only
+
+- Fetched remote state; `origin/main` remained `00c15d3`. Created approved `docs/verified-output-refresh` from it rather than pushing local research commits `5543066` / `287554c`.
+- Inventoried 256 local/unpushed paths in `docs/LOCAL_CHANGE_CLASSIFICATION.csv`. Nothing was deleted; candidate code/models and temporary helpers remain local.
+- Preserved historical research values and separated current v3.3 production from unpromoted, domain-separated v3.4. Corrected misleading complete-exclusion and never-used-data wording.
+- Reused the existing scientifically current draft/figures; fixed IEEE table widths. Paper compiles to 5 pages. Shortened repeated report explanations without altering template styling; report compiles to 30 pages.
+- Updated only outdated architecture/current-comparison poster panels, labels and test scope, retaining the established layout, institutional branding, team details and historical results.
+- No application source, trained model, dataset, threshold, production registry or deployment configuration changes. No training or deployment performed.
+- Current production-source tests: 91 passed, 0 failed, 2 dependency warnings. The separate local research branch's previous 107-test result is not this branch's count.
+- Local/public smoke checks identify production v3.3; valid fabricated feedback was not sent to production. Final artifact and push details are in `docs/LATEST_OUTPUT_REFRESH_AUDIT.md`.

@@ -1,0 +1,11 @@
+{
+  "model_version": "charcnn-bilstm-attention-v3.4-domain-separated",
+  "threshold": 0.5,
+  "max_sequence_length": 256,
+  "onnx_sha256": "3ef86faede8d81a8f4aa1acca7fc91f199aa62b12398fe9897501688fbeb9df5",
+  "dataset_sha256": "0231f1073f662e424797b8ed86753391cf6eeda3c00f4690403851e9576a7e67",
+  "extra_data_sha256": "1b7cbb68242a362e78e8512d68b56e2f3337fe594ae93d9de6bdc1e1b2dab5d4",
+  "training_date": "2026-10-13",
+  "split_policy": "whole-domain-v3.4",
+  "preprocessing": "src.charcnn_bilstm.encode_url_bilstm (canonicalize_url, first 256 characters)"
+}

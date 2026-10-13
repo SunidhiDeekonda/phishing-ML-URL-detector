@@ -1,5 +1,83 @@
 # Viva / Professor Defense
 
+## Read this first: version boundaries
+
+The older numbered answers below are retained for explaining the **historical reproduction**. Their CNN-LightGBM architecture, 200-character encoding and FN 37 to 17 do not describe current production. Use the following latest-model answers for today's application. All statistics must be named with their experiment and cohort.
+
+## Latest Model Change
+
+### What changed, and what is currently deployed?
+**20-second answer:** We began with a CNN-LightGBM ensemble. Production now runs a character CNN, a two-layer bidirectional LSTM and additive attention, version v3.3. The old ensemble scores are reference outputs, not the current verdict.
+
+**Technical follow-up:** Embedding dimension 64; three parallel 128-channel convolutions (3/5/7); pooling halves 256 positions to 128; BiLSTM hidden size 128 per direction, two layers; attention and max pooling form 512 values; dense 128/32/1 and sigmoid at threshold 0.5. It has 1,138,434 parameters.
+
+**Proof:** `src/charcnn_bilstm_model.py`, `app/inference.py`, `models/charcnn_bilstm_v3_3.onnx`.
+
+### What does bidirectional mean, and why add it?
+**20-second answer:** It reads the encoded URL sequence in both directions, so a character's representation can use earlier and later context. Convolutions learn short patterns; recurrence can relate more distant patterns.
+
+**Technical follow-up:** `bidirectional=True` concatenates forward and backward hidden representations. Additive attention weights time steps. This is a motivation, not proof that each component improved performance: no matched component ablation was completed.
+
+**Proof:** `src/charcnn_bilstm_model.py`; paper Methodology.
+
+### Did the new candidate improve accuracy, recall or false positives?
+**20-second answer:** Not overall. On the same external snapshot, v3.4 reduced false alarms from 384 to 324 but missed 738 phishing URLs instead of 547. Accuracy and recall were lower, so it was not promoted.
+
+**Technical follow-up:** For 11,271 API-compatible fresh2 rows, v3.3 accuracy/recall/ROC-AUC are 91.740/91.277/96.489%; v3.4 values are 90.578/88.232/96.276%. Average precision rises from 97.078 to 97.207%, illustrating why one metric is insufficient. Training histories differ, and the snapshot was previously inspected.
+
+**Proof:** `docs/evidence/v3_4_evaluation.json`, key `evaluations.fresh2_api_compatible`; `docs/evidence/latest_model_comparison.csv`.
+
+### Why create v3.4 if the architecture is the same?
+**20-second answer:** An integrity audit found domain leakage in the old split. v3.4 was a separate experiment repairing whole-domain separation, not a new neural architecture. Its lower score is not evidence that fixing leakage was wrong.
+
+**Technical follow-up:** Test domains take precedence over validation and training. Retained splits are 25,961/6,113/31,795, with zero cleaned-key, hostname and public/private domain overlap. Its own test accuracy is 92.876%, recall 90.696% and ROC-AUC 98.289%. That test is not directly comparable to the old model's original test.
+
+**Proof:** `docs/evidence/v3_4_protocol.json`, `docs/evidence/charcnn_bilstm_v3_4_metrics.json`.
+
+### Was production's evaluation fully leakage-free?
+**20-second answer:** No. The later audit found registered-domain overlap and two cleaned training-input matches in an external evaluation snapshot. We disclose this rather than describing production's results as a blind unseen-domain evaluation.
+
+**Technical follow-up:** Under private-suffix-aware grouping, v3.3 train/validation, train/test and validation/test domain overlaps are 385/400/187. The fresh2 snapshot also has 2,555 rows on training registered domains. Grouping and cleaning order matter; a hostname-based split is not a registered-domain guarantee.
+
+**Proof:** `docs/evidence/latest_model_verification.json`, `DATA_PROVENANCE.md`.
+
+### Why is v3.3 still deployed if a gate failed?
+**20-second answer:** The maintainer deployed v3.3 by an explicit override even though its required recall gain was not met. We disclose that decision. v3.4 also failed its own gate and was left as research only; this output refresh changes neither deployment.
+
+**Technical follow-up:** v3.3 missed the pre-registered two-percentage-point recall gain. v3.4 failed its validation AUC/recall conditions while passing its false-positive-rate bound. A gate failure is not a passing result, and a newer version is not automatically better.
+
+**Proof:** `results/fresh2_snapshot_evaluation.json`, `models/model_registry.json`; authoritative runtime `/model-info`; `docs/evidence/v3_4_evaluation.json`.
+
+### Did adversarial robustness improve in the latest comparison?
+**20-second answer:** No. On the historical 3,998-row adversarial suite, v3.3 recall is 94.035% with 119 misses, while v3.4 is 91.328% with 173 misses. The old 37-to-17 result belongs to a different historical ensemble experiment.
+
+**Technical follow-up:** V2 has 99.549% recall and 9 misses on this replay, but training exposure differs across models. These are observational replays of an inspected benchmark, not an untouched or matched-budget robustness trial.
+
+**Proof:** `docs/evidence/v3_4_evaluation.json`, adversarial cohort; historical `results/robustness_final_metrics.json`.
+
+### What is the computational cost?
+**20-second answer:** The current network has about 1.14 million parameters and more sequential computation than the original CNN. v3.4 has the same architecture, so its main difference is training data and split policy, not network size.
+
+**Technical follow-up:** The prior candidate used CPU training, batch 128, AdamW at 0.001, seed 42, seven epochs and validation-AUC checkpoint selection. No new latency, memory or energy benchmark was conducted in this refresh; do not invent one.
+
+**Proof:** `docs/evidence/v3_4_model_metadata.json`, `docs/evidence/v3_4_protocol.json`.
+
+### What belongs to the reference paper, and what did our team add?
+**20-second answer:** The reference supplied the CNN-plus-engineered-feature ensemble idea. We independently reproduced it, added robustness and safe context tools, and later built and audited the recurrent production model. Our latest contribution is transparent evaluation, including limitations and rejected candidates.
+
+**Technical follow-up:** HTML/email are independent deterministic signal extractors, not trained equivalents of the URL classifier. Human-verified feedback, quarantine, model registry and PSI monitoring are implemented infrastructure, not evidence of successful real-time learning.
+
+**Proof:** `src/context_features.py`, `src/continuous_learning.py`, `src/drift_monitor.py`, `docs/NOVELTY_AND_EXTENSION.md`.
+
+### What should I demonstrate?
+**20-second answer:** Show a URL-only prediction, an HTML-only analysis and an email-only analysis. Explain that the last two are contextual signals. Then show the version-labelled comparison and why we did not promote the candidate.
+
+**Technical follow-up:** Root slash equivalents should share canonicalization; this does not guarantee every legitimate URL is correctly classified. The production-source branch passed 91 tests. The separate local research branch's earlier 107 tests must not be quoted as this release's test count.
+
+**Proof:** `docs/HOW_TO_TEST_THE_APP.md`, `docs/LATEST_OUTPUT_REFRESH_AUDIT.md`.
+
+## Historical viva material
+
 ## Part 1 — 60-second project explanation
 
 We reproduced a CNN-LightGBM phishing URL detector with domain-separated splits, then added deterministic adversarial stress testing/training, safe context evidence, verified feedback, drift monitoring, and model versioning. No submitted URL is fetched.

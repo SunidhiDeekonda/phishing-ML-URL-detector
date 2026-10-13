@@ -1,0 +1,131 @@
+file_or_change,classification,push,reason,destination,action
+DATA_PROVENANCE.md,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+README.md,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+RUN_LOG.md,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/AI_Based_Phishing_Detection_System_KLH_Bachupally_UPDATED.pdf,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/FINAL_REPORT.md,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/LATEST_OUTPUT_REFRESH_AUDIT.md,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/LATEST_RESEARCH_CLAIM_AUDIT.md,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/LOCAL_CHANGE_CLASSIFICATION.csv,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/NOVELTY_AND_EXTENSION.md,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/OUTPUT_REFRESH_FILE_MANIFEST.csv,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/PUSHED_FILES.txt,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/VIVA_DEFENSE.md,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/evidence/README.md,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/evidence/api_smoke_summary.json,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/evidence/charcnn_bilstm_v3_4_metrics.json,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/evidence/latest_model_comparison.csv,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/evidence/latest_model_verification.json,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/evidence/output_validation.json,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/evidence/software_test_summary.json,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/evidence/v3_4_evaluation.json,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/evidence/v3_4_model_metadata.json,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/evidence/v3_4_protocol.json,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/abstract.tex,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/ack.tex,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/cert.tex,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/conclusion.tex,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/dcandpa.tex,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/discussion.tex,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/images/adversarial_robustness.pdf,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/images/confusion_matrix.pdf,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/images/header.png,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/images/logo.png,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/images/model_comparison.pdf,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/images/new_model_architecture.pdf,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/images/system_architecture.pdf,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/images/training_history.pdf,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/implementation.tex,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/intro.tex,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/liturature.tex,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/main.tex,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/proposed.tex,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/references.bib,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+docs/report_updated/results.tex,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+output/poster/AI_Phishing_Detection_Project_Poster_UPDATED.pdf,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+output/poster/AI_Phishing_Detection_Project_Poster_UPDATED.png,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+output/poster/AI_Phishing_Detection_Project_Poster_UPDATED.pptx,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+paper/AI_Phishing_Research_Paper_Updated.pdf,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+paper/README.md,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+paper/figures/adversarial_robustness.pdf,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+paper/figures/adversarial_robustness.png,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+paper/figures/model_comparison.pdf,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+paper/figures/model_comparison.png,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+paper/figures/system_architecture.pdf,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+paper/figures/system_architecture.png,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+paper/main.tex,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+paper/references.bib,REQUIRED,YES,"Final output, editable source, used figure, versioned evidence, or required correction",docs/verified-output-refresh,Publish documentation/assets only
+.chart-data-3Nl1qu/candidate.pptx,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+.chart-data-3Nl1qu/chart-data-snapshot.json,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+.chart-data-8J0v2r/candidate.pptx,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+.chart-data-8J0v2r/chart-data-snapshot.json,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+.chart-data-b06Inr/candidate.pptx,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+.chart-data-b06Inr/chart-data-snapshot.json,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+.chart-data-xVjhA0/candidate.pptx,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+.chart-data-xVjhA0/chart-data-snapshot.json,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+.chart-data-ygtC34/candidate.pptx,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+.chart-data-ygtC34/chart-data-snapshot.json,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+docs/report_updated/main.blg,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+docs/report_updated/main.pdf,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+paper/main.blg,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+paper/main.pdf,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/current_branch_api_smoke.json,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/format_outputs.py,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/node_modules,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/paper-page-1.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/paper-page-2.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/paper-page-3.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/paper-page-4.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/paper-page-5.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/paper-page-contact.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/poster-api-help.mjs,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/poster-api-help.txt,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/poster-before-visual-repair-receipt.json,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/poster-before-visual-repair.pptx,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/poster-draft.pptx,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/poster-draft.pptx.inspect.ndjson,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/poster-error.log,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/poster-preview.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/poster-receipt.json,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/poster-shapes.json,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/prepare_manifest.py,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/production-tests.xml,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-build.log,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-01.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-02.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-03.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-04.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-05.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-06.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-07.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-08.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-09.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-10.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-11.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-12.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-13.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-14.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-15.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-16.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-17.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-18.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-19.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-20.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-21.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-22.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-23.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-24.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-25.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-26.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-27.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-28.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-29.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-30.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/report-page-contact.png,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/research-tests.xml,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/restore_chart_workbook.py,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/source-audit.md,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/update_poster.mjs,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/validate_outputs.py,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/viva-addendum.md,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage
+tmp/output-refresh/write_final_docs.py,TEMPORARY,NO,"Private helper, compiler/export intermediate, diagnostic, receipt, or local runtime link",LOCAL ONLY,Retain; do not stage

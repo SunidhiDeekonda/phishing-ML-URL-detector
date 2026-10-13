@@ -1,0 +1,25 @@
+\section{Training Configuration and Freeze}
+The repaired experiment was frozen in commit \texttt{5543066} before model fitting. Dataset, split and implementation hashes guard against silent changes. Seed 42, CPU/four threads, batch size 128, AdamW with learning rate 0.001 and weight decay 0.0001, BCEWithLogitsLoss and gradient clipping 5.0 are used. Training allows at most seven epochs with patience three on validation ROC-AUC. The scheduler halves the learning rate after one plateau. Epoch 7 was selected. The threshold stays 0.5.
+
+\begin{lstlisting}[language=Python,caption={Whole-group reservation policy (simplified)}]
+priority = {"train": 0, "validation": 1, "test": 2}
+for url, requested_split in reservations:
+    group = registered_domain(clean(url))
+    fixed[group] = higher_priority(fixed.get(group), requested_split)
+for row in rows:
+    row.split = fixed.get(row.group, grouped_fold[row.group])
+assert train_domains.isdisjoint(validation_domains)
+assert train_domains.isdisjoint(test_domains)
+assert validation_domains.isdisjoint(test_domains)
+\end{lstlisting}
+This simplified policy illustrates the local research experiment; it is not production code.
+
+\section{Serving, Interface and Testing}
+The selected PyTorch checkpoint is exported to ONNX with dynamic batch size and checked against PyTorch outputs. The model config records an SHA-256 digest. Production rejects missing or mismatched artifacts rather than falling back silently. Training needs PyTorch; the web runtime uses ONNX Runtime and does not require training libraries. The candidate is saved under new v3.4 filenames, leaving v3.3 unchanged.
+
+The FastAPI application exposes health, model information, URL prediction, combined context, independent HTML/email analysis and feedback. Each tool has a separate input/action/result. The browser never needs to open a submitted suspicious destination. Public deployment remains at the existing Vercel project. The source repository and deployment URL identify the demonstration, while saved checkpoint/version records identify the experiment.
+
+The current production-source suite passes 91 tests. The separate local research branch previously passed 107, including reservation and frozen-split assertions. These checks establish software behavior, not universal prediction accuracy. Candidate models and training changes remain local; only final documents and supporting evidence are published.
+
+\section{Promotion Decision}
+Candidate checkpoint selection uses validation only. The predeclared comparison gate requires no loss in validation AUC or recall against v3.3 and no more than a one-percentage-point benign false-positive-rate increase. The gate failed. No model is automatically promoted by this branch. The old deployment's explicit maintainer override is documented rather than presented as a passed gate. Previously inspected test outcomes do not trigger another threshold or epoch search.

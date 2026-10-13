@@ -1,0 +1,117 @@
+{
+  "source_rows": 40000,
+  "source_sha256": "0231f1073f662e424797b8ed86753391cf6eeda3c00f4690403851e9576a7e67",
+  "policy_version": "whole-domain-v3.4",
+  "group_by": "registered_domain",
+  "suffix_policy": "bundled public PSL; no network; private-hosting tenants grouped together",
+  "extra_data": {
+    "path": "data/processed/augmentation_v3_3.csv",
+    "rows": 24000,
+    "sha256": "1b7cbb68242a362e78e8512d68b56e2f3337fe594ae93d9de6bdc1e1b2dab5d4"
+  },
+  "cleaning": {
+    "kept|label=0": 31958,
+    "kept|label=1": 29952,
+    "rejected_email_address|label=1": 1,
+    "rejected_internal_whitespace|label=1": 65,
+    "rejected_invalid_host|label=1": 15,
+    "repaired|label=0": 42,
+    "repaired|label=1": 1967
+  },
+  "dropped_conflicting_label_keys": 0,
+  "dropped_duplicate_rows": 50,
+  "reserved_source_sha256": {
+    "data/processed/adversarial_test.csv": "a317b02e2ea1411e5cb7dd82b2970ccc5ffc58ca559e6646b43e19a6d064242a",
+    "data/processed/adversarial_validation.csv": "b1a78ef30355038e7cc0aff6ad58ca60eb03a8b2d9d82ad5e8cd0e46f8cb9eec",
+    "results/external_eval_sets.csv": "96eb0b2a039c709248be34c1f0dc4ecefac5d7c5dc220e738b44da4476ad5e4b",
+    "results/fresh_eval_sets.csv": "c45f259c8b7d5492e5661f5cd401a6d51a15ef1349980c29d1ac4582bcd36627",
+    "results/fresh2_eval_sets.csv": "806cc789e4c02de6795d47a985cfc04a278ce712800551cb58e3bdcf6ffd75ee"
+  },
+  "reservation_conflict_domains": 85,
+  "conflict_policy": "test > validation > train; whole group",
+  "reserved_groups_present": 3299,
+  "overlap": {
+    "key": {
+      "train-validation": 0,
+      "train-test": 0,
+      "validation-test": 0
+    },
+    "group": {
+      "train-validation": 0,
+      "train-test": 0,
+      "validation-test": 0
+    },
+    "hostname": {
+      "train-validation": 0,
+      "train-test": 0,
+      "validation-test": 0
+    },
+    "public_domain": {
+      "train-validation": 0,
+      "train-test": 0,
+      "validation-test": 0
+    },
+    "private_domain": {
+      "train-validation": 0,
+      "train-test": 0,
+      "validation-test": 0
+    }
+  },
+  "splits": {
+    "train": {
+      "rows": 25961,
+      "class_counts": {
+        "0": 13612,
+        "1": 12349
+      },
+      "groups": 18648,
+      "sha256": "95f6b3429aa9129463cd34736729ae4836aee330223df2fe9186b1999f39d2a8"
+    },
+    "validation": {
+      "rows": 6113,
+      "class_counts": {
+        "0": 3220,
+        "1": 2893
+      },
+      "groups": 4300,
+      "sha256": "8e427668c608a561ff1ccc707e9a4eeb1107d0728456774742fa903b10715041"
+    },
+    "test": {
+      "rows": 31795,
+      "class_counts": {
+        "0": 15168,
+        "1": 16627
+      },
+      "groups": 7115,
+      "sha256": "e27bb6daf9a86f272df812448ce5a959756f1facc0dd7ba7476319d379fcbbf9"
+    }
+  },
+  "retained_rows": 63869,
+  "url_overlap_between_splits": 0,
+  "evaluation_note": "Existing snapshots are reserved from training, but were previously inspected; not prospectively unseen evidence. Split ratios may differ because evaluation domains are pinned.",
+  "frozen_at_utc": "2026-10-13T12:17:58.119269+00:00",
+  "candidate_version": "charcnn-bilstm-attention-v3.4-domain-separated",
+  "architecture_change": false,
+  "seed": 42,
+  "batch_size": 128,
+  "learning_rate": 0.001,
+  "max_epochs": 7,
+  "early_stopping_patience": 3,
+  "optimizer": "AdamW",
+  "weight_decay": 0.0001,
+  "threshold": 0.5,
+  "checkpoint_selection": "validation ROC-AUC only",
+  "deployment": "No automatic promotion. Candidate stays research-only unless validation gates pass and a separate production review authorizes deployment.",
+  "validation_gate": {
+    "roc_auc_not_lower_than_v3_3": true,
+    "phishing_recall_not_lower_than_v3_3": true,
+    "benign_fpr_increase_at_most": 0.01
+  },
+  "test_usage": "One post-selection diagnostic evaluation; no threshold/hyperparameter/epoch tuning from test or previously inspected external snapshots.",
+  "implementation_sha256": {
+    "src/research_splits.py": "2ea2298801d43467c3ed7ea065c14a55aeeb704b3ea5e5814672f2db7255d182",
+    "scripts/train_bilstm.py": "70f56dbc0da4566d3325d62f6fd3753bad8df1a0074a9fce74dfcc7bb6af8cfd",
+    "src/charcnn_bilstm_model.py": "363fec7f8aa6cbe8ed885e5b3be620480dfa99c793c9cdfcada17244f155efa2",
+    "src/charcnn_bilstm.py": "85235f99b5898c3de796c905d57883db5184137920567eabc6d54969e58156ae"
+  }
+}

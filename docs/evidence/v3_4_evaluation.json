@@ -1,0 +1,274 @@
+{
+  "candidate": "v3.4",
+  "production_unchanged": "v3.3",
+  "model_sha256": {
+    "v3_3": "b7020bed0c89399e72b5e374c631c3553ec6fb2424c6b8de22cd70366da6b783",
+    "v3_4": "3ef86faede8d81a8f4aa1acca7fc91f199aa62b12398fe9897501688fbeb9df5"
+  },
+  "threshold": 0.5,
+  "evaluations": {
+    "corrected_validation": {
+      "input_rows": 6113,
+      "excluded_rows": 0,
+      "candidate_training_domain_matches": 0,
+      "candidate_training_key_matches": 0,
+      "metrics": {
+        "v2_ensemble": {
+          "n": 6113,
+          "accuracy": 0.5884181253067233,
+          "precision": 0.5376022341911031,
+          "recall": 0.9315589353612167,
+          "f1": 0.6817606880849988,
+          "roc_auc": 0.7631284982169425,
+          "pr_auc": 0.7440127094572067,
+          "fpr": 0.7198757763975155,
+          "tn": 902,
+          "fp": 2318,
+          "fn": 198,
+          "tp": 2695
+        },
+        "v3_3": {
+          "n": 6113,
+          "accuracy": 0.9576312776051039,
+          "precision": 0.9859778597785978,
+          "recall": 0.9236087106809541,
+          "f1": 0.9537747635195432,
+          "roc_auc": 0.9924045618788551,
+          "pr_auc": 0.9927903588257359,
+          "fpr": 0.011801242236024845,
+          "tn": 3182,
+          "fp": 38,
+          "fn": 221,
+          "tp": 2672
+        },
+        "v3_4": {
+          "n": 6113,
+          "accuracy": 0.922951087845575,
+          "precision": 0.9756480754124116,
+          "recall": 0.8586242654683719,
+          "f1": 0.9134031991174848,
+          "roc_auc": 0.9797160848739621,
+          "pr_auc": 0.9807305496485927,
+          "fpr": 0.019254658385093167,
+          "tn": 3158,
+          "fp": 62,
+          "fn": 409,
+          "tp": 2484
+        }
+      }
+    },
+    "corrected_test": {
+      "input_rows": 31795,
+      "excluded_rows": 0,
+      "candidate_training_domain_matches": 0,
+      "candidate_training_key_matches": 0,
+      "metrics": {
+        "v2_ensemble": {
+          "n": 31795,
+          "accuracy": 0.5617235414373329,
+          "precision": 0.5449986627440492,
+          "recall": 0.980453479280688,
+          "f1": 0.7005737123702701,
+          "roc_auc": 0.7768567176430538,
+          "pr_auc": 0.8129713734886646,
+          "fpr": 0.8972837552742616,
+          "tn": 1558,
+          "fp": 13610,
+          "fn": 325,
+          "tp": 16302
+        },
+        "v3_3": {
+          "n": 31795,
+          "accuracy": 0.9749960685642397,
+          "precision": 0.9826240702353372,
+          "recall": 0.9693269982558489,
+          "f1": 0.9759302431196827,
+          "roc_auc": 0.9968308315880402,
+          "pr_auc": 0.9971884309418423,
+          "fpr": 0.018789556962025316,
+          "tn": 14883,
+          "fp": 285,
+          "fn": 510,
+          "tp": 16117
+        },
+        "v3_4": {
+          "n": 31795,
+          "accuracy": 0.9287623840226451,
+          "precision": 0.9545512090137992,
+          "recall": 0.9069585613760751,
+          "f1": 0.9301464919043948,
+          "roc_auc": 0.9828945540703329,
+          "pr_auc": 0.9841944590728164,
+          "fpr": 0.047336497890295356,
+          "tn": 14450,
+          "fp": 718,
+          "fn": 1547,
+          "tp": 15080
+        }
+      }
+    },
+    "fresh2_api_compatible": {
+      "input_rows": 11273,
+      "excluded_rows": 2,
+      "candidate_training_domain_matches": 0,
+      "candidate_training_key_matches": 0,
+      "metrics": {
+        "v2_ensemble": {
+          "n": 11271,
+          "accuracy": 0.7654156685298554,
+          "precision": 0.7272271645157249,
+          "recall": 0.9255302184659544,
+          "f1": 0.8144821779399383,
+          "roc_auc": 0.8078264072715676,
+          "pr_auc": 0.8265577406232766,
+          "fpr": 0.4354,
+          "tn": 2823,
+          "fp": 2177,
+          "fn": 467,
+          "tp": 5804
+        },
+        "v3_3": {
+          "n": 11271,
+          "accuracy": 0.9173986336616095,
+          "precision": 0.93713163064833,
+          "recall": 0.9127730824429916,
+          "f1": 0.9247919864286291,
+          "roc_auc": 0.9648912294689842,
+          "pr_auc": 0.9707817892839945,
+          "fpr": 0.0768,
+          "tn": 4616,
+          "fp": 384,
+          "fn": 547,
+          "tp": 5724
+        },
+        "v3_4": {
+          "n": 11271,
+          "accuracy": 0.9057758850146393,
+          "precision": 0.9446815775994536,
+          "recall": 0.8823154201881678,
+          "f1": 0.912434036939314,
+          "roc_auc": 0.9627610110030298,
+          "pr_auc": 0.972069606664003,
+          "fpr": 0.0648,
+          "tn": 4676,
+          "fp": 324,
+          "fn": 738,
+          "tp": 5533
+        }
+      }
+    },
+    "historical_clean": {
+      "input_rows": 3998,
+      "excluded_rows": 0,
+      "candidate_training_domain_matches": 0,
+      "candidate_training_key_matches": 0,
+      "metrics": {
+        "v2_ensemble": {
+          "n": 3998,
+          "accuracy": 0.972736368184092,
+          "precision": 0.9886010362694301,
+          "recall": 0.956390977443609,
+          "f1": 0.9722292993630574,
+          "roc_auc": 0.995675659443166,
+          "pr_auc": 0.9968387388686413,
+          "fpr": 0.010983524712930605,
+          "tn": 1981,
+          "fp": 22,
+          "fn": 87,
+          "tp": 1908
+        },
+        "v3_3": {
+          "n": 3998,
+          "accuracy": 0.9682341170585292,
+          "precision": 0.9844398340248963,
+          "recall": 0.9513784461152882,
+          "f1": 0.9676268162120826,
+          "roc_auc": 0.9883968533415415,
+          "pr_auc": 0.9923124950169824,
+          "fpr": 0.014977533699450823,
+          "tn": 1973,
+          "fp": 30,
+          "fn": 97,
+          "tp": 1898
+        },
+        "v3_4": {
+          "n": 3998,
+          "accuracy": 0.9309654827413707,
+          "precision": 0.9931153184165232,
+          "recall": 0.8676691729323308,
+          "f1": 0.9261637239165329,
+          "roc_auc": 0.9875702736621885,
+          "pr_auc": 0.9909128987456286,
+          "fpr": 0.005991013479780329,
+          "tn": 1991,
+          "fp": 12,
+          "fn": 264,
+          "tp": 1731
+        }
+      }
+    },
+    "historical_adversarial": {
+      "input_rows": 3998,
+      "excluded_rows": 0,
+      "candidate_training_domain_matches": 0,
+      "candidate_training_key_matches": 0,
+      "metrics": {
+        "v2_ensemble": {
+          "n": 3998,
+          "accuracy": 0.9922461230615308,
+          "precision": 0.9890438247011952,
+          "recall": 0.9954887218045113,
+          "f1": 0.992255808143892,
+          "roc_auc": 0.9998833829456317,
+          "pr_auc": 0.9998837276693406,
+          "fpr": 0.010983524712930605,
+          "tn": 1981,
+          "fp": 22,
+          "fn": 9,
+          "tp": 1986
+        },
+        "v3_3": {
+          "n": 3998,
+          "accuracy": 0.9627313656828415,
+          "precision": 0.9842602308499475,
+          "recall": 0.9403508771929825,
+          "f1": 0.9618046654703922,
+          "roc_auc": 0.9834303682321132,
+          "pr_auc": 0.9893418715803958,
+          "fpr": 0.014977533699450823,
+          "tn": 1973,
+          "fp": 30,
+          "fn": 119,
+          "tp": 1876
+        },
+        "v3_4": {
+          "n": 3998,
+          "accuracy": 0.9537268634317159,
+          "precision": 0.9934569247546347,
+          "recall": 0.9132832080200501,
+          "f1": 0.9516845129276573,
+          "roc_auc": 0.9848895829188549,
+          "pr_auc": 0.989973215374863,
+          "fpr": 0.005991013479780329,
+          "tn": 1991,
+          "fp": 12,
+          "fn": 173,
+          "tp": 1822
+        }
+      }
+    }
+  },
+  "caveats": [
+    "Existing evaluation snapshots were inspected before protocol repair; not prospective blind evidence.",
+    "v3.3 and V2 may have trained on corrected-partition domains; comparisons are diagnostic and not controlled architecture ablations.",
+    "Candidate checkpoint selected only by corrected validation AUC; test data never selects threshold or training settings.",
+    "Probability values are batch ONNX replay; minor numerical ranking differences from historical scalar evaluation can occur."
+  ],
+  "validation_gate": {
+    "roc_auc_not_lower_than_v3_3": false,
+    "phishing_recall_not_lower_than_v3_3": false,
+    "benign_fpr_increase_at_most_1pp": true
+  },
+  "validation_gate_passed": false,
+  "promotion": "NOT AUTOMATIC; production unchanged pending separate deployment review"
+}

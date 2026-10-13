@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-13",
+  "files": [
+    {
+      "path": "paper/AI_Phishing_Research_Paper_Updated.pdf",
+      "bytes": 117016,
+      "sha256": "c583ff4f875df5eedacf603a73e4493ddc3e9987aa0e3f2b414cd750b615572a",
+      "pages": 5,
+      "page_size_points": [
+        0,
+        0,
+        595.28,
+        841.89
+      ],
+      "opens": true,
+      "all_pages_rendered_and_visually_reviewed": true
+    },
+    {
+      "path": "docs/AI_Based_Phishing_Detection_System_KLH_Bachupally_UPDATED.pdf",
+      "bytes": 335391,
+      "sha256": "88726f364c478ec75c34d2090660e16e20aa71719c7021d0f882c7260af2991f",
+      "pages": 30,
+      "page_size_points": [
+        0,
+        0,
+        612,
+        792
+      ],
+      "opens": true,
+      "all_pages_rendered_and_visually_reviewed": true
+    },
+    {
+      "path": "output/poster/AI_Phishing_Detection_Project_Poster_UPDATED.pptx",
+      "bytes": 115820,
+      "sha256": "0e18b16e3d2b7fd302cf40718c6d7b311f2e06fcfa264a1650c94ab141270f77",
+      "editable_shapes": 200,
+      "native_charts": 2,
+      "embedded_workbooks": 2,
+      "native_down_arrows": 5,
+      "historical_chart_and_workbook_preserved": true,
+      "opens": true,
+      "rendered_by": "LibreOffice Impress",
+      "native_Microsoft_PowerPoint_tested": false
+    },
+    {
+      "path": "output/poster/AI_Phishing_Detection_Project_Poster_UPDATED.pdf",
+      "bytes": 485419,
+      "sha256": "67e9dcc7400f2cb71562f55d174d73ffbdd34373a984919174206b095501a958",
+      "pages": 1,
+      "page_size_points": [
+        0,
+        0,
+        2383.88031496063,
+        3370.36535433071
+      ],
+      "opens": true,
+      "all_pages_rendered_and_visually_reviewed": true
+    },
+    {
+      "path": "output/poster/AI_Phishing_Detection_Project_Poster_UPDATED.png",
+      "bytes": 3067964,
+      "sha256": "425c3a5e5319f4e3afaa75166d309dfb80f0f5070be87f5a189bdd58d6c9ef4e",
+      "dimensions": [
+        6622,
+        9363
+      ],
+      "opens": true,
+      "export_dpi": 200
+    }
+  ],
+  "paper_table_overflow": false,
+  "paper_layout_visually_reviewed": true,
+  "report_template_preserved": true,
+  "report_inherited_warnings": [
+    "Title-page overfull hbox; visually within page, template geometry retained.",
+    "Template hyperlink boxes and bibliography spacing retained."
+  ],
+  "poster_visual_repairs": [
+    "Abstract fits its panel",
+    "Five visible downward flow arrows",
+    "Sans-serif font consistent with existing template",
+    "Current and historical results clearly separated"
+  ],
+  "poster_package_integrity": "PASS",
+  "poster_layout_geometry": "PASS",
+  "poster_editable_chart_validation": "PASS",
+  "poster_side_by_side_reference_layout_review": "Existing completed phishing poster structure retained; WIA used for visual style only",
+  "production_changes": false,
+  "training_performed": false,
+  "candidate_deployed": false
+}

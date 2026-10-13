@@ -1,0 +1,35 @@
+\section{Literature Survey}
+Table \ref{tab:lit} summarizes nineteen relevant studies. The comparison describes their methods, not an artificial cross-dataset accuracy ranking. The current project does not claim to invent convolution, recurrence, attention or human review.
+\begin{singlespace}\small
+\begin{longtable}{p{0.24\textwidth}p{0.32\textwidth}p{0.34\textwidth}}
+\caption{Relevant literature and its relationship to this project}\label{tab:lit}\\
+\toprule Study & Focus & Project relationship\\\midrule\endfirsthead
+\toprule Study & Focus & Project relationship\\\midrule\endhead
+Dubey et al. \cite{dubey2025phishx} & Character CNN plus 36-feature LightGBM & Direct reference for the first independent reproduction; not the current recurrent verdict.\\
+Khonji et al. \cite{khonji2013survey} & Survey of phishing detection & Frames the diversity of URL, content and user-facing approaches.\\
+Ma et al. \cite{ma2009blacklists} & Learning suspicious URL patterns beyond lists & Motivates generalization beyond exact known destinations.\\
+Garera et al. \cite{garera2007framework} & Detection and measurement of phishing & Establishes URL-related evidence as an earlier research direction.\\
+Blum et al. \cite{blum2010lexical} & Lexical URL features and online learning & Adaptation is prior work; our reviewed workflow is a prototype, not a new learning theory.\\
+Zhang et al. \cite{zhang2007cantina} & Content-based phishing detection & Content can supplement URL evidence, but our text parser does not reproduce its detector.\\
+Xiang et al. \cite{xiang2011cantina} & Feature-rich content learning & Demonstrates richer evidence; our standalone HTML signals are uncalibrated.\\
+Sahoo et al. \cite{sahoo2017survey} & Malicious URL detection survey & Provides a taxonomy of representation and data challenges.\\
+Saxe and Berlin \cite{saxe2017expose} & Character embeddings and convolution & Related character-pattern learning without manual tokenization.\\
+Le et al. \cite{le2018urlnet} & Learned character and word URL representations & Our model has no URLNet word branch; representation choices differ.\\
+Bahnsen et al. \cite{bahnsen2017rnn} & Recurrent phishing URL classification & Sequence modeling for URLs predates our BiLSTM extension.\\
+Sahingoz et al. \cite{sahingoz2019machine} & Machine learning from URLs & Shows the role of extracted URL representations and comparative evaluation.\\
+Jain and Gupta \cite{jain2018client} & Client-side machine-learning detection & Related deployment setting; this project uses a server API.\\
+Mohammad et al. \cite{mohammad2014predicting} & Self-structuring neural detection & Neural phishing classification is established prior work.\\
+Fette et al. \cite{fette2007email} & Learning phishing email detection & Our email tool is not a trained equivalent and has no measured email accuracy.\\
+Zhang et al. \cite{zhang2015character} & Character CNN text classification & Motivates local character-feature extraction.\\
+Ke et al. \cite{ke2017lightgbm} & Efficient gradient-boosted trees & Supplies the established engineered-feature model.\\
+Hochreiter and Schmidhuber \cite{lstm} & Gated long short-term memory & Basis for the implemented recurrent component.\\
+Schuster and Paliwal \cite{brnn} & Bidirectional recurrent networks & Basis for using both sequence directions.\\\bottomrule
+\end{longtable}\end{singlespace}
+
+\section{Existing System and Gap}
+The reference article reports a 60/40 CNN--LightGBM ensemble, approximately 99,361 URLs, and 99.819\% accuracy on its test. It describes 70 symbols and embedding width 128. The released implementation and our original reproduction differ in some metadata; our historical encoder has 49 explicit characters and embedding width 16. This report uses source code for our implementation, rather than copying the reference architecture values into our tables.
+
+The reference identifies adversarial robustness and richer content/context as future directions. Our extensions address bounded versions of those directions. Deterministic strings provide reproducible stress tests, while pasted HTML/email provides supplementary evidence without unsafe fetching. The newest revision adds recurrence and attention but does not establish that either is a novel algorithm.
+
+\section{Evaluation and Calibration Lessons}
+Tranco is designed as a research-oriented ranking \cite{lepochat2019tranco}; a popular root is still not equivalent to every legitimate path. Neural confidence also need not be calibrated \cite{guo2017calibration}. Adding a sigmoid supplies a probability-shaped score, not proof of calibration. Learned attention weights \cite{attention} are aggregation parameters, not a causal explanation of why a website is malicious. These distinctions guide the implementation and the claims made in later chapters.

@@ -1,0 +1,5 @@
+\section{Conclusion}
+Production uses CNN--BiLSTM--attention v3.3, whose audit exposed domain leakage and cleaned-input contamination. The earlier v3.4 research run repaired domain separation: test accuracy was 92.876\% and recall 90.696\%. It failed promotion. Production remains v3.3; this output refresh performs no training or deployment.
+
+\section{Future Scope}
+Priorities are new temporal data, matched baselines, multiple seeds, component ablations and calibration. HTML/email fusion needs labelled content; feedback needs longitudinal and poisoning studies. More similar URLs alone cannot guarantee generalization.

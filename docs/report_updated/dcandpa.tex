@@ -1,0 +1,24 @@
+\section{Source Data and Labels}
+The original 20,000-URL reproduction sampled balanced classes from frozen PhishTank- and Tranco-derived snapshots \cite{phishtank,lepochat2019tranco}. Later production work used a 40,000-row balanced dataset. The v3.3 source pool added 24,000 records: 12,000 phishing URLs, 9,000 legitimate paths and 3,000 lower-ranked legitimate roots. The source labels are inherited; no destination was fetched to independently relabel it.
+
+The existing cleaner repairs selected scraping artifacts, including escaped percent symbols and HTML ampersands, removes enclosing quote artifacts and rejects invalid hosts or internal whitespace. The repaired partitioner shares cleaning-based exclusion semantics with future snapshot construction. It retains 63,869 records after 81 invalid rows and 50 duplicate rows are excluded. Source CSVs and prior experiment results remain unchanged.
+
+A conservative identity key lowercases and ignores a leading scheme and www prefix for deduplication. This is an exclusion safeguard, not the model input. The actual neural encoder preserves path/query case after production canonicalization.
+
+\section{Canonicalization and Encoding}
+The production boundary trims whitespace, adds HTTPS when a scheme is missing, normalizes scheme and host case, removes default ports, and equates an empty root path with a slash-only root path. A non-root trailing slash is preserved. Query parameters, fragments and percent encodings are not broadly rewritten. RFC 3986 provides the URI context \cite{rfc3986}. Processing is string-only.
+
+The first CNN retained the rightmost 200 lowercased characters from its 49-symbol explicit alphabet, with PAD 0 and UNK 50. The current recurrent family uses 95 printable ASCII symbols, PAD 0 and UNK 96, first-256 truncation and right padding. The v3.4 repair does not alter that current model representation.
+
+\section{Leakage Discovery and Whole-Domain Repair}
+The previous trainer assigned individual hard-negative or previous-test URLs before grouping other records. This allowed a domain already reserved for test to have another URL placed in training. v3.3 reconstructed overlaps were 11/40/6 by hostname and 385/400/187 by private-suffix registered domain. Exact URL-key intersections alone were zero and therefore failed to expose the issue. Two external snapshot inputs also matched cleaned training strings.
+
+The corrected policy uses public-suffix registered domains, deliberately grouping private-hosting tenants together. IP hosts are handled explicitly. Domain reservations are resolved as test greater than validation greater than training. All members inherit the chosen split. Domains from previous test and external snapshots are excluded from candidate training; remaining groups are assigned with seed-42 stratified group folds. Assertions cover hostname, public domain, private domain and key intersections.
+
+\begin{table}[H]\centering\caption{Actual corrected v3.4 partitions}
+\begin{tabular}{lrrr}\toprule Partition & Legitimate & Phishing & Total\\\midrule
+Train & 13,612 & 12,349 & 25,961\\Validation & 3,220 & 2,893 & 6,113\\Test & 15,168 & 16,627 & 31,795\\\bottomrule\end{tabular}\end{table}
+All pairwise domain overlaps are zero. Previously evaluated domains take priority over a desired ratio. Assignment hashes were frozen before training; the snapshots remain previously inspected evidence.
+
+\section{Engineered Features}
+The historical/reference LightGBM branch still uses 36 values: length and character-composition measures, structural punctuation and segments, hostname/path entropy, suspicious TLDs, six length buckets, and nine keyword indicators (login, signin, secure, webscr, bank, verify, update, account and confirm). No DNS lookup, WHOIS data, rendered logo or page content is part of this vector. These features remain useful for describing a URL but do not explain the current BiLSTM verdict causally.

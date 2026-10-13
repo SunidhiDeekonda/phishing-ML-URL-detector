@@ -1,0 +1,9 @@
+\section{What Improved and What Did Not}
+The repair improves evaluation integrity: group reservations can no longer leak an already reserved domain into another split, and future snapshot exclusions use cleaning-aware identities. It does not guarantee increased accuracy. The current production revision reduces many external false alarms relative to V2 but sacrifices some recall and performs worse on the historical mutation set. The corrected candidate must be judged on its own saved rows and declared validation rule, not on a preferred conclusion.
+
+\section{Known Limitations}
+The dataset inherits source labels and may contain source-specific cues. No newly collected temporal holdout, multiple-seed study or matched-training architecture ablation was conducted. Domain separation does not remove shared campaigns across different domains. Public-suffix grouping can reserve an entire hosting provider, and many previously evaluated groups make the candidate test partition unusually large. These are disclosed design choices.
+
+The external snapshots were inspected before repair and are not prospectively unseen. Earlier models may have trained on domains in the corrected candidate test, so their same-input scores are diagnostic. Small ranking-metric discrepancies between old saved and batched-replay scores are retained rather than hidden. Classification counts reproduce; the cause of every numerical difference is not established.
+
+The neural output is not separately calibrated. First-256 truncation can hide late URL information, and unmasked padding may influence recurrence. Attention weights are not verified explanations. Synthetic mutations inherit labels without a live functionality check. HTML/email signals are unvalidated heuristics; feedback review and PSI infrastructure have not been demonstrated as long-term autonomous learning or poisoning resistance.

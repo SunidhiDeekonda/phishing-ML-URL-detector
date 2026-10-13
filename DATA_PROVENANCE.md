@@ -42,7 +42,13 @@ SHA256: 1b7cbb68242a362e78e8512d68b56e2f3337fe594ae93d9de6bdc1e1b2dab5d4
 Generator: scripts/build_augmentation_data.py
 Phishing: 12,000 Phishing.Database phishing-links-ACTIVE.txt links, minus bare roots of Tranco top-100k domains.
 Legitimate: 9,000 unused alexkstern legitimate URLs with a path and 3,000 Tranco rank 100k-1M roots, both minus hosts in Phishing.Database phishing-domains-ACTIVE.txt.
-Every URL in any evaluation set and every V2 row is excluded.
+The generator intended to exclude evaluation URLs and V2 rows. The later cleaned-input audit found two evaluation/training matches in fresh2, so complete exclusion must not be claimed. Registered-domain overlap also remained; see `docs/evidence/latest_model_verification.json`.
 
 ### Frozen evaluation sets
-results/external_eval_sets.csv, results/fresh_eval_sets.csv (development set since its errors were inspected) and results/fresh2_eval_sets.csv (pre-registered test set, results/v3_3_preregistration.json). Sources: OpenPhish public feed, Phishing.Database, Tranco list 8PX5V, Mitake (provenance undocumented). Hashes are in the matching *_manifest.json files.
+results/external_eval_sets.csv, results/fresh_eval_sets.csv (development set since its errors were inspected) and results/fresh2_eval_sets.csv (originally pre-registered, results/v3_3_preregistration.json; subsequently inspected and found contaminated). Sources: OpenPhish public feed, Phishing.Database, Tranco list 8PX5V, Mitake (provenance undocumented). Hashes are in the matching *_manifest.json files. Do not call these snapshots prospective blind tests.
+
+## Local domain-separated research candidate v3.4
+
+This is an earlier local experiment, not the deployed model and not training performed by the output-refresh task. From 64,000 raw rows, cleaning retains 63,869. Whole public registered domains are reserved with test precedence over validation over training. Final counts are 25,961 / 6,113 / 31,795; public/private registered-domain, hostname and cleaned-key split overlaps are all zero. Large reserved test groups explain the non-70/10/20 row proportions. Previously inspected evaluation domains are not moved into training, but this does not make the resulting study a newly blind temporal test.
+
+The candidate failed its promotion gate. Saved protocol, metrics and comparison summaries are published under `docs/evidence/`; its model binaries, training code changes and per-row research outputs remain on the local research branch. Production remains v3.3.

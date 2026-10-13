@@ -1,0 +1,149 @@
+{
+  "date": "2026-10-13",
+  "source_revision": "00c15d37fd62b18dc24018aa7fd4871e8ddf66df",
+  "local_source_scope": "documentation-only branch; production application source unchanged",
+  "production_url": "https://phishing-ml-url-detector-seven.vercel.app",
+  "checks": {
+    "local": {
+      "health": {
+        "http_status": 200,
+        "status": "ok",
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "model_info": {
+        "http_status": 200
+      },
+      "www.google.com": {
+        "http_status": 200,
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "www.google.com/": {
+        "http_status": 200,
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "github.com": {
+        "http_status": 200,
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "github.com/": {
+        "http_status": 200,
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "openai.com": {
+        "http_status": 200,
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "openai.com/": {
+        "http_status": 200,
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "synthetic": {
+        "http_status": 200,
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "safe_html": {
+        "http_status": 200,
+        "network_access": false,
+        "analysis_type": "html"
+      },
+      "suspicious_html": {
+        "http_status": 200,
+        "network_access": false,
+        "analysis_type": "html"
+      },
+      "empty_html": {
+        "http_status": 400
+      },
+      "safe_email": {
+        "http_status": 200,
+        "network_access": false,
+        "analysis_type": "email"
+      },
+      "suspicious_email": {
+        "http_status": 200,
+        "network_access": false,
+        "analysis_type": "email"
+      },
+      "empty_email": {
+        "http_status": 400
+      },
+      "combined": {
+        "http_status": 200
+      },
+      "invalid_feedback": {
+        "http_status": 400
+      }
+    },
+    "production": {
+      "health": {
+        "http_status": 200,
+        "status": "ok",
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "model_info": {
+        "http_status": 200
+      },
+      "www.google.com": {
+        "http_status": 200,
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "www.google.com/": {
+        "http_status": 200,
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "github.com": {
+        "http_status": 200,
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "github.com/": {
+        "http_status": 200,
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "openai.com": {
+        "http_status": 200,
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "openai.com/": {
+        "http_status": 200,
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "synthetic": {
+        "http_status": 200,
+        "model_version": "charcnn-bilstm-attention-v3.3"
+      },
+      "safe_html": {
+        "http_status": 200,
+        "network_access": false,
+        "analysis_type": "html"
+      },
+      "suspicious_html": {
+        "http_status": 200,
+        "network_access": false,
+        "analysis_type": "html"
+      },
+      "empty_html": {
+        "http_status": 400
+      },
+      "safe_email": {
+        "http_status": 200,
+        "network_access": false,
+        "analysis_type": "email"
+      },
+      "suspicious_email": {
+        "http_status": 200,
+        "network_access": false,
+        "analysis_type": "email"
+      },
+      "empty_email": {
+        "http_status": 400
+      },
+      "combined": {
+        "http_status": 200
+      },
+      "invalid_feedback": {
+        "http_status": 400
+      }
+    }
+  },
+  "feedback_scope": "Local valid feedback used isolated temporary storage; production only invalid-request validation, no fabricated valid report."
+}

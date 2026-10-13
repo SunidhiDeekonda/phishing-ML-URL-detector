@@ -1,0 +1,12 @@
+\section{Project Context and Problem Statement}
+Phishing uses deceptive messages and destinations to persuade users to disclose information or take unsafe actions. A URL-only classifier can screen a link before any webpage is downloaded. Its limitation is equally important: a string does not reveal all aspects of the destination, ownership, content or intent. A familiar domain name in a URL can appear in a misleading path, while a legitimate account page can contain suspicious-looking terms.
+
+False alarms on ordinary URLs and earlier root-slash instability motivated production changes. Those changes also made historical reports incomplete descriptions of the live API.
+
+\section{Objectives}
+The objectives are to reproduce the reference URL ensemble independently; identify the exact current neural architecture; prevent data leakage through complete registered-domain grouping; compare accuracy, precision, recall, F1, ROC-AUC and error counts; evaluate deterministic synthetic mutations; and explain safe HTML/email evidence independently of the URL probability. A further objective is to prevent unverified feedback from automatically becoming training truth.
+
+\section{Version History and Scope}
+The original reference is PhishX \cite{dubey2025phishx}. Our first reproduction used 20,000 URLs and a validation-selected 95/5 CNN--LightGBM mixture. A historical robustness candidate reduced synthetic phishing misses from 37 to 17 on its own test. Production V2 later used new models at 35/65. Current production v3.3 instead uses CNN--BiLSTM--attention for the verdict. The v3.4 repair keeps that network but changes data partition integrity.
+
+These stages are not interchangeable. The title of the college project retains the original ensemble-learning identity, but current implementation chapters explicitly distinguish the reference ensemble from the neural production verdict. This report is dated October 13, 2026, and does not overwrite the historical report PDF.

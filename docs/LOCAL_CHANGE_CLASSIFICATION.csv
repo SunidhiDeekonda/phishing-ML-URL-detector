@@ -1,0 +1,257 @@
+checkout,file_or_change,purpose,classification,push,destination,action
+research_checkout,DATA_PROVENANCE.md,"Preserve remote content; add only version/caveat corrections, not the prior wholesale replacements",REQUIRED,"YES, selective",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,README.md,"Preserve remote content; add only version/caveat corrections, not the prior wholesale replacements",REQUIRED,"YES, selective",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,RUN_LOG.md,"Preserve remote content; add only version/caveat corrections, not the prior wholesale replacements",REQUIRED,"YES, selective",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/AI_Based_Phishing_Detection_System_KLH_Bachupally_UPDATED.pdf,Replace the incomplete local draft with checked final output; old draft stays local,REQUIRED,"YES, corrected final",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/FINAL_REPORT.md,"Preserve remote content; add only version/caveat corrections, not the prior wholesale replacements",REQUIRED,"YES, selective",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/HOW_TO_TEST_THE_APP.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/LATEST_ASSET_AUDIT.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/LATEST_MODEL_BRANCH_AUDIT.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/LATEST_MODEL_EXPLANATION.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/LATEST_MODEL_REVISION.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/LATEST_RESEARCH_CLAIM_AUDIT.md,Replace the incomplete local draft with checked final output; old draft stays local,REQUIRED,"YES, corrected final",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/NOVELTY_AND_EXTENSION.md,"Preserve remote content; add only version/caveat corrections, not the prior wholesale replacements",REQUIRED,"YES, selective",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/VIVA_DEFENSE.md,"Preserve remote content; add only version/caveat corrections, not the prior wholesale replacements",REQUIRED,"YES, selective",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/history/FINAL_REPORT_pre_v3_4.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/history/HOW_TO_TEST_THE_APP_pre_v3_4.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/history/NOVELTY_AND_EXTENSION_pre_v3_4.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/history/VIVA_DEFENSE_pre_v3_4.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/report_updated/IEEEtran.cls,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/report_updated/abstract.tex,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/ack.tex,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/cert.tex,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/conclusion.tex,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/dcandpa.tex,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/discussion.tex,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/images/adversarial_robustness.pdf,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/images/cnn_architecture.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/report_updated/images/confusion_matrix.pdf,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/images/confusion_matrix.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/report_updated/images/feature_importance.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/report_updated/images/header.png,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/images/logo.png,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/images/model_comparison.pdf,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/images/model_comparison.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/report_updated/images/new_model_architecture.pdf,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/images/robustness_comparison.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/report_updated/images/system_architecture.pdf,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/images/system_architecture.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,docs/report_updated/images/training_history.pdf,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/implementation.tex,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/intro.tex,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/liturature.tex,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/main.blg,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+research_checkout,docs/report_updated/main.pdf,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+research_checkout,docs/report_updated/main.tex,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/proposed.tex,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/references.bib,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,docs/report_updated/results.tex,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,models/charcnn_bilstm_v3_4.onnx,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,models/charcnn_bilstm_v3_4_best.pt,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,models/charcnn_bilstm_v3_4_config.json,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,node_modules,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+research_checkout,paper/.gitignore,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/AI_Phishing_Research_Paper_Updated.pdf,Replace the incomplete local draft with checked final output; old draft stays local,REQUIRED,"YES, corrected final",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,paper/AI_Phishing_Robustness_Research_Paper.pdf,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/README.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/RESEARCH_PAPER_AUDIT.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/TITLE_CANDIDATES.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/build_figures.py,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/figures/adversarial_robustness.pdf,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,paper/figures/adversarial_robustness.png,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,paper/figures/confusion_matrix.pdf,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/figures/confusion_matrix.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/figures/model_comparison.pdf,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,paper/figures/model_comparison.png,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,paper/figures/new_model_architecture.pdf,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/figures/new_model_architecture.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/figures/system_architecture.pdf,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,paper/figures/system_architecture.png,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,paper/figures/training_history.pdf,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/figures/training_history.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/main.tex,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,paper/references.bib,Editable publication source or figure actually used by a required output,REQUIRED,"YES, final version",docs/verified-output-refresh,Retain original; copy/edit selected output only
+research_checkout,paper/research_artifact_hashes.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/tables/adversarial_results.tex,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/tables/clean_results.tex,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/tables/metrics_macros.tex,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,paper/test_summary.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/charcnn_bilstm_v3_4_metrics.json,Saved numeric evidence supporting published claims; no retraining or model binary,REQUIRED,"YES, evidence copy",docs/evidence/,Retain original; copy/edit selected output only
+research_checkout,results/charcnn_bilstm_v3_4_test_set.csv,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/charcnn_bilstm_v3_4_validation_set.csv,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/latest_api_audit.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/latest_model_comparison.csv,Saved numeric evidence supporting published claims; no retraining or model binary,REQUIRED,"YES, evidence copy",docs/evidence/,Retain original; copy/edit selected output only
+research_checkout,results/latest_publication_values.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/latest_refresh_summary.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/plots/latest_confusion_matrix.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/plots/latest_model_comparison.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/plots/latest_precision_recall_curve.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/plots/latest_robustness_comparison.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/plots/latest_roc_curve.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/plots/latest_training_history.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/v3_4_corrected_test_scores.csv,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/v3_4_corrected_validation_scores.csv,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/v3_4_evaluation.json,Saved numeric evidence supporting published claims; no retraining or model binary,REQUIRED,"YES, evidence copy",docs/evidence/,Retain original; copy/edit selected output only
+research_checkout,results/v3_4_fresh2_api_compatible_scores.csv,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/v3_4_historical_adversarial_scores.csv,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/v3_4_historical_clean_scores.csv,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/v3_4_protocol.json,Saved numeric evidence supporting published claims; no retraining or model binary,REQUIRED,"YES, evidence copy",docs/evidence/,Retain original; copy/edit selected output only
+research_checkout,results/v3_4_test_split.csv,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/v3_4_train_split.csv,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,results/v3_4_validation_split.csv,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,scripts/build_latest_research_assets.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,scripts/build_updated_poster.mjs,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,scripts/evaluate_fresh_snapshot.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,scripts/evaluate_v3_4.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,scripts/finalize_research_docs.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,scripts/prepare_v3_4.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,scripts/smoke_latest_api.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,scripts/train_bilstm.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,src/research_splits.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,tests/test_frozen_v3_4_protocol.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+research_checkout,tests/test_research_splits.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,.codex-ppt-build/AI_Based_Phishing_Detection_Review_III.validation.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/AI_Based_Phishing_Detection_Review_III_Final.validation.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/AI_Based_Phishing_Detection_Review_III_Presentation.validation.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/AI_Based_Phishing_Detection_Review_III_Submission.validation.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/build_review_ppt.mjs,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/candidate-review-iii.pptx,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/candidate-review-iii.pptx.inspect.ndjson,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/node_modules,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/original-paper.txt,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/rendered/slide-01.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/rendered/slide-02.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/rendered/slide-03.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/rendered/slide-04.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/rendered/slide-05.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/rendered/slide-06.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/rendered/slide-07.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/rendered/slide-08.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/rendered/slide-09.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/rendered/slide-10.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/rendered/slide-11.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/rendered/slide-12.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/rendered/slide-13.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-ppt-build/rendered/slide-14.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/assets/ppt/media/image1.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/contact-sheet.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/layouts/source-slide-01.layout.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/layouts/source-slide-02.layout.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/layouts/source-slide-03.layout.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/layouts/source-slide-04.layout.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/layouts/source-slide-05.layout.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/layouts/source-slide-06.layout.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/layouts/source-slide-07.layout.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/layouts/source-slide-08.layout.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/layouts/source-slide-09.layout.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/layouts/source-slide-10.layout.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/layouts/source-slide-11.layout.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/layouts/source-slide-12.layout.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/layouts/source-slide-13.layout.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/layouts/source-slide-14.layout.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/source-slides/source-slide-01.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/source-slides/source-slide-02.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/source-slides/source-slide-03.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/source-slides/source-slide-04.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/source-slides/source-slide-05.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/source-slides/source-slide-06.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/source-slides/source-slide-07.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/source-slides/source-slide-08.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/source-slides/source-slide-09.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/source-slides/source-slide-10.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/source-slides/source-slide-11.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/source-slides/source-slide-12.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/source-slides/source-slide-13.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/source-slides/source-slide-14.png,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/template-inspect.ndjson,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.codex-template-audit/template-manifest.json,"Local build, debug or intermediate artifact",TEMPORARY,NO,Local only,Keep local; do not push
+original_checkout,.gitignore,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,.vercelignore,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,CONTRIBUTING.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,DATA_PROVENANCE.md,"Preserve remote content; add only version/caveat corrections, not the prior wholesale replacements",REQUIRED,"YES, selective",docs/verified-output-refresh,Retain original; copy/edit selected output only
+original_checkout,README.md,"Preserve remote content; add only version/caveat corrections, not the prior wholesale replacements",REQUIRED,"YES, selective",docs/verified-output-refresh,Retain original; copy/edit selected output only
+original_checkout,app/inference.py,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,app/main.py,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,app/static/app.js,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,app/templates/index.html,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,data/processed/augmentation_v3_3.csv,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,data/processed/balanced_dataset.csv,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,docs/HOW_TO_TEST_THE_APP.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,docs/LATEST_ASSET_AUDIT.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,docs/LATEST_MODEL_BRANCH_AUDIT.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,docs/LATEST_MODEL_EXPLANATION.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,docs/LATEST_RESEARCH_CLAIM_AUDIT.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,models/charcnn_bilstm.onnx,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,models/charcnn_bilstm_best.pt,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,models/charcnn_bilstm_config.json,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,models/charcnn_bilstm_hostsplit.onnx,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,models/charcnn_bilstm_hostsplit_best.pt,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,models/charcnn_bilstm_hostsplit_config.json,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,models/charcnn_bilstm_v3_3.onnx,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,models/charcnn_bilstm_v3_3_best.pt,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,models/charcnn_bilstm_v3_3_config.json,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,models/charcnn_bilstm_vocab.json,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,models/model_registry.json,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,output/pdf/PHISHING_CONTEXT_ANALYSIS_EXPLAINED.pdf,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,output/presentation/AI_Based_Phishing_Detection_Review_III.pptx,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,output/presentation/AI_Based_Phishing_Detection_Review_III_Final.pptx,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,output/presentation/AI_Based_Phishing_Detection_Review_III_Presentation.pptx,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,output/presentation/AI_Based_Phishing_Detection_Review_III_Submission.pptx,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/.gitignore,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/AI_Phishing_Robustness_Research_Paper.pdf,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/README.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/RESEARCH_PAPER_AUDIT.md,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/build_figures.py,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/figures/adversarial_robustness.pdf,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/figures/adversarial_robustness.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/figures/model_comparison.pdf,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/figures/model_comparison.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/figures/system_architecture.pdf,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/figures/system_architecture.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/main.tex,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/references.bib,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/research_artifact_hashes.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/tables/adversarial_results.tex,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/tables/clean_results.tex,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/tables/metrics_macros.tex,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,paper/test_summary.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/charcnn_bilstm_hostsplit_metrics.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/charcnn_bilstm_hostsplit_test_set.csv,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/charcnn_bilstm_metrics.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/charcnn_bilstm_test_set.csv,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/charcnn_bilstm_v3_3_metrics.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/charcnn_bilstm_v3_3_test_set.csv,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/dataset_label_audit.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/dataset_label_audit_flags.csv,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/external_eval_sets.csv,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/fresh2_eval_sets.csv,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/fresh2_eval_sets_manifest.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/fresh2_snapshot_evaluation.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/fresh_eval_sets.csv,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/fresh_eval_sets_manifest.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/fresh_snapshot_evaluation.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/hostsplit_preregistration.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/latest_api_audit.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/latest_model_comparison.csv,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/latest_model_verification.json,Prior executable split/membership audit supporting integrity disclosures,REQUIRED,"YES, evidence copy",docs/evidence/,Retain original; copy/edit selected output only
+original_checkout,results/plots/latest_confusion_matrix.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/plots/latest_model_comparison.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/plots/latest_precision_recall_curve.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/plots/latest_robustness_comparison.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/plots/latest_roc_curve.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/plots/latest_training_history.png,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/production_model_comparison.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,results/v3_3_preregistration.json,Historical or candidate work; retain locally without importing its commits,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,scripts/audit_dataset_labels.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,scripts/build_augmentation_data.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,scripts/compare_production_models.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,scripts/evaluate_fresh_snapshot.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,scripts/prepare_balanced_dataset.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,scripts/train_bilstm.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,src/charcnn_bilstm.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,src/charcnn_bilstm_model.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,src/dataset_cleaning.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,src/features.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,src/url_normalization.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,tests/test_bilstm.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push
+original_checkout,tests/test_url_canonicalization.py,Research implementation/model/row-level output; unnecessary for production documentation,OPTIONAL,NO,Existing local branch,Keep local; do not push

@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-13",
+  "source_revision": "00c15d37fd62b18dc24018aa7fd4871e8ddf66df",
+  "branch": "docs/verified-output-refresh",
+  "command": "pytest -q",
+  "tests": 91,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "duration_seconds": 8.596,
+  "dependency_warnings": 2,
+  "prior_local_research_branch_tests": 107,
+  "candidate_tests_included_in_this_branch": false
+}

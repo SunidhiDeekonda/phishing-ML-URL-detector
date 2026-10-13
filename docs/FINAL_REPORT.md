@@ -1,5 +1,17 @@
 # AI-Based Phishing Detection System Using Ensemble Learning
 
+## Current-version addendum: October 2026
+
+The numbered report below preserves the **historical 20,000-URL reproduction and its earlier extensions**. Its ensemble architecture, sequence length, dataset size, headline results and deployment descriptions are not descriptions of current v3.3 production. Historical figures are intentionally not overwritten.
+
+The current report is [the updated college-template PDF](AI_Based_Phishing_Detection_System_KLH_Bachupally_UPDATED.pdf), with editable sources in `report_updated/`. Production uses `models/charcnn_bilstm_v3_3.onnx`: parallel CharCNN, two-layer bidirectional LSTM, additive attention and temporal max pooling. Its registered-domain leakage and two cleaned training-input matches in fresh2 are disclosed. It was deployed by maintainer override after a failed promotion criterion.
+
+The separately trained local v3.4 candidate retains that architecture, repairs whole-domain separation, and scores 92.876% accuracy / 90.696% recall / 98.289% ROC-AUC on its own 31,795-row test. It failed promotion. On the same 11,271 compatible external inputs, v3.3 versus v3.4 has FP 384 versus 324 and FN 547 versus 738. This is a tradeoff, not universal improvement or a matched architecture ablation. v3.4 is not deployed.
+
+See [the versioned claim audit](LATEST_RESEARCH_CLAIM_AUDIT.md) for exact evidence. This refresh performs no training, changes no model/threshold, and leaves production untouched.
+
+## Historical report begins here
+
 ## 1. Title Page
 
 **Project Title:** AI-Based Phishing Detection System Using Ensemble Learning<br>
